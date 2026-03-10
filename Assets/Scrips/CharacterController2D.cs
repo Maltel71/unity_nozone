@@ -29,6 +29,9 @@ public class CharacterController2D : MonoBehaviour
     {
         float speed = _isRunning && !_isCrouching ? runSpeed : walkSpeed;
         _rb.linearVelocity = new Vector2(_moveInput * speed, _rb.linearVelocity.y);
+
+        if (_moveInput != 0f)
+            transform.localScale = new Vector3(Mathf.Sign(_moveInput), 1f, 1f);
     }
 
     private void CheckGrounded()
