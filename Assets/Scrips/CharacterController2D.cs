@@ -20,6 +20,7 @@ public class CharacterController2D : MonoBehaviour
     private bool _isRunning;
     private bool _isCrouching;
     private float _moveInput;
+    private float _speedMultiplier = 1f;
 
     private void Awake() => _rb = GetComponent<Rigidbody2D>();
 
@@ -27,7 +28,7 @@ public class CharacterController2D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float speed = _isRunning && !_isCrouching ? runSpeed : walkSpeed;
+        float speed = (_isRunning && !_isCrouching ? runSpeed : walkSpeed) * _speedMultiplier;
         _rb.linearVelocity = new Vector2(_moveInput * speed, _rb.linearVelocity.y);
 
         if (_moveInput != 0f)
@@ -40,11 +41,14 @@ public class CharacterController2D : MonoBehaviour
     }
 
     public void SetMoveInput(float value) => _moveInput = value;
+    public void SetSpeedMultiplier(float value) => _speedMultiplier = Mathf.Max(value, 0f);
+
     public void Jump()
     {
         if (_isGrounded)
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
     }
+
     public void StartRun() => _isRunning = true;
     public void StopRun() => _isRunning = false;
     public void SetCrouch(bool value) => _isCrouching = value;

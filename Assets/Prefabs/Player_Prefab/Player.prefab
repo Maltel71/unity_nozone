@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 601833173803636519}
   - component: {fileID: 4433857002374170856}
   - component: {fileID: 6959629795275205701}
+  - component: {fileID: 643191220365695202}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -41,6 +42,7 @@ Transform:
   m_Children:
   - {fileID: 5796341554864663913}
   - {fileID: 1980950218231887976}
+  - {fileID: 4475811056111154057}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3326298854717353312
@@ -259,6 +261,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 100
+  regenEnabled: 1
+  regenDelay: 3
+  regenPerSecond: 5
+  useAccelerando: 1
+  accelerandoStartRate: 1
+  accelerandoAcceleration: 3
   healthBar: {fileID: 0}
 --- !u!114 &601833173803636519
 MonoBehaviour:
@@ -275,6 +283,10 @@ MonoBehaviour:
   burnDamagePerTick: 1
   burnDelay: 1
   burnTickRate: 0.1
+  useAccelerando: 0
+  accelerandoStartRate: 0
+  accelerandoMinRate: 0
+  accelerandoSpeed: 0
   sunLights:
   - {fileID: 0}
   shadowCasterLayers:
@@ -293,10 +305,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StaminaSystem
   maxStamina: 100
-  drainPerSecond: 15
+  runDrainPerSecond: 15
+  walkDrainPerSecond: 0
   regenPerSecond: 10
   jumpCost: 10
+  regenDelay: 1.5
+  regenAcceleration: 5
   reducedJumpMultiplier: 0.5
+  staminaBar: {fileID: 0}
 --- !u!114 &6959629795275205701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +329,28 @@ MonoBehaviour:
   controllerRunIsToggle: 1
   keyboardCrouchIsToggle: 0
   controllerCrouchIsToggle: 0
+--- !u!114 &643191220365695202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3725225455785822181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d325b10b6be794c93faaa0ddc2ed98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupSystem
+  pickupRange: 2
+  largeObjectTags:
+  - Triangle
+  smallItemTags: []
+  holdOffset: {x: 0, y: 1.5}
+  mouseAim: 0
+  walkSpeedMultiplier: 0.8
+  disableRunWhileCarrying: 1
+  disableJumpWhileCarrying: 0
+  debugMode: 1
 --- !u!1 &6165384489969994290
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,3 +527,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6232611832188350168}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4376930158971102092
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6232611832188350168}
+    m_Modifications:
+    - target: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.012
+      objectReference: {fileID: 0}
+    - target: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.488
+      objectReference: {fileID: 0}
+    - target: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7502353940671239328, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_Name
+      value: Triangle Head
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+--- !u!4 &4475811056111154057 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+  m_PrefabInstance: {fileID: 4376930158971102092}
+  m_PrefabAsset: {fileID: 0}
