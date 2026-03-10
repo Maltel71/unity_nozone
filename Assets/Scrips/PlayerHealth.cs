@@ -34,8 +34,10 @@ public class PlayerHealth : MonoBehaviour
 
     private void UpdateBar()
     {
-        if (healthBar != null)
-            healthBar.value = currentHealth / maxHealth;
+        if (healthBar == null) return;
+        float normalized = currentHealth / maxHealth;
+        if (!Mathf.Approximately(healthBar.value, normalized))
+            healthBar.value = normalized;
     }
 
     private void Die()

@@ -29,6 +29,12 @@ public class PlayerInputHandler : MonoBehaviour
         _stamina = GetComponent<StaminaSystem>();
     }
 
+    private void Start()
+    {
+        _ = Keyboard.current;
+        _ = Gamepad.current;
+    }
+
     private void Update()
     {
         HandleMovement();
@@ -173,6 +179,5 @@ public class PlayerInputHandler : MonoBehaviour
         var kb = Keyboard.current;
         if (kb != null && kb.eKey.wasPressedThisFrame)
             _controller.Interact();
-        // Q reserved for consumables
     }
 }

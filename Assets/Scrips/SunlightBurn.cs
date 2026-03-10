@@ -9,6 +9,17 @@ public class SunlightBurn : MonoBehaviour
     [SerializeField] private float burnDelay = 1f;
     [SerializeField] private float burnTickRate = 0.5f;
 
+    public SunlightBurn(bool useAccelerando)
+    {
+        this.useAccelerando = useAccelerando;
+    }
+
+    [Header("Accelerando")]
+    [SerializeField] private bool useAccelerando = true;
+    [SerializeField] private float accelerandoStartRate = 2f;
+    [SerializeField] private float accelerandoMinRate = 0.1f;
+    [SerializeField] private float accelerandoSpeed = 0.5f;
+
     [Header("Light Detection")]
     [SerializeField] private Light2D[] sunLights;
     [SerializeField] private LayerMask shadowCasterLayers;
@@ -67,10 +78,16 @@ public class SunlightBurn : MonoBehaviour
 
         yield return new WaitForSeconds(burnDelay);
 
+        float currentRate = !useAccelerando ? burnTickRate : accelerandoStartRate;
+
         while (_isInSunlight)
         {
             _playerHealth.TakeDamage(burnDamagePerTick);
-            yield return new WaitForSeconds(burnTickRate);
+            yield return new WaitForSeconds(currentRate);
+
+            if (!useAccelerando)
+                continue;
+            currentRate = Mathf.Max(currentRate - accelerandoSpeed * currentRate * Time.deltaTime, accelerandoMinRate);
         }
     }
 }
