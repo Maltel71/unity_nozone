@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class SunlightBurn : MonoBehaviour
 {
@@ -8,38 +9,67 @@ public class SunlightBurn : MonoBehaviour
     [SerializeField] private float burnDelay = 1f;
     [SerializeField] private float burnTickRate = 0.5f;
 
-    private PlayerHealth playerHealth;
-    private Coroutine burnCoroutine;
+    [Header("Light Detection")]
+    [SerializeField] private Light2D[] sunLights;
+    [SerializeField] private LayerMask shadowCasterLayers;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private PlayerHealth _playerHealth;
+    private Coroutine _burnCoroutine;
+    private bool _isInSunlight;
+
+    private void Awake()
     {
-        if (!other.CompareTag("Player")) return;
-
-        playerHealth = other.GetComponent<PlayerHealth>();
-        if (playerHealth != null)
-            burnCoroutine = StartCoroutine(BurnRoutine());
+        _playerHealth = GetComponentInParent<PlayerHealth>();
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void Update()
     {
-        if (!other.CompareTag("Player")) return;
+        bool exposed = CheckSunlightExposure();
 
-        if (burnCoroutine != null)
+        if (exposed && !_isInSunlight)
         {
-            StopCoroutine(burnCoroutine);
-            burnCoroutine = null;
+            _isInSunlight = true;
+            _burnCoroutine = StartCoroutine(BurnRoutine());
+        }
+        else if (!exposed && _isInSunlight)
+        {
+            _isInSunlight = false;
+            if (_burnCoroutine != null)
+            {
+                StopCoroutine(_burnCoroutine);
+                _burnCoroutine = null;
+            }
+        }
+    }
+
+    private bool CheckSunlightExposure()
+    {
+        foreach (Light2D light in sunLights)
+        {
+            if (light == null || !light.enabled) continue;
+
+            Vector2 direction = (Vector2)light.transform.position - (Vector2)transform.position;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, direction.magnitude, shadowCasterLayers);
+
+            if (!hit) return true;
         }
 
-        playerHealth = null;
+        return false;
     }
 
     private IEnumerator BurnRoutine()
     {
+        if (_playerHealth == null)
+        {
+            Debug.LogError("SunlightBurn: PlayerHealth not found.", this);
+            yield break;
+        }
+
         yield return new WaitForSeconds(burnDelay);
 
-        while (true)
+        while (_isInSunlight)
         {
-            playerHealth.TakeDamage(burnDamagePerTick);
+            _playerHealth.TakeDamage(burnDamagePerTick);
             yield return new WaitForSeconds(burnTickRate);
         }
     }
