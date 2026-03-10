@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 8059860848250175103}
   - component: {fileID: 8342907246752658871}
   - component: {fileID: 601833173803636519}
+  - component: {fileID: 4433857002374170856}
+  - component: {fileID: 6959629795275205701}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -225,10 +227,6 @@ MonoBehaviour:
   walkSpeed: 7
   runSpeed: 12
   jumpForce: 14
-  keyboardRunIsToggle: 0
-  controllerRunIsToggle: 0
-  keyboardCrouchIsToggle: 0
-  controllerCrouchIsToggle: 1
   groundCheck: {fileID: 5796341554864663913}
   groundCheckRadius: 0.1
   groundLayer:
@@ -274,14 +272,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a24c3b8e88e280499701100d777889f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SunlightBurn
-  burnDamagePerTick: 5
+  burnDamagePerTick: 1
   burnDelay: 1
-  burnTickRate: 0.5
+  burnTickRate: 0.1
   sunLights:
   - {fileID: 0}
   shadowCasterLayers:
     serializedVersion: 2
     m_Bits: 192
+--- !u!114 &4433857002374170856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3725225455785822181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b2fcdf33840ae4d8cccb407e2d4634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StaminaSystem
+  maxStamina: 100
+  drainPerSecond: 15
+  regenPerSecond: 10
+  jumpCost: 10
+  reducedJumpMultiplier: 0.5
+--- !u!114 &6959629795275205701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3725225455785822181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d19fab98fa974804b8ff7cff8e25b80f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
+  keyboardRunIsToggle: 0
+  controllerRunIsToggle: 1
+  keyboardCrouchIsToggle: 0
+  controllerCrouchIsToggle: 0
 --- !u!1 &6165384489969994290
 GameObject:
   m_ObjectHideFlags: 0
