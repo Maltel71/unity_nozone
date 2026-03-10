@@ -222,11 +222,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d46c5962f64618409191270b8d65eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterController2D
-  walkSpeed: 10
-  runSpeed: 20
-  jumpForce: 20
+  walkSpeed: 7
+  runSpeed: 12
+  jumpForce: 14
   keyboardRunIsToggle: 0
-  controllerRunIsToggle: 1
+  controllerRunIsToggle: 0
   keyboardCrouchIsToggle: 0
   controllerCrouchIsToggle: 1
   groundCheck: {fileID: 5796341554864663913}
