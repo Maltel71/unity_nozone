@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a24c3b8e88e280499701100d777889f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SunlightBurn
-  dayNightCycle: {fileID: 0}
+  dayNightCycle: {fileID: 3041248791808382946}
   burnDamagePerTick: 1
   burnDelay: 1
   burnTickRate: 0.1
@@ -189,7 +189,7 @@ MonoBehaviour:
   accelerandoMinRate: 0.05
   accelerandoSpeed: 10
   sunLights:
-  - {fileID: 0}
+  - {fileID: 7967299994864196307}
   shadowCasterLayers:
     serializedVersion: 2
     m_Bits: 448
@@ -247,7 +247,7 @@ MonoBehaviour:
     worldPrefab: {fileID: 7502353940671239328, guid: 0ca5f87648fca37469a32fea1ae24d36, type: 3}
   pickupRange: 2
   largeObjectTags:
-  - Triangle
+  - Shell
   smallItemTags: []
   dropOffset: {x: 0, y: 1.5}
   holdOffset: {x: 0, y: 1.5}
@@ -339,7 +339,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -5622565739388886448, guid: 201dee621b3becb4683d0df0245995de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.ShadowCaster2D
   m_ShadowGroup: 0
-  m_Priority: 0
+  m_Priority: 1
   m_ComponentVersion: 5
   m_HasRenderer: 1
   m_UseRendererSilhouette: 1
@@ -840,8 +840,30 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+--- !u!114 &3041248791808382946 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9069977017746738512, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+  m_PrefabInstance: {fileID: 6335341620465195698}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 434b5859ec01f8940924e2bc01407294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DayNightCycle
 --- !u!4 &6396047145172824260 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1092392697542355574, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
   m_PrefabInstance: {fileID: 6335341620465195698}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7967299994864196307 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4141673946393690209, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+  m_PrefabInstance: {fileID: 6335341620465195698}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D

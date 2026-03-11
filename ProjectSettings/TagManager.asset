@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ground
-  - Triangle
   - Small_Item
   - Enemy
+  - Shell
   layers:
   - Default
   - TransparentFX
