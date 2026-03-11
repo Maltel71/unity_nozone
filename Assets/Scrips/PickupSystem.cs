@@ -25,10 +25,9 @@ public class PickupSystem : MonoBehaviour
     private CharacterController2D _controller;
     private Hotbar _hotbar;
 
-    private GameObject _carriedVersion;
-    private GameObject _worldPrefab;
+    private int _activeIndex = -1;
 
-    public bool IsCarrying => _carriedVersion != null;
+    public bool IsCarrying => _activeIndex >= 0;
     public bool CanRun => !IsCarrying || !disableRunWhileCarrying;
     public bool CanJump => !IsCarrying || !disableJumpWhileCarrying;
 
@@ -36,14 +35,17 @@ public class PickupSystem : MonoBehaviour
     {
         _controller = GetComponent<CharacterController2D>();
         _hotbar = GetComponent<Hotbar>();
+
+        // Ensure all carried objects start disabled
+        foreach (var entry in carriedObjects)
+            if (entry.carriedObject != null)
+                entry.carriedObject.SetActive(false);
     }
 
     private void Update()
     {
         if (InteractPressed())
         {
-            if (debugMode) Debug.Log($"[PickupSystem] >>> E pressed | IsCarrying: {IsCarrying} | _carriedVersion is null: {_carriedVersion == null}");
-
             if (IsCarrying)
                 Drop();
             else
@@ -60,7 +62,7 @@ public class PickupSystem : MonoBehaviour
         if (kb != null && kb.eKey.wasPressedThisFrame) return true;
 
         var pad = Gamepad.current;
-        if (pad != null && pad.buttonWest.wasPressedThisFrame) return true; // Xbox X / PS4 Square
+        if (pad != null && pad.buttonWest.wasPressedThisFrame) return true;
 
         return false;
     }
@@ -68,18 +70,6 @@ public class PickupSystem : MonoBehaviour
     private void TryPickup()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, pickupRange);
-
-        if (debugMode)
-        {
-            Debug.Log($"[PickupSystem] OverlapCircle at {transform.position} r={pickupRange} | hits: {hits.Length}");
-            foreach (Collider2D hit in hits)
-            {
-                if (hit.gameObject == gameObject) continue;
-                bool isLarge = largeObjectTags.Contains(hit.tag);
-                bool isSmall = smallItemTags.Contains(hit.tag);
-                Debug.Log($"[PickupSystem]   Collider: '{hit.gameObject.name}' tag='{hit.tag}' isLarge={isLarge} isSmall={isSmall}");
-            }
-        }
 
         float nearestDist = float.MaxValue;
         Collider2D best = null;
@@ -104,11 +94,9 @@ public class PickupSystem : MonoBehaviour
 
         if (best == null)
         {
-            if (debugMode) Debug.Log("[PickupSystem] No valid pickup found. Check tags match the Large/Small tag lists.");
+            if (debugMode) Debug.Log("[PickupSystem] No valid pickup found.");
             return;
         }
-
-        if (debugMode) Debug.Log($"[PickupSystem] Best pickup: '{best.gameObject.name}' isLarge={bestIsLarge}");
 
         if (bestIsLarge)
             PickupLarge(best);
@@ -118,8 +106,6 @@ public class PickupSystem : MonoBehaviour
 
     private void PickupLarge(Collider2D col)
     {
-        if (debugMode) Debug.Log($"[PickupSystem] PickupLarge called on '{col.gameObject.name}'");
-
         var carriable = col.GetComponent<CarriableObject>();
         if (carriable == null)
         {
