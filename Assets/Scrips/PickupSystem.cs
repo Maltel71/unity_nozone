@@ -31,7 +31,7 @@ public class PickupSystem : MonoBehaviour
 
     [Header("Mouse Aim Angle Limits")]
     [SerializeField] private float minAimAngle = -30f;
-    [SerializeField] private float maxAimAngle = 100f;
+    [SerializeField] private float maxAimAngle = 90f;
 
     [Header("Movement Effects")]
     [SerializeField] private float walkSpeedMultiplier = 0.8f;
@@ -221,7 +221,6 @@ public class PickupSystem : MonoBehaviour
             Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Vector2 dir = (mouseWorld - (Vector2)transform.position).normalized;
 
-            // Flip into facing-space so the clamp is always relative to where the player looks
             if (!IsFacingRight)
                 dir.x = -dir.x;
 
@@ -230,12 +229,16 @@ public class PickupSystem : MonoBehaviour
             float rad = clampedAngle * Mathf.Deg2Rad;
             Vector2 clampedDir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
 
-            // localScale.x is already -1 when facing left, so Unity mirrors localPosition automatically
             carried.transform.localPosition = clampedDir * holdOffset.magnitude;
+
+            // Offset by -90 so that straight up (90°) = rotation 0,0,0
+            float worldAngle = IsFacingRight ? clampedAngle - 90f : 90f - clampedAngle;
+            carried.transform.rotation = Quaternion.Euler(0f, 0f, worldAngle);
         }
         else
         {
             carried.transform.localPosition = holdOffset;
+            carried.transform.localRotation = Quaternion.identity;
         }
     }
 
