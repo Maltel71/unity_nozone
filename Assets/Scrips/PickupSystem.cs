@@ -33,6 +33,9 @@ public class PickupSystem : MonoBehaviour
     [SerializeField] private float minAimAngle = -30f;
     [SerializeField] private float maxAimAngle = 90f;
 
+    [Header("Gamepad Aim")]
+    [SerializeField] private float stickDeadzone = 0.2f;
+
     [Header("Movement Effects")]
     [SerializeField] private float walkSpeedMultiplier = 0.8f;
     [SerializeField] private bool disableRunWhileCarrying = true;
@@ -45,6 +48,7 @@ public class PickupSystem : MonoBehaviour
     private Hotbar _hotbar;
 
     private int _activeIndex = -1;
+    private Vector2 _lastAimDir = Vector2.zero;
 
     public bool IsCarrying => _activeIndex >= 0;
     public bool CanRun => !IsCarrying || !disableRunWhileCarrying;
@@ -151,6 +155,7 @@ public class PickupSystem : MonoBehaviour
 
         _activeIndex = index;
         entry.carriedObject.SetActive(true);
+        _lastAimDir = Vector2.zero;
 
         _controller.SetSpeedMultiplier(walkSpeedMultiplier);
 
@@ -208,29 +213,62 @@ public class PickupSystem : MonoBehaviour
         GameObject carried = carriedObjects[_activeIndex].carriedObject;
         if (carried == null) return;
 
-        if (mouseAim && Mouse.current != null && Camera.main != null)
+        if (mouseAim)
+        {
+            Vector2 aimDir = GetAimDirection();
+
+            // Only update the cached direction when there is real input
+            if (aimDir != Vector2.zero)
+                _lastAimDir = aimDir;
+
+            if (_lastAimDir != Vector2.zero)
+            {
+                Vector2 dir = _lastAimDir;
+                if (!IsFacingRight)
+                    dir.x = -dir.x;
+
+                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                float clampedAngle = Mathf.Clamp(angle, minAimAngle, maxAimAngle);
+                float rad = clampedAngle * Mathf.Deg2Rad;
+                Vector2 clampedDir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+
+                carried.transform.localPosition = clampedDir * holdOffset.magnitude;
+
+                float worldAngle = IsFacingRight ? clampedAngle - 90f : 90f - clampedAngle;
+                carried.transform.rotation = Quaternion.Euler(0f, 0f, worldAngle);
+                return;
+            }
+        }
+
+        carried.transform.localPosition = holdOffset;
+        carried.transform.localRotation = Quaternion.identity;
+    }
+
+    /// <summary>
+    /// Returns a normalised aim direction from the right stick (if above deadzone)
+    /// or the mouse (if available), or Vector2.zero if neither provides input.
+    /// </summary>
+    private Vector2 GetAimDirection()
+    {
+        // Gamepad right stick takes priority when above deadzone
+        var pad = Gamepad.current;
+        if (pad != null)
+        {
+            Vector2 stick = pad.rightStick.ReadValue();
+            if (stick.magnitude > stickDeadzone)
+                return stick.normalized;
+        }
+
+        // Fall back to mouse
+        if (Mouse.current != null && Camera.main != null)
         {
             Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            Vector2 dir = (mouseWorld - (Vector2)transform.position).normalized;
-
-            if (!IsFacingRight)
-                dir.x = -dir.x;
-
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            float clampedAngle = Mathf.Clamp(angle, minAimAngle, maxAimAngle);
-            float rad = clampedAngle * Mathf.Deg2Rad;
-            Vector2 clampedDir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
-
-            carried.transform.localPosition = clampedDir * holdOffset.magnitude;
-
-            float worldAngle = IsFacingRight ? clampedAngle - 90f : 90f - clampedAngle;
-            carried.transform.rotation = Quaternion.Euler(0f, 0f, worldAngle);
+            Vector2 dir = mouseWorld - (Vector2)transform.position;
+            if (dir.sqrMagnitude > 0.001f)
+                return dir.normalized;
         }
-        else
-        {
-            carried.transform.localPosition = holdOffset;
-            carried.transform.localRotation = Quaternion.identity;
-        }
+
+        return Vector2.zero;
     }
 
     private void OnDrawGizmosSelected()
