@@ -172,16 +172,8 @@ public class PickupSystem : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < _hotbar.SlotCount; i++)
-        {
-            if (_hotbar.GetItem(i) != null) continue;
-            _hotbar.SetItem(i, worldItem.itemData);
+        if (_hotbar.TryAddItem(worldItem.itemData))
             Destroy(col.gameObject);
-            if (debugMode) Debug.Log($"[PickupSystem] '{worldItem.itemData.itemName}' added to hotbar slot {i}.");
-            return;
-        }
-
-        if (debugMode) Debug.Log("[PickupSystem] Hotbar is full.");
     }
 
     private void Drop()
@@ -231,7 +223,6 @@ public class PickupSystem : MonoBehaviour
 
             carried.transform.localPosition = clampedDir * holdOffset.magnitude;
 
-            // Offset by -90 so that straight up (90°) = rotation 0,0,0
             float worldAngle = IsFacingRight ? clampedAngle - 90f : 90f - clampedAngle;
             carried.transform.rotation = Quaternion.Euler(0f, 0f, worldAngle);
         }

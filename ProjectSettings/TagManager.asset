@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Triangle
+  - Small_Item
   layers:
   - Default
   - TransparentFX
