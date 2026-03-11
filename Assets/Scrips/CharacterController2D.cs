@@ -10,6 +10,15 @@ public class CharacterController2D : MonoBehaviour
     [Header("Jump")]
     public float jumpForce = 12f;
 
+    [Header("Coyote Jump")]
+    [SerializeField] private float coyoteTime = 0.12f;
+    [SerializeField] private float jumpBufferTime = 0.12f;
+
+    [Header("Fall Gravity")]
+    [SerializeField] private float fallGravityMultiplier = 2.5f;
+    [SerializeField] private float jumpGravityMultiplier = 1f;
+    [SerializeField] private float baseGravityScale = 1f;
+
     [Header("Ground Check")]
     public Transform groundCheck;
     public float groundCheckRadius = 0.1f;
@@ -17,14 +26,24 @@ public class CharacterController2D : MonoBehaviour
 
     private Rigidbody2D _rb;
     private bool _isGrounded;
+    private bool _wasGrounded;
     private bool _isRunning;
     private bool _isCrouching;
     private float _moveInput;
     private float _speedMultiplier = 1f;
 
+    private float _coyoteTimer;
+    private float _jumpBufferTimer;
+
     private void Awake() => _rb = GetComponent<Rigidbody2D>();
 
-    private void Update() => CheckGrounded();
+    private void Update()
+    {
+        CheckGrounded();
+        UpdateCoyoteTime();
+        UpdateJumpBuffer();
+        UpdateFallGravity();
+    }
 
     private void FixedUpdate()
     {
@@ -33,11 +52,53 @@ public class CharacterController2D : MonoBehaviour
 
         if (_moveInput != 0f)
             transform.localScale = new Vector3(Mathf.Sign(_moveInput), 1f, 1f);
+
+        // Consume buffered jump in FixedUpdate so physics is applied correctly
+        if (_jumpBufferTimer > 0f && CanCoyoteJump())
+        {
+            ExecuteJump();
+            _jumpBufferTimer = 0f;
+            _coyoteTimer = 0f;
+        }
     }
 
     private void CheckGrounded()
     {
+        _wasGrounded = _isGrounded;
         _isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    }
+
+    private void UpdateCoyoteTime()
+    {
+        if (_wasGrounded && !_isGrounded)
+            _coyoteTimer = coyoteTime;
+        else if (_isGrounded)
+            _coyoteTimer = 0f;
+        else
+            _coyoteTimer -= Time.deltaTime;
+    }
+
+    private void UpdateJumpBuffer()
+    {
+        if (_jumpBufferTimer > 0f)
+            _jumpBufferTimer -= Time.deltaTime;
+    }
+
+    private void UpdateFallGravity()
+    {
+        if (_rb.linearVelocity.y < 0f)
+            _rb.gravityScale = baseGravityScale * fallGravityMultiplier;
+        else if (_rb.linearVelocity.y > 0f)
+            _rb.gravityScale = baseGravityScale * jumpGravityMultiplier;
+        else
+            _rb.gravityScale = baseGravityScale;
+    }
+
+    private bool CanCoyoteJump() => _isGrounded || _coyoteTimer > 0f;
+
+    private void ExecuteJump()
+    {
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
     }
 
     public void SetMoveInput(float value) => _moveInput = value;
@@ -45,8 +106,7 @@ public class CharacterController2D : MonoBehaviour
 
     public void Jump()
     {
-        if (_isGrounded)
-            _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
+        _jumpBufferTimer = jumpBufferTime;
     }
 
     public void StartRun() => _isRunning = true;
