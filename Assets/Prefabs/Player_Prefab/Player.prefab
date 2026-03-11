@@ -96,7 +96,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterController2D
   walkSpeed: 7
   runSpeed: 12
-  jumpForce: 14
+  jumpForce: 13
   groundCheck: {fileID: 5796341554864663913}
   groundCheckRadius: 0.1
   groundLayer:
@@ -199,11 +199,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StaminaSystem
   maxStamina: 100
-  runDrainPerSecond: 15
-  walkDrainPerSecond: 0
+  runDrainPerSecond: 10
+  walkDrainPerSecond: 1
   regenPerSecond: 10
-  jumpCost: 10
-  regenDelay: 1.5
+  jumpCost: 8
+  regenDelay: 1
   regenAcceleration: 5
   reducedJumpMultiplier: 0.5
   staminaBar: {fileID: 9210556671595668101}
