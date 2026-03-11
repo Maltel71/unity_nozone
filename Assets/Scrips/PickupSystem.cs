@@ -129,7 +129,8 @@ public class PickupSystem : MonoBehaviour
 
         if (debugMode) Debug.Log($"[PickupSystem] CarriableObject found | carriedVersion={(carriable.carriedVersion != null ? carriable.carriedVersion.name : "NULL")} | worldPrefab={(carriable.worldPrefab != null ? carriable.worldPrefab.name : "NULL — assign it in the Inspector on CarriableObject!")}");
 
-        if (carriable.carriedVersion == null)
+        CarriedObjectEntry entry = carriedObjects[index];
+        if (entry.carriedObject == null)
         {
             if (debugMode) Debug.LogWarning("[PickupSystem] FAIL — carriedVersion is not assigned on CarriableObject.");
             return;
@@ -144,14 +145,12 @@ public class PickupSystem : MonoBehaviour
 
         Destroy(col.gameObject);
 
-        _carriedVersion.SetActive(true);
+        _activeIndex = index;
+        entry.carriedObject.SetActive(true);
 
-        if (debugMode) Debug.Log($"[PickupSystem] World object destroyed | carriedVersion active={_carriedVersion.activeSelf} | parent='{_carriedVersion.transform.parent?.name ?? "none"}'");
+        _controller.SetSpeedMultiplier(walkSpeedMultiplier);
 
-        float effective = walkSpeedMultiplier * speedMultiplier;
-        _controller.SetSpeedMultiplier(effective);
-
-        if (debugMode) Debug.Log($"[PickupSystem] Pickup complete | IsCarrying={IsCarrying} | speedMultiplier={effective}");
+        if (debugMode) Debug.Log($"[PickupSystem] Picked up index {index} '{entry.carriedObject.name}'.");
     }
 
     private void PickupSmall(Collider2D col)
@@ -163,14 +162,9 @@ public class PickupSystem : MonoBehaviour
         }
 
         var worldItem = col.GetComponent<WorldItem>();
-        if (worldItem == null)
+        if (worldItem == null || worldItem.itemData == null)
         {
-            if (debugMode) Debug.LogWarning($"[PickupSystem] No WorldItem component on '{col.gameObject.name}'.");
-            return;
-        }
-        if (worldItem.itemData == null)
-        {
-            if (debugMode) Debug.LogWarning($"[PickupSystem] WorldItem on '{col.gameObject.name}' has no ItemData assigned.");
+            if (debugMode) Debug.LogWarning($"[PickupSystem] Missing WorldItem or ItemData on '{col.gameObject.name}'.");
             return;
         }
 
@@ -179,7 +173,7 @@ public class PickupSystem : MonoBehaviour
             if (_hotbar.GetItem(i) != null) continue;
             _hotbar.SetItem(i, worldItem.itemData);
             Destroy(col.gameObject);
-            if (debugMode) Debug.Log($"[PickupSystem] Small item '{worldItem.itemData.itemName}' added to hotbar slot {i}.");
+            if (debugMode) Debug.Log($"[PickupSystem] '{worldItem.itemData.itemName}' added to hotbar slot {i}.");
             return;
         }
 
@@ -188,48 +182,45 @@ public class PickupSystem : MonoBehaviour
 
     private void Drop()
     {
-        if (debugMode) Debug.Log($"[PickupSystem] Drop called | _carriedVersion='{(_carriedVersion != null ? _carriedVersion.name : "NULL")}' | _worldPrefab='{(_worldPrefab != null ? _worldPrefab.name : "NULL")}'");
+        if (_activeIndex < 0) return;
 
-        if (_carriedVersion == null) return;
+        CarriedObjectEntry entry = carriedObjects[_activeIndex];
 
-        _carriedVersion.SetActive(false);
+        entry.carriedObject.SetActive(false);
 
-        if (_worldPrefab != null)
+        if (entry.worldPrefab != null)
         {
-            Vector2 dropPos = (Vector2)transform.position + holdOffset;
-            GameObject spawned = Instantiate(_worldPrefab, dropPos, Quaternion.identity);
-            spawned.SetActive(true);
-
+            Vector2 spawnPos = (Vector2)transform.position + dropOffset;
+            GameObject spawned = Instantiate(entry.worldPrefab, spawnPos, Quaternion.identity);
             if (spawned.GetComponent<Rigidbody2D>() == null)
                 spawned.AddComponent<Rigidbody2D>();
 
-            if (debugMode) Debug.Log($"[PickupSystem] Spawned '{spawned.name}' at {dropPos}.");
+            if (debugMode) Debug.Log($"[PickupSystem] Dropped '{spawned.name}' at {spawnPos}.");
         }
         else
         {
             if (debugMode) Debug.LogWarning("[PickupSystem] No worldPrefab assigned — assign it in the Inspector on the CarriableObject component of your world pickup object.");
         }
 
-        _carriedVersion = null;
-        _worldPrefab = null;
+        _activeIndex = -1;
         _controller.SetSpeedMultiplier(1f);
-
-        if (debugMode) Debug.Log($"[PickupSystem] Drop complete | IsCarrying={IsCarrying}");
     }
 
     private void UpdateHeldPosition()
     {
-        if (_carriedVersion == null) return;
+        if (_activeIndex < 0) return;
+        GameObject carried = carriedObjects[_activeIndex].carriedObject;
+        if (carried == null) return;
 
         if (mouseAim && Mouse.current != null && Camera.main != null)
         {
             Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Vector2 dir = (mouseWorld - (Vector2)transform.position).normalized;
-            _carriedVersion.transform.localPosition = dir * holdOffset.magnitude;
+            carried.transform.localPosition = dir * holdOffset.magnitude;
         }
         else
         {
-            _carriedVersion.transform.localPosition = holdOffset;
+            carried.transform.localPosition = holdOffset;
         }
     }
 
