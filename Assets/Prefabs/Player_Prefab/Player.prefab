@@ -123,6 +123,11 @@ MonoBehaviour:
   walkSpeed: 7
   runSpeed: 12
   jumpForce: 13
+  coyoteTime: 1
+  jumpBufferTime: 1
+  fallGravityMultiplier: 6
+  jumpGravityMultiplier: 3
+  baseGravityScale: 0.9
   groundCheck: {fileID: 5796341554864663913}
   groundCheckRadius: 0.1
   groundLayer:
@@ -247,6 +252,7 @@ MonoBehaviour:
   mouseAim: 1
   minAimAngle: -10
   maxAimAngle: 100
+  stickDeadzone: 0.2
   walkSpeedMultiplier: 0.5
   disableRunWhileCarrying: 1
   disableJumpWhileCarrying: 1
