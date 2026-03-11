@@ -2,13 +2,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[System.Serializable]
+public class CarriedObjectEntry
+{
+    [Tooltip("Disabled child GameObject on the player prefab.")]
+    public GameObject carriedObject;
+    [Tooltip("Prefab spawned in the world when dropped.")]
+    public GameObject worldPrefab;
+}
+
 [RequireComponent(typeof(CharacterController2D))]
 public class PickupSystem : MonoBehaviour
 {
+    [Header("Carried Objects")]
+    [SerializeField] private List<CarriedObjectEntry> carriedObjects = new();
+
     [Header("Pickup")]
     [SerializeField] private float pickupRange = 2f;
     [SerializeField] private List<string> largeObjectTags = new();
     [SerializeField] private List<string> smallItemTags = new();
+
+    [Header("Drop")]
+    [SerializeField] private Vector2 dropOffset = new Vector2(0f, 1.5f);
 
     [Header("Hold Position")]
     [SerializeField] private Vector2 holdOffset = new Vector2(0f, 1.5f);
@@ -109,25 +124,23 @@ public class PickupSystem : MonoBehaviour
         var carriable = col.GetComponent<CarriableObject>();
         if (carriable == null)
         {
-            if (debugMode) Debug.LogWarning($"[PickupSystem] FAIL — no CarriableObject on '{col.gameObject.name}'");
+            if (debugMode) Debug.LogWarning($"[PickupSystem] No CarriableObject on '{col.gameObject.name}'.");
             return;
         }
 
-        if (debugMode) Debug.Log($"[PickupSystem] CarriableObject found | carriedVersion={(carriable.carriedVersion != null ? carriable.carriedVersion.name : "NULL")} | worldPrefab={(carriable.worldPrefab != null ? carriable.worldPrefab.name : "NULL — assign it in the Inspector on CarriableObject!")}");
+        int index = carriable.carriedIndex;
+        if (index < 0 || index >= carriedObjects.Count)
+        {
+            if (debugMode) Debug.LogWarning($"[PickupSystem] carriedIndex {index} is out of range.");
+            return;
+        }
 
         CarriedObjectEntry entry = carriedObjects[index];
         if (entry.carriedObject == null)
         {
-            if (debugMode) Debug.LogWarning("[PickupSystem] FAIL — carriedVersion is not assigned on CarriableObject.");
+            if (debugMode) Debug.LogWarning($"[PickupSystem] carriedObject at index {index} is not assigned.");
             return;
         }
-
-        // Cache before Destroy — Destroy removes the component, nulling any reference to it
-        _carriedVersion = carriable.carriedVersion;
-        _worldPrefab = carriable.worldPrefab;
-        float speedMultiplier = carriable.speedMultiplier;
-
-        if (debugMode) Debug.Log($"[PickupSystem] Cached | _carriedVersion='{_carriedVersion.name}' | _worldPrefab={(_worldPrefab != null ? _worldPrefab.name : "NULL")}");
 
         Destroy(col.gameObject);
 
@@ -185,7 +198,7 @@ public class PickupSystem : MonoBehaviour
         }
         else
         {
-            if (debugMode) Debug.LogWarning("[PickupSystem] No worldPrefab assigned — assign it in the Inspector on the CarriableObject component of your world pickup object.");
+            if (debugMode) Debug.LogWarning($"[PickupSystem] No worldPrefab assigned at index {_activeIndex}.");
         }
 
         _activeIndex = -1;
