@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,6 +29,10 @@ public class PickupSystem : MonoBehaviour
     [SerializeField] private Vector2 holdOffset = new Vector2(0f, 1.5f);
     [SerializeField] private bool mouseAim = false;
 
+    [Header("Mouse Aim Angle Limits")]
+    [SerializeField] private float minAimAngle = -30f;
+    [SerializeField] private float maxAimAngle = 100f;
+
     [Header("Movement Effects")]
     [SerializeField] private float walkSpeedMultiplier = 0.8f;
     [SerializeField] private bool disableRunWhileCarrying = true;
@@ -46,12 +50,13 @@ public class PickupSystem : MonoBehaviour
     public bool CanRun => !IsCarrying || !disableRunWhileCarrying;
     public bool CanJump => !IsCarrying || !disableJumpWhileCarrying;
 
+    private bool IsFacingRight => transform.localScale.x >= 0f;
+
     private void Awake()
     {
         _controller = GetComponent<CharacterController2D>();
         _hotbar = GetComponent<Hotbar>();
 
-        // Ensure all carried objects start disabled
         foreach (var entry in carriedObjects)
             if (entry.carriedObject != null)
                 entry.carriedObject.SetActive(false);
@@ -215,7 +220,18 @@ public class PickupSystem : MonoBehaviour
         {
             Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Vector2 dir = (mouseWorld - (Vector2)transform.position).normalized;
-            carried.transform.localPosition = dir * holdOffset.magnitude;
+
+            // Flip into facing-space so the clamp is always relative to where the player looks
+            if (!IsFacingRight)
+                dir.x = -dir.x;
+
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            float clampedAngle = Mathf.Clamp(angle, minAimAngle, maxAimAngle);
+            float rad = clampedAngle * Mathf.Deg2Rad;
+            Vector2 clampedDir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+
+            // localScale.x is already -1 when facing left, so Unity mirrors localPosition automatically
+            carried.transform.localPosition = clampedDir * holdOffset.magnitude;
         }
         else
         {
