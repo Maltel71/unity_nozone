@@ -4,15 +4,13 @@ using UnityEngine.Rendering.Universal;
 
 public class SunlightBurn : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private DayNightCycle dayNightCycle;
+
     [Header("Burn Settings")]
     [SerializeField] private float burnDamagePerTick = 5f;
     [SerializeField] private float burnDelay = 1f;
     [SerializeField] private float burnTickRate = 0.5f;
-
-    public SunlightBurn(bool useAccelerando)
-    {
-        this.useAccelerando = useAccelerando;
-    }
 
     [Header("Accelerando")]
     [SerializeField] private bool useAccelerando = true;
@@ -35,6 +33,14 @@ public class SunlightBurn : MonoBehaviour
 
     private void Update()
     {
+        // Never burn at night
+        if (dayNightCycle != null && !dayNightCycle.BurnEnabled)
+        {
+            if (_isInSunlight)
+                StopBurn();
+            return;
+        }
+
         bool exposed = CheckSunlightExposure();
 
         if (exposed && !_isInSunlight)
@@ -44,12 +50,17 @@ public class SunlightBurn : MonoBehaviour
         }
         else if (!exposed && _isInSunlight)
         {
-            _isInSunlight = false;
-            if (_burnCoroutine != null)
-            {
-                StopCoroutine(_burnCoroutine);
-                _burnCoroutine = null;
-            }
+            StopBurn();
+        }
+    }
+
+    private void StopBurn()
+    {
+        _isInSunlight = false;
+        if (_burnCoroutine != null)
+        {
+            StopCoroutine(_burnCoroutine);
+            _burnCoroutine = null;
         }
     }
 
