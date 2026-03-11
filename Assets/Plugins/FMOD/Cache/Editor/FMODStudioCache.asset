@@ -95,7 +95,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Bank/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639088491660000000
+  lastModified: 639088509300000000
   FileSizes: []
   Exists: 1
 --- !u!114 &-6370884823607049061
@@ -237,7 +237,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Bank/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639088491660000000
+  lastModified: 639088509300000000
   FileSizes:
   - Name: 
     Value: 1652
@@ -306,7 +306,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -1820759746792499346}
   cacheVersion: 131858
-  cacheTime: 639088491720000000
+  cacheTime: 639088513200000000
   SerializableEventsDict:
   - key: event:/Music/DayTime/ShadowMusic
     index: 0
@@ -355,8 +355,8 @@ MonoBehaviour:
   Banks:
   - {fileID: 1472308110426539833}
   IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
+  Is3D: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
@@ -404,7 +404,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Bank/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639088491720000000
+  lastModified: 639088513200000000
   FileSizes: []
   Exists: 1
 --- !u!114 &1939555956124481188
@@ -462,7 +462,7 @@ MonoBehaviour:
   - {fileID: 3945282175543636877}
   MinDistance: 1
   MaxDistance: 20
-  Length: 183000
+  Length: 102000
 --- !u!114 &3624271822227798159
 MonoBehaviour:
   m_ObjectHideFlags: 0
