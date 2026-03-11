@@ -103,12 +103,12 @@ TextureImporter:
       name: UI_Bar_HP_Fill_Sprite_01_V1_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 8
-        width: 334
-        height: 57
+        x: 0
+        y: 0
+        width: 350
+        height: 70
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 4303609079e039940adc2b4099ad338a
     internalID: 0
     vertices: []
     indices: 
