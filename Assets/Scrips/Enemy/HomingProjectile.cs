@@ -13,6 +13,15 @@ public class HomingProjectile : MonoBehaviour
     [SerializeField] private float arcDuration = 0.3f;
     [SerializeField] private float arcUpwardSpeed = 6f;
 
+    [Header("Wiggle")]
+    [SerializeField] private float minWiggleAngle = -10f;
+    [SerializeField] private float maxWiggleAngle = 10f;
+    [SerializeField] private float minWiggleInterval = 0.1f;
+    [SerializeField] private float maxWiggleInterval = 0.3f;
+
+    [Header("Rotation")]
+    [SerializeField] private float spriteRotationOffset = -90f;
+
     private ProjectilePool _pool;
     private Transform _target;
     private float _speed;
@@ -21,6 +30,10 @@ public class HomingProjectile : MonoBehaviour
     private float _arcTimer;
     private Vector2 _velocity;
     private bool _hit;
+
+    private float _wiggleAngle;
+    private float _wiggleTimer;
+    private float _wiggleInterval;
 
     private Rigidbody2D _rb;
     private SpriteRenderer _spriteRenderer;
@@ -62,8 +75,9 @@ public class HomingProjectile : MonoBehaviour
         _arcTimer = arcDuration;
         _hit = false;
 
-        // Start moving straight up during the arc phase
         _velocity = Vector2.up * arcUpwardSpeed;
+
+        PickNewWiggle();
 
         if (_spriteRenderer != null) _spriteRenderer.enabled = true;
         if (_collider != null) _collider.enabled = true;
@@ -76,32 +90,74 @@ public class HomingProjectile : MonoBehaviour
         _lifetimeTimer -= Time.fixedDeltaTime;
         if (_lifetimeTimer <= 0f)
         {
-            ReturnToPool();
+            Explode();
             return;
         }
 
         if (_arcTimer > 0f)
         {
-            // Arc phase: fly upward, no homing yet
             _arcTimer -= Time.fixedDeltaTime;
         }
         else
         {
-            // Homing phase: steer toward the player
             ApplyHoming();
+            ApplyWiggle();
         }
 
         _rb.MovePosition(_rb.position + _velocity * Time.fixedDeltaTime);
         RotateToVelocity();
     }
 
+    private void ApplyHoming()
+    {
+        if (_target == null) return;
+        Vector2 toTarget = ((Vector2)(_target.position - transform.position)).normalized;
+        Vector2 steered = Vector2.Lerp(_velocity.normalized, toTarget, _homingStrength * Time.fixedDeltaTime);
+        _velocity = steered.normalized * _speed;
+    }
+
+    private void ApplyWiggle()
+    {
+        _wiggleTimer -= Time.fixedDeltaTime;
+        if (_wiggleTimer <= 0f)
+            PickNewWiggle();
+
+        float rad = _wiggleAngle * Mathf.Deg2Rad;
+        float cos = Mathf.Cos(rad);
+        float sin = Mathf.Sin(rad);
+        Vector2 dir = _velocity.normalized;
+        Vector2 wiggled = new Vector2(dir.x * cos - dir.y * sin, dir.x * sin + dir.y * cos);
+        _velocity = wiggled * _speed;
+    }
+
+    private void PickNewWiggle()
+    {
+        _wiggleAngle = Random.Range(minWiggleAngle, maxWiggleAngle);
+        _wiggleInterval = Random.Range(minWiggleInterval, maxWiggleInterval);
+        _wiggleTimer = _wiggleInterval;
+    }
+
+    private void RotateToVelocity()
+    {
+        if (_velocity.sqrMagnitude < 0.001f) return;
+        float angle = Mathf.Atan2(_velocity.y, _velocity.x) * Mathf.Rad2Deg + spriteRotationOffset;
+        _rb.MoveRotation(angle);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (_hit) return;
-        _hit = true;
 
         if (other.CompareTag(playerTag))
             other.GetComponent<PlayerHealth>()?.TakeDamage(damage);
+
+        Explode();
+    }
+
+    private void Explode()
+    {
+        if (_hit) return;
+        _hit = true;
 
         if (_spriteRenderer != null) _spriteRenderer.enabled = false;
         if (_collider != null) _collider.enabled = false;
@@ -126,20 +182,5 @@ public class HomingProjectile : MonoBehaviour
     {
         _hit = false;
         _pool?.ReturnProjectile(this);
-    }
-
-    private void ApplyHoming()
-    {
-        if (_target == null) return;
-        Vector2 toTarget = ((Vector2)(_target.position - transform.position)).normalized;
-        Vector2 steered = Vector2.Lerp(_velocity.normalized, toTarget, _homingStrength * Time.fixedDeltaTime);
-        _velocity = steered.normalized * _speed;
-    }
-
-    private void RotateToVelocity()
-    {
-        if (_velocity.sqrMagnitude < 0.001f) return;
-        float angle = Mathf.Atan2(_velocity.y, _velocity.x) * Mathf.Rad2Deg;
-        _rb.MoveRotation(angle);
     }
 }
