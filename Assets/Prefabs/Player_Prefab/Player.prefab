@@ -42,7 +42,7 @@ Transform:
   m_Children:
   - {fileID: 5796341554864663913}
   - {fileID: 1980950218231887976}
-  - {fileID: 4475811056111154057}
+  - {fileID: 3449533154471356934}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3326298854717353312
@@ -283,15 +283,15 @@ MonoBehaviour:
   burnDamagePerTick: 1
   burnDelay: 1
   burnTickRate: 0.1
-  useAccelerando: 0
-  accelerandoStartRate: 0
-  accelerandoMinRate: 0
-  accelerandoSpeed: 0
+  useAccelerando: 1
+  accelerandoStartRate: 0.1
+  accelerandoMinRate: 0.05
+  accelerandoSpeed: 10
   sunLights:
   - {fileID: 0}
   shadowCasterLayers:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 448
 --- !u!114 &4433857002374170856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,16 +341,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d325b10b6be794c93faaa0ddc2ed98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupSystem
+  carriedObjects:
+  - carriedObject: {fileID: 4999628576256650915}
+    worldPrefab: {fileID: 7502353940671239328, guid: 0ca5f87648fca37469a32fea1ae24d36, type: 3}
   pickupRange: 2
   largeObjectTags:
   - Triangle
   smallItemTags: []
+  dropOffset: {x: 0, y: 1.5}
   holdOffset: {x: 0, y: 1.5}
-  mouseAim: 0
-  walkSpeedMultiplier: 0.8
+  mouseAim: 1
+  minAimAngle: -10
+  maxAimAngle: 100
+  walkSpeedMultiplier: 0.5
   disableRunWhileCarrying: 1
-  disableJumpWhileCarrying: 0
-  debugMode: 1
+  disableJumpWhileCarrying: 1
+  debugMode: 0
 --- !u!1 &6165384489969994290
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +533,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6232611832188350168}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &4376930158971102092
+--- !u!1001 &3278489255673690627
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -535,13 +541,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6232611832188350168}
     m_Modifications:
+    - target: {fileID: -6569254430611978972, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_HasRenderer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6569254430611978972, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_PreviousTrimEdge
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: -6569254430611978972, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_PreviousEdgeProcessing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6569254430611978972, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_ShadowMesh.m_InitialTrim
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6569254430611978972, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_PreviousShadowCastingSource
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -6569254430611978972, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_PreviousShadowShape2DSource
+      value: 
+      objectReference: {fileID: 2103477810103103177}
     - target: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.012
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.488
+      value: 1.51
       objectReference: {fileID: 0}
     - target: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
       propertyPath: m_LocalPosition.z
@@ -579,13 +609,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: Triangle Head
       objectReference: {fileID: 0}
+    - target: {fileID: 7502353940671239328, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
---- !u!4 &4475811056111154057 stripped
+--- !u!212 &2103477810103103177 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3480866312115311818, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+  m_PrefabInstance: {fileID: 3278489255673690627}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3449533154471356934 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 189358696590987269, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
-  m_PrefabInstance: {fileID: 4376930158971102092}
+  m_PrefabInstance: {fileID: 3278489255673690627}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4999628576256650915 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7502353940671239328, guid: e08f254ff3f1f504db4e0fada6b8e904, type: 3}
+  m_PrefabInstance: {fileID: 3278489255673690627}
   m_PrefabAsset: {fileID: 0}
