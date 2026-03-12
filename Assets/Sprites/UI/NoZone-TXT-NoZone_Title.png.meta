@@ -106,12 +106,12 @@ TextureImporter:
       name: NoZone-TXT-NoZone_Title_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 26
-        width: 167
-        height: 228
+        x: 0
+        y: 0
+        width: 752
+        height: 263
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -133,7 +133,7 @@ TextureImporter:
         width: 571
         height: 217
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -150,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 0c1fe2d91dedac04e8026fac9a2b9e4c
     internalID: 0
     vertices: []
     indices: 

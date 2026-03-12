@@ -795,7 +795,7 @@ MonoBehaviour:
   quitButton: {fileID: 6407519600960904142}
   restartKey: 1
   mainMenuKey: 27
-  mainMenuSceneName: MainMenu
+  mainMenuSceneName: Scene_MainMenu
 --- !u!114 &3327317419741800295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -814,7 +814,7 @@ MonoBehaviour:
   mainMenuButton: {fileID: 4460250438950949059}
   quitButton: {fileID: 5750645231359272074}
   pauseKey: 60
-  mainMenuSceneName: MainMenu
+  mainMenuSceneName: Scene_MainMenu
 --- !u!1 &4103302617610713534
 GameObject:
   m_ObjectHideFlags: 0
