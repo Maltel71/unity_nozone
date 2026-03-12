@@ -29,6 +29,11 @@ public class HomingProjectile : MonoBehaviour
     [SerializeField] private float preLaunchPauseTime = 0.1f;
     [SerializeField] private AnimationCurve preLaunchCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
+    [Header("Camera Shake")]
+    [SerializeField] private float shakeIntensity = 0.3f;
+    [SerializeField] private float shakeDuration = 0.35f;
+    [SerializeField] private float shakeSpeed = 25f;
+
     private ProjectilePool _pool;
     private Transform _target;
     private float _speed;
@@ -101,10 +106,8 @@ public class HomingProjectile : MonoBehaviour
         Vector3 restLocal = Vector3.zero;
         Vector3 upLocal = new Vector3(0f, preLaunchHeight, 0f);
 
-        // Become visible
         if (_spriteRenderer != null) _spriteRenderer.enabled = true;
 
-        // Move upward
         float t = 0f;
         while (t < preLaunchUpTime)
         {
@@ -114,7 +117,6 @@ public class HomingProjectile : MonoBehaviour
             yield return null;
         }
 
-        // Move back down
         t = 0f;
         while (t < preLaunchDownTime)
         {
@@ -126,7 +128,6 @@ public class HomingProjectile : MonoBehaviour
 
         transform.localPosition = restLocal;
 
-        // Pause at rest position
         if (preLaunchPauseTime > 0f)
             yield return new WaitForSeconds(preLaunchPauseTime);
 
@@ -147,7 +148,6 @@ public class HomingProjectile : MonoBehaviour
 
         _muzzleFlash?.Play();
 
-        // Detach from hold point so it moves freely in world space
         transform.SetParent(null);
     }
 
@@ -217,7 +217,10 @@ public class HomingProjectile : MonoBehaviour
         if (_hit) return;
 
         if (other.CompareTag(playerTag))
+        {
             other.GetComponent<PlayerHealth>()?.TakeDamage(damage);
+            CameraShake2D.Instance?.TriggerShake(shakeIntensity, shakeDuration, shakeSpeed);
+        }
 
         Explode();
     }

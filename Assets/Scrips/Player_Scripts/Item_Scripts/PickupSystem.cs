@@ -158,6 +158,11 @@ public class PickupSystem : MonoBehaviour
         entry.carriedObject.SetActive(true);
         _lastAimDir = Vector2.zero;
 
+        var worldDurability = col.GetComponent<ShellDurability>();
+        var carriedDurability = entry.carriedObject.GetComponent<ShellDurability>();
+        if (worldDurability != null && carriedDurability != null)
+            carriedDurability.SetHealth(worldDurability.CurrentHealth);
+
         _controller.SetSpeedMultiplier(walkSpeedMultiplier);
 
         if (debugMode) Debug.Log($"[PickupSystem] Picked up index {index} '{entry.carriedObject.name}'.");
@@ -209,6 +214,11 @@ public class PickupSystem : MonoBehaviour
             Rigidbody2D rb = spawned.GetComponent<Rigidbody2D>();
             if (rb == null)
                 rb = spawned.AddComponent<Rigidbody2D>();
+
+            var carriedDurability = entry.carriedObject.GetComponent<ShellDurability>();
+            var worldDurability = spawned.GetComponent<ShellDurability>();
+            if (carriedDurability != null && worldDurability != null)
+                worldDurability.SetHealth(carriedDurability.CurrentHealth);
 
             Vector2 force = pushDir * dropForwardForce + Vector2.up * dropUpForce;
             rb.AddForce(force, ForceMode2D.Impulse);
@@ -286,6 +296,14 @@ public class PickupSystem : MonoBehaviour
         }
 
         return Vector2.zero;
+    }
+
+    public void ForceDropCarried()
+    {
+        if (_activeIndex < 0) return;
+        carriedObjects[_activeIndex].carriedObject.SetActive(false);
+        _activeIndex = -1;
+        _controller.SetSpeedMultiplier(1f);
     }
 
     private void OnDrawGizmosSelected()

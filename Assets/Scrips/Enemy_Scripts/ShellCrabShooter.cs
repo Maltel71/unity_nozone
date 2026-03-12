@@ -42,6 +42,17 @@ public class ShellCrabShooter : MonoBehaviour
     {
         if (_player == null) return;
 
+        // Completely suspend while sleeping
+        if (_controller.IsSleeping)
+        {
+            _fireTimer = 0f;
+
+            if (_controller.State == CrabState.Idle)
+                return;
+
+            return;
+        }
+
         float dist = Vector2.Distance(transform.position, _player.position);
         bool playerInRange = dist <= detectionRange;
 

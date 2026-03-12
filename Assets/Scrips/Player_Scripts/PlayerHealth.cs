@@ -109,14 +109,12 @@ public class PlayerHealth : MonoBehaviour
     {
         _isDead = true;
 
-        // Disable controls and stop all movement
         if (_inputHandler != null)
             _inputHandler.DisableInput();
 
         if (_controller != null)
             _controller.SetMoveInput(0f);
 
-        // Play death animation
         if (_animator != null && !string.IsNullOrEmpty(deathAnimationTrigger))
             _animator.SetTrigger(deathAnimationTrigger);
 

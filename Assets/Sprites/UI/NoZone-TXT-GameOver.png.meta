@@ -106,12 +106,12 @@ TextureImporter:
       name: NoZone-TXT-GameOver_0
       rect:
         serializedVersion: 2
-        x: 41
-        y: 36
-        width: 696
-        height: 379
+        x: 0
+        y: 0
+        width: 779
+        height: 705
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -133,7 +133,7 @@ TextureImporter:
         width: 602
         height: 330
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -150,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 1edc9d0b0dfc0154ebde75fea4991cfc
     internalID: 0
     vertices: []
     indices: 

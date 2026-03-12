@@ -41,7 +41,15 @@ public class CameraFollow2D : MonoBehaviour
             desiredPos = currentPos + delta.normalized * maxDistance;
 
         Vector2 smoothed = Vector2.SmoothDamp(currentPos, desiredPos, ref _velocity, smoothTime, followSpeed);
-        transform.position = new Vector3(smoothed.x, smoothed.y, transform.position.z);
+
+        // Apply shake offset on top of the final follow position
+        Vector2 shakeOffset = CameraShake2D.Instance != null ? CameraShake2D.Instance.ShakeOffset : Vector2.zero;
+
+        transform.position = new Vector3(
+            smoothed.x + shakeOffset.x,
+            smoothed.y + shakeOffset.y,
+            transform.position.z
+        );
     }
 
     private void UpdateLookAhead()
