@@ -23,17 +23,73 @@ public class ShellCrabController : MonoBehaviour
     [Header("Edge Turn Cooldown")]
     [SerializeField] private float edgeTurnCooldown = 0.5f;
 
+    [Header("Day/Night")]
+    [SerializeField] private DayNightCycle dayNightCycle;
+
+    [Header("Sleep")]
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite sleepSprite;
+    [SerializeField] private Sprite awakeSprite;
+
+    [Header("Colliders")]
+    [SerializeField] private Collider2D sleepCollider;
+    [SerializeField] private Collider2D awakeCollider;
+
+    [Header("Damage Trigger")]
+    [SerializeField] private Collider2D damageTriggerCollider;
+    [SerializeField] private float contactDamage = 10f;
+    [SerializeField] private string playerTag = "Player";
+
     private Rigidbody2D _rb;
     private CrabState _state = CrabState.Patrol;
     private int _facingDir = 1;
     private float _edgeTurnCooldownTimer;
+    private bool _wasDaytime;
+    private bool _isSleeping;
 
     public CrabState State => _state;
+    public bool IsSleeping => _isSleeping;
 
-    private void Awake() => _rb = GetComponent<Rigidbody2D>();
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+
+        if (dayNightCycle == null)
+            dayNightCycle = FindFirstObjectByType<DayNightCycle>();
+    }
+
+    private void Start()
+    {
+        if (IsDaytime())
+            EnterSleepState();
+        else
+            ExitSleepState();
+
+        _wasDaytime = IsDaytime();
+    }
+
+    private void Update()
+    {
+        if (dayNightCycle == null) return;
+
+        bool daytime = IsDaytime();
+
+        if (daytime && !_wasDaytime)
+            EnterSleepState();
+        else if (!daytime && _wasDaytime)
+            ExitSleepState();
+
+        _wasDaytime = daytime;
+    }
 
     private void FixedUpdate()
     {
+        if (_isSleeping)
+        {
+            _rb.linearVelocity = new Vector2(0f, _rb.linearVelocity.y);
+            return;
+        }
+
         switch (_state)
         {
             case CrabState.Patrol: Patrol(); break;
@@ -47,7 +103,54 @@ public class ShellCrabController : MonoBehaviour
             _edgeTurnCooldownTimer -= Time.fixedDeltaTime;
     }
 
-    public void SetState(CrabState state) => _state = state;
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (_isSleeping) return;
+        if (!other.CompareTag(playerTag)) return;
+
+        other.GetComponent<PlayerHealth>()?.TakeDamage(contactDamage);
+    }
+
+    // Blocked while sleeping so ShellCrabShooter cannot override the idle state
+    public void SetState(CrabState state)
+    {
+        if (_isSleeping) return;
+        _state = state;
+    }
+
+    private void EnterSleepState()
+    {
+        _isSleeping = true;
+        _state = CrabState.Idle;
+
+        if (spriteRenderer != null && sleepSprite != null)
+            spriteRenderer.sprite = sleepSprite;
+
+        if (awakeCollider != null) awakeCollider.enabled = false;
+        if (sleepCollider != null) sleepCollider.enabled = true;
+        if (damageTriggerCollider != null) damageTriggerCollider.enabled = false;
+    }
+
+    private void ExitSleepState()
+    {
+        _isSleeping = false;
+        _state = CrabState.Patrol;
+
+        if (spriteRenderer != null && awakeSprite != null)
+            spriteRenderer.sprite = awakeSprite;
+
+        if (sleepCollider != null) sleepCollider.enabled = false;
+        if (awakeCollider != null) awakeCollider.enabled = true;
+        if (damageTriggerCollider != null) damageTriggerCollider.enabled = true;
+    }
+
+    // Day and Sunset count as daytime (sun is present); Night and Sunrise are active hours
+    private bool IsDaytime()
+    {
+        if (dayNightCycle == null) return false;
+        return dayNightCycle.State == DayNightCycle.CycleState.Day ||
+               dayNightCycle.State == DayNightCycle.CycleState.Sunset;
+    }
 
     private void Patrol()
     {
@@ -109,27 +212,22 @@ public class ShellCrabController : MonoBehaviour
         Vector2 origin = transform.position;
         int dir = Application.isPlaying ? _facingDir : 1;
 
-        // Front wall
         Vector2 frontWallOrigin = origin + new Vector2(frontWallOffset.x * dir, frontWallOffset.y);
         Gizmos.color = Color.red;
         Gizmos.DrawRay(frontWallOrigin, Vector2.right * dir * wallCheckDistance);
 
-        // Back wall
         Vector2 backWallOrigin = origin + new Vector2(-backWallOffset.x * dir, backWallOffset.y);
         Gizmos.color = Color.magenta;
         Gizmos.DrawRay(backWallOrigin, Vector2.right * -dir * wallCheckDistance);
 
-        // Front edge
         Vector2 frontEdgeOrigin = origin + new Vector2(frontEdgeOffset.x * dir, frontEdgeOffset.y);
         Gizmos.color = Color.yellow;
         Gizmos.DrawRay(frontEdgeOrigin, Vector2.down * edgeCheckDistance);
 
-        // Back edge
         Vector2 backEdgeOrigin = origin + new Vector2(-backEdgeOffset.x * dir, backEdgeOffset.y);
         Gizmos.color = Color.blue;
         Gizmos.DrawRay(backEdgeOrigin, Vector2.down * edgeCheckDistance);
 
-        // Ground
         Gizmos.color = Color.green;
         Gizmos.DrawRay(origin, Vector2.down * groundCheckDistance);
     }
