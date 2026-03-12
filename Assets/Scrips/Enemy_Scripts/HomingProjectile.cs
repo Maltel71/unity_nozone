@@ -154,7 +154,7 @@ public class HomingProjectile : MonoBehaviour
         _lifetimeTimer -= Time.fixedDeltaTime;
         if (_lifetimeTimer <= 0f)
         {
-            ReturnToPool();
+            Explode();
             return;
         }
 
