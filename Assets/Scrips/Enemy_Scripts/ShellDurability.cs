@@ -5,7 +5,7 @@ public class ShellDurability : MonoBehaviour
 {
     [Header("Health")]
     [SerializeField] private float maxHealth = 100f;
-    [SerializeField, HideInInspector] private float _currentHealth;
+    [SerializeField] private float _currentHealth;
 
     [Header("Sun Damage")]
     [SerializeField] private Light2D[] sunLights;
@@ -13,11 +13,11 @@ public class ShellDurability : MonoBehaviour
     [SerializeField] private DayNightCycle dayNightCycle;
     [SerializeField] private float damagePerSecond = 10f;
 
-    [Header("Damage Sprites")]
-    [SerializeField] private Sprite intactSprite;
-    [SerializeField] private Sprite damagedSprite1;
-    [SerializeField] private Sprite damagedSprite2;
-    [SerializeField] private Sprite damagedSprite3;
+    [Header("Damage Stages (child GameObjects)")]
+    [SerializeField] private GameObject damageSprite1; // 100% - 75%
+    [SerializeField] private GameObject damageSprite2; // 75%  - 50%
+    [SerializeField] private GameObject damageSprite3; // 50%  - 25%
+    [SerializeField] private GameObject damageSprite4; // 25%  - 0%
 
     [Header("Death")]
     [SerializeField] private GameObject[] crumbPrefabs;
@@ -25,15 +25,10 @@ public class ShellDurability : MonoBehaviour
     [SerializeField] private float crumbSpawnRadius = 0.3f;
     [SerializeField] private float crumbForce = 3f;
 
-    private SpriteRenderer _sr;
     private bool _isDead;
-
-    // Shown in inspector via custom property
-    public float CurrentHealth => _currentHealth;
 
     private void Awake()
     {
-        _sr = GetComponent<SpriteRenderer>();
         _currentHealth = maxHealth;
         UpdateSprite();
     }
@@ -69,25 +64,23 @@ public class ShellDurability : MonoBehaviour
 
     private void UpdateSprite()
     {
-        if (_sr == null) return;
-
         float t = _currentHealth / maxHealth;
 
-        if (t > 0.75f)
-            _sr.sprite = intactSprite;
-        else if (t > 0.5f)
-            _sr.sprite = damagedSprite1;
-        else if (t > 0.25f)
-            _sr.sprite = damagedSprite2;
-        else
-            _sr.sprite = damagedSprite3;
+        SetActive(damageSprite1, t > 0.75f);
+        SetActive(damageSprite2, t <= 0.75f && t > 0.5f);
+        SetActive(damageSprite3, t <= 0.5f && t > 0.25f);
+        SetActive(damageSprite4, t <= 0.25f);
+    }
+
+    private static void SetActive(GameObject go, bool active)
+    {
+        if (go != null && go.activeSelf != active)
+            go.SetActive(active);
     }
 
     private void Die()
     {
         _isDead = true;
-
-        if (_sr != null) _sr.enabled = false;
 
         if (crumbPrefabs != null && crumbPrefabs.Length > 0)
         {
@@ -108,11 +101,4 @@ public class ShellDurability : MonoBehaviour
 
         Destroy(gameObject);
     }
-
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        _currentHealth = maxHealth;
-    }
-#endif
 }
