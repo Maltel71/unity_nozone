@@ -109,7 +109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6433249425365405770
 Transform:
   m_ObjectHideFlags: 0
@@ -192,7 +192,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2346336293231188428}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4061881574171900853
 Transform:
   m_ObjectHideFlags: 0
@@ -358,7 +358,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3183702629900908269}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -441,7 +441,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7750848473451642678
 Transform:
   m_ObjectHideFlags: 0
@@ -524,7 +524,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4464175214612331531}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -607,7 +607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7695933167398019020
 Transform:
   m_ObjectHideFlags: 0
@@ -690,7 +690,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4565820431115250089}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -1227,19 +1227,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShellDurability
   maxHealth: 100
   _currentHealth: 100
-  sunLights: []
+  sunLights:
+  - {fileID: 0}
   shadowCasterLayers:
     serializedVersion: 2
-    m_Bits: 0
-  dayNightCycle: {fileID: 0}
+    m_Bits: 128
   damagePerSecond: 10
   damageSprite1: {fileID: 5804761058920032590}
   damageSprite2: {fileID: 7941126025455590869}
   damageSprite3: {fileID: 359418453979086740}
   damageSprite4: {fileID: 4747510996158749340}
-  crumbPrefabs: []
-  crumbCount: 4
-  crumbSpawnRadius: 0.3
+  crumbs:
+  - {fileID: 3183702629900908269}
+  - {fileID: 4565820431115250089}
+  - {fileID: 4464175214612331531}
+  - {fileID: 7532906461997255919}
+  - {fileID: 2346336293231188428}
   crumbForce: 3
 --- !u!1 &7532906461997255919
 GameObject:
@@ -1259,7 +1262,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5804070156224843087
 Transform:
   m_ObjectHideFlags: 0
@@ -1342,7 +1345,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7532906461997255919}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

@@ -8,10 +8,11 @@ public class ShellDurability : MonoBehaviour
     [SerializeField] private float _currentHealth;
 
     [Header("Sun Damage")]
-    [SerializeField] private Light2D[] sunLights;
     [SerializeField] private LayerMask shadowCasterLayers;
-    [SerializeField] private DayNightCycle dayNightCycle;
     [SerializeField] private float damagePerSecond = 10f;
+
+    private DayNightCycle _dayNightCycle;
+    private Light2D _sunLight;
 
     [Header("Damage Stages (child GameObjects)")]
     [SerializeField] private GameObject damageSprite1; // 100% - 75%
@@ -20,15 +21,15 @@ public class ShellDurability : MonoBehaviour
     [SerializeField] private GameObject damageSprite4; // 25%  - 0%
 
     [Header("Death")]
-    [SerializeField] private GameObject[] crumbPrefabs;
-    [SerializeField] private int crumbCount = 4;
-    [SerializeField] private float crumbSpawnRadius = 0.3f;
+    [SerializeField] private GameObject[] crumbs;
     [SerializeField] private float crumbForce = 3f;
 
     private bool _isDead;
 
     private void Awake()
     {
+        _dayNightCycle = FindFirstObjectByType<DayNightCycle>();
+        _sunLight = _dayNightCycle != null ? _dayNightCycle.SunLight : null;
         _currentHealth = maxHealth;
         UpdateSprite();
     }
@@ -36,8 +37,18 @@ public class ShellDurability : MonoBehaviour
     private void Update()
     {
         if (_isDead) return;
-        if (dayNightCycle != null && !dayNightCycle.BurnEnabled) return;
-        if (!IsInSunlight()) return;
+
+        if (_dayNightCycle == null)
+            Debug.LogWarning("[ShellDurability] DayNightCycle not found!", this);
+        else
+            Debug.Log($"[ShellDurability] BurnEnabled: {_dayNightCycle.BurnEnabled}");
+
+        if (_dayNightCycle != null && !_dayNightCycle.BurnEnabled) return;
+
+        bool inSun = IsInSunlight();
+        Debug.Log($"[ShellDurability] IsInSunlight: {inSun} | SunLight: {(_sunLight != null ? _sunLight.name : "NULL")} | Health: {_currentHealth}");
+
+        if (!inSun) return;
 
         _currentHealth -= damagePerSecond * Time.deltaTime;
         _currentHealth = Mathf.Max(_currentHealth, 0f);
@@ -50,16 +61,25 @@ public class ShellDurability : MonoBehaviour
 
     private bool IsInSunlight()
     {
-        foreach (Light2D light in sunLights)
+        if (_sunLight == null || !_sunLight.enabled)
         {
-            if (light == null || !light.enabled) continue;
-
-            Vector2 dir = (Vector2)light.transform.position - (Vector2)transform.position;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir.normalized, dir.magnitude, shadowCasterLayers);
-
-            if (!hit) return true;
+            Debug.Log("[ShellDurability] SunLight is null or disabled.");
+            return false;
         }
-        return false;
+
+        Vector2 origin = (Vector2)transform.position;
+        Vector2 dir = (Vector2)_sunLight.transform.position - origin;
+
+        RaycastHit2D[] hits = Physics2D.RaycastAll(origin, dir.normalized, dir.magnitude, shadowCasterLayers);
+        Debug.DrawRay(origin, dir.normalized * dir.magnitude, hits.Length > 0 ? Color.red : Color.green);
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.gameObject == gameObject) continue;
+            Debug.Log($"[ShellDurability] Blocked by: {hit.collider.gameObject.name}");
+            return false;
+        }
+        return true;
     }
 
     private void UpdateSprite()
@@ -82,20 +102,21 @@ public class ShellDurability : MonoBehaviour
     {
         _isDead = true;
 
-        if (crumbPrefabs != null && crumbPrefabs.Length > 0)
+        if (crumbs != null)
         {
-            for (int i = 0; i < crumbCount; i++)
+            foreach (GameObject crumb in crumbs)
             {
-                GameObject prefab = crumbPrefabs[Random.Range(0, crumbPrefabs.Length)];
-                if (prefab == null) continue;
+                if (crumb == null) continue;
 
-                Vector2 spawnPos = (Vector2)transform.position + Random.insideUnitCircle * crumbSpawnRadius;
-                GameObject crumb = Instantiate(prefab, spawnPos, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
+                crumb.SetActive(true);
+                crumb.transform.SetParent(null);
 
                 Rigidbody2D rb = crumb.GetComponent<Rigidbody2D>();
-                if (rb == null) rb = crumb.AddComponent<Rigidbody2D>();
-
-                rb.AddForce(Random.insideUnitCircle.normalized * crumbForce, ForceMode2D.Impulse);
+                if (rb != null)
+                {
+                    rb.bodyType = RigidbodyType2D.Dynamic;
+                    rb.AddForce(Random.insideUnitCircle.normalized * crumbForce, ForceMode2D.Impulse);
+                }
             }
         }
 
