@@ -17,7 +17,6 @@ public class DayNightCycle : MonoBehaviour
 
     [Header("Sunset Settings")]
     [SerializeField] private float sunFadeOutDuration = 8f;
-    [SerializeField] private float lightSwitchDelay = 0.5f;
 
     [Header("Night Light (Global Light 2D)")]
     [SerializeField] private Light2D nightLight;
@@ -25,8 +24,6 @@ public class DayNightCycle : MonoBehaviour
     [Header("Night Settings")]
     [SerializeField] private float nightDuration = 150f;
     [SerializeField] private float nightLightIntensity = 0.4f;
-    [SerializeField] private float nightFadeInDuration = 5f;
-    [SerializeField] private float nightFadeOutDuration = 5f;
 
     [Header("Sunrise Settings")]
     [SerializeField] private float sunFadeInDuration = 8f;
@@ -99,6 +96,13 @@ public class DayNightCycle : MonoBehaviour
     {
         _state = CycleState.Sunset;
 
+        // Enable night light at zero so it can crossfade in simultaneously
+        if (nightLight != null)
+        {
+            nightLight.intensity = 0f;
+            nightLight.enabled = true;
+        }
+
         float rotationSpeed = Mathf.Abs(sunEndAngle - sunStartAngle) / dayDuration;
         float direction = Mathf.Sign(sunEndAngle - sunStartAngle);
         float elapsed = 0f;
@@ -111,20 +115,21 @@ public class DayNightCycle : MonoBehaviour
             _currentSunAngle = sunEndAngle + rotationSpeed * elapsed * direction;
             PlaceSun(_currentSunAngle);
 
+            // Crossfade: sun out, night in
             if (sunLight != null)
                 sunLight.intensity = Mathf.Lerp(sunDayIntensity, 0f, t);
+
+            if (nightLight != null)
+                nightLight.intensity = Mathf.Lerp(0f, nightLightIntensity, t);
 
             SetOverlayAlpha(t);
 
             yield return null;
         }
 
-        if (sunLight != null) sunLight.intensity = 0f;
+        if (sunLight != null) { sunLight.intensity = 0f; sunLight.enabled = false; }
+        if (nightLight != null) nightLight.intensity = nightLightIntensity;
         SetOverlayAlpha(1f);
-
-        yield return new WaitForSeconds(lightSwitchDelay);
-
-        if (sunLight != null) sunLight.enabled = false;
 
         StartCoroutine(NightRoutine());
     }
@@ -139,21 +144,7 @@ public class DayNightCycle : MonoBehaviour
         _currentSunAngle = sunStartAngle;
         PlaceSun(_currentSunAngle);
 
-        if (nightLight != null)
-        {
-            nightLight.intensity = 0f;
-            nightLight.enabled = true;
-        }
-
-        yield return StartCoroutine(FadeLight(nightLight, 0f, nightLightIntensity, nightFadeInDuration));
-
         yield return new WaitForSeconds(nightDuration);
-
-        yield return StartCoroutine(FadeLight(nightLight, nightLightIntensity, 0f, nightFadeOutDuration));
-
-        if (nightLight != null) nightLight.enabled = false;
-
-        yield return new WaitForSeconds(lightSwitchDelay);
 
         StartCoroutine(SunriseRoutine());
     }
@@ -167,6 +158,7 @@ public class DayNightCycle : MonoBehaviour
         _currentSunAngle = sunStartAngle;
         PlaceSun(_currentSunAngle);
 
+        // Enable sun at zero so it can crossfade in simultaneously
         if (sunLight != null)
         {
             sunLight.intensity = 0f;
@@ -185,6 +177,10 @@ public class DayNightCycle : MonoBehaviour
             _currentSunAngle = sunStartAngle + rotationSpeed * elapsed * direction;
             PlaceSun(_currentSunAngle);
 
+            // Crossfade: night out, sun in
+            if (nightLight != null)
+                nightLight.intensity = Mathf.Lerp(nightLightIntensity, 0f, t);
+
             if (sunLight != null)
                 sunLight.intensity = Mathf.Lerp(0f, sunDayIntensity, t);
 
@@ -194,6 +190,7 @@ public class DayNightCycle : MonoBehaviour
         }
 
         if (sunLight != null) sunLight.intensity = sunDayIntensity;
+        if (nightLight != null) { nightLight.intensity = 0f; nightLight.enabled = false; }
         SetOverlayAlpha(0f);
 
         // Continue day from where sunrise left off
@@ -220,20 +217,6 @@ public class DayNightCycle : MonoBehaviour
         Color c = nightOverlay.color;
         c.a = alpha;
         nightOverlay.color = c;
-    }
-
-    private IEnumerator FadeLight(Light2D light, float from, float to, float duration)
-    {
-        if (light == null) yield break;
-
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            light.intensity = Mathf.Lerp(from, to, Mathf.Clamp01(elapsed / duration));
-            yield return null;
-        }
-        light.intensity = to;
     }
 
     private void PlaceSun(float angleDeg)
