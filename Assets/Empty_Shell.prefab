@@ -846,6 +846,105 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &5241014351181560959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 47863642832908733}
+  - component: {fileID: 8375160865759224880}
+  m_Layer: 7
+  m_Name: ShadowObject_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &47863642832908733
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5241014351181560959}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 189358696590987269}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8375160865759224880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5241014351181560959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.ShadowCaster2D
+  m_ShadowGroup: 0
+  m_Priority: 0
+  m_ComponentVersion: 5
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_AlphaCutoff: 0.1
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.6595294, y: -0.091205895, z: 0}
+  - {x: -0.32551467, y: 0.016426533, z: 0}
+  - {x: -0.24266887, y: 0.20029956, z: 0}
+  - {x: -0.14819103, y: 0.26241368, z: 0}
+  - {x: -0.05577239, y: 0.24677119, z: 0}
+  - {x: 0.016426712, y: 0.10117653, z: 0}
+  - {x: 0.34014025, y: 0.0049670637, z: 0}
+  - {x: 0.7206956, y: -0.059005074, z: 0}
+  - {x: 1.1058358, y: -0.07854538, z: 0}
+  - {x: 1.0963968, y: -0.13585463, z: 0}
+  - {x: 1.0068614, y: -0.15685129, z: 0}
+  - {x: 0.6853629, y: -0.15703757, z: 0}
+  - {x: 0.4747429, y: -0.20441532, z: 0}
+  - {x: 0.1645939, y: -0.18738312, z: 0}
+  - {x: -0.19827175, y: -0.22435641, z: 0}
+  - {x: -0.6437652, y: -0.2502526, z: 0}
+  - {x: -1.1415796, y: -0.21585923, z: 0}
+  - {x: -1.1618025, y: -0.15884595, z: 0}
+  - {x: -1.0267184, y: -0.16839813, z: 0}
+  m_ShapePathHash: 1712180905
+  m_InstanceId: 0
+  m_ShadowShape2DComponent: {fileID: 0}
+  m_ShadowShape2DProvider:
+    rid: -2
+  m_ShadowCastingSource: 1
+  m_ShadowMesh:
+    m_Mesh: {fileID: 0}
+    m_LocalBounds:
+      m_Center: {x: -0.027983427, y: 0.006080538, z: 0}
+      m_Extent: {x: 1.1338191, y: 0.25633314, z: 0}
+    m_EdgeProcessing: 1
+    m_TrimEdge: 0
+    m_FlipX: 0
+    m_FlipY: 0
+    m_InitialTrim: 0
+  m_CastingOption: 1
+  m_PreviousTrimEdge: 0
+  m_PreviousEdgeProcessing: 1
+  m_PreviousShadowCastingSource: 1
+  m_PreviousShadowShape2DSource: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1 &5804761058920032590
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,6 +1080,7 @@ Transform:
   - {fileID: 7750848473451642678}
   - {fileID: 5804070156224843087}
   - {fileID: 6433249425365405770}
+  - {fileID: 47863642832908733}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3480866312115311818
@@ -1227,11 +1327,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShellDurability
   maxHealth: 100
   _currentHealth: 100
-  sunLights:
-  - {fileID: 0}
   shadowCasterLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 192
   damagePerSecond: 10
   damageSprite1: {fileID: 5804761058920032590}
   damageSprite2: {fileID: 7941126025455590869}
@@ -1243,7 +1341,7 @@ MonoBehaviour:
   - {fileID: 4464175214612331531}
   - {fileID: 7532906461997255919}
   - {fileID: 2346336293231188428}
-  crumbForce: 3
+  crumbForce: 6
 --- !u!1 &7532906461997255919
 GameObject:
   m_ObjectHideFlags: 0

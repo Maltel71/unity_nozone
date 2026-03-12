@@ -25,12 +25,22 @@ public class ShellDurability : MonoBehaviour
     [SerializeField] private float crumbForce = 3f;
 
     private bool _isDead;
+    private bool _healthInitialized;
+
+    public float CurrentHealth => _currentHealth;
+
+    public void SetHealth(float health)
+    {
+        _currentHealth = Mathf.Clamp(health, 0f, maxHealth);
+        _healthInitialized = true;
+        UpdateSprite();
+    }
 
     private void Awake()
     {
         _dayNightCycle = FindFirstObjectByType<DayNightCycle>();
         _sunLight = _dayNightCycle != null ? _dayNightCycle.SunLight : null;
-        _currentHealth = maxHealth;
+        if (!_healthInitialized) _currentHealth = maxHealth;
         UpdateSprite();
     }
 
@@ -101,6 +111,10 @@ public class ShellDurability : MonoBehaviour
     private void Die()
     {
         _isDead = true;
+
+        // If carried, notify the PickupSystem to release
+        PickupSystem pickup = FindFirstObjectByType<PickupSystem>();
+        pickup?.ForceDropCarried();
 
         if (crumbs != null)
         {
