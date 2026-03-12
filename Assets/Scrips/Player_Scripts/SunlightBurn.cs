@@ -30,13 +30,11 @@ public class SunlightBurn : MonoBehaviour
     [Header("Particles")]
     [SerializeField] private ParticleSystem smokingParticles;
     [SerializeField] private float smokeDelay = 0.5f;
-    [SerializeField] private float smokeLingerDuration = 1.5f;
     [SerializeField] private ParticleSystem burningParticles;
 
     private PlayerHealth _playerHealth;
+    private bool _exposed;
     private Coroutine _burnCoroutine;
-    private Coroutine _smokeLingerCoroutine;
-    private bool _isInSunlight;
 
     private void Awake()
     {
@@ -45,48 +43,52 @@ public class SunlightBurn : MonoBehaviour
 
     private void Update()
     {
-        if (dayNightCycle != null && !dayNightCycle.BurnEnabled)
-        {
-            if (_isInSunlight)
-                StopBurn();
-            return;
-        }
+        bool burnAllowed = dayNightCycle == null || dayNightCycle.BurnEnabled;
+        bool wasExposed = _exposed;
+        _exposed = burnAllowed && CheckSunlightExposure();
 
-        bool exposed = CheckSunlightExposure();
-
-        if (exposed && !_isInSunlight)
+        if (_exposed && !wasExposed)
         {
-            _isInSunlight = true;
-            _burnCoroutine = StartCoroutine(BurnRoutine());
+            if (_burnCoroutine != null) StopCoroutine(_burnCoroutine);
+            _burnCoroutine = StartCoroutine(BurnSequence());
         }
-        else if (!exposed && _isInSunlight)
+        else if (!_exposed && wasExposed)
         {
-            StopBurn();
+            if (_burnCoroutine != null)
+            {
+                StopCoroutine(_burnCoroutine);
+                _burnCoroutine = null;
+            }
+            smokingParticles?.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            burningParticles?.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
     }
 
-    private void StopBurn()
+    private IEnumerator BurnSequence()
     {
-        _isInSunlight = false;
+        if (smokeDelay > 0f)
+            yield return new WaitForSeconds(smokeDelay);
 
-        if (_burnCoroutine != null)
+        smokingParticles?.Play();
+
+        float remainingBurnDelay = Mathf.Max(0f, burnDelay - smokeDelay);
+        if (remainingBurnDelay > 0f)
+            yield return new WaitForSeconds(remainingBurnDelay);
+
+        burningParticles?.Play();
+
+        float currentRate = useAccelerando ? accelerandoStartRate : burnTickRate;
+
+        while (true)
         {
-            StopCoroutine(_burnCoroutine);
-            _burnCoroutine = null;
+            _playerHealth?.TakeDamage(burnDamagePerTick);
+            CameraShake2D.Instance?.TriggerShake(shakeIntensity, shakeDuration, shakeSpeed);
+
+            yield return new WaitForSeconds(currentRate);
+
+            if (useAccelerando)
+                currentRate = Mathf.Max(currentRate - accelerandoSpeed * currentRate, accelerandoMinRate);
         }
-
-        burningParticles?.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-
-        if (_smokeLingerCoroutine != null)
-            StopCoroutine(_smokeLingerCoroutine);
-        _smokeLingerCoroutine = StartCoroutine(SmokeLingerRoutine());
-    }
-
-    private IEnumerator SmokeLingerRoutine()
-    {
-        yield return new WaitForSeconds(smokeLingerDuration);
-        smokingParticles?.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-        _smokeLingerCoroutine = null;
     }
 
     private bool CheckSunlightExposure()
@@ -94,60 +96,10 @@ public class SunlightBurn : MonoBehaviour
         foreach (Light2D light in sunLights)
         {
             if (light == null || !light.enabled) continue;
-
-            Vector2 direction = (Vector2)light.transform.position - (Vector2)transform.position;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, direction.magnitude, shadowCasterLayers);
-
+            Vector2 dir = (Vector2)light.transform.position - (Vector2)transform.position;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir.normalized, dir.magnitude, shadowCasterLayers);
             if (!hit) return true;
         }
-
         return false;
-    }
-
-    private IEnumerator BurnRoutine()
-    {
-        if (_playerHealth == null)
-        {
-            Debug.LogError("SunlightBurn: PlayerHealth not found.", this);
-            yield break;
-        }
-
-        // Cancel any linger still running from a previous exposure
-        if (_smokeLingerCoroutine != null)
-        {
-            StopCoroutine(_smokeLingerCoroutine);
-            _smokeLingerCoroutine = null;
-        }
-
-        // Wait before smoke starts
-        yield return new WaitForSeconds(smokeDelay);
-
-        if (!_isInSunlight) yield break;
-
-        if (smokingParticles != null && !smokingParticles.isPlaying)
-            smokingParticles.Play();
-
-        float remainingBurnDelay = Mathf.Max(0f, burnDelay - smokeDelay);
-        yield return new WaitForSeconds(remainingBurnDelay);
-
-        if (!_isInSunlight) yield break;
-
-        // Damage phase begins — start burning particles
-        if (burningParticles != null && !burningParticles.isPlaying)
-            burningParticles.Play();
-
-        float currentRate = !useAccelerando ? burnTickRate : accelerandoStartRate;
-
-        while (_isInSunlight)
-        {
-            _playerHealth.TakeDamage(burnDamagePerTick);
-            CameraShake2D.Instance?.TriggerShake(shakeIntensity, shakeDuration, shakeSpeed);
-
-            yield return new WaitForSeconds(currentRate);
-
-            if (!useAccelerando)
-                continue;
-            currentRate = Mathf.Max(currentRate - accelerandoSpeed * currentRate * Time.deltaTime, accelerandoMinRate);
-        }
     }
 }
