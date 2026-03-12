@@ -639,7 +639,7 @@ MonoBehaviour:
   walkSpeed: 7
   runSpeed: 12
   acceleration: 80
-  deceleration: 24
+  deceleration: 40
   jumpForce: 13
   coyoteTime: 0.1
   jumpBufferTime: 0.15
@@ -647,7 +647,7 @@ MonoBehaviour:
   jumpGravityMultiplier: 3
   baseGravityScale: 0.9
   groundCheck: {fileID: 5796341554864663913}
-  groundCheckRadius: 0.1
+  groundCheckRadius: 0.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 704
@@ -677,7 +677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52bc8ab87cf19ea44b3c2ab150ee9c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 100
+  maxHealth: 500
   regenEnabled: 1
   regenDelay: 3
   regenPerSecond: 5
@@ -724,7 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b2fcdf33840ae4d8cccb407e2d4634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StaminaSystem
-  maxStamina: 100
+  maxStamina: 1000
   runDrainPerSecond: 10
   walkDrainPerSecond: 1
   regenPerSecond: 10
