@@ -31,6 +31,9 @@ public class DayNightCycle : MonoBehaviour
     [Header("Sunrise Settings")]
     [SerializeField] private float sunFadeInDuration = 8f;
 
+    [Header("Night Overlay Sprite")]
+    [SerializeField] private SpriteRenderer nightOverlay;
+
     [Header("Orbit")]
     [SerializeField] private Vector2 orbitCenter = Vector2.zero;
     [SerializeField] private float orbitRadius = 20f;
@@ -53,6 +56,9 @@ public class DayNightCycle : MonoBehaviour
             nightLight.intensity = 0f;
             nightLight.enabled = false;
         }
+
+        if (nightOverlay != null)
+            SetOverlayAlpha(0f);
 
         _currentSunAngle = sunStartAngle;
 
@@ -108,10 +114,13 @@ public class DayNightCycle : MonoBehaviour
             if (sunLight != null)
                 sunLight.intensity = Mathf.Lerp(sunDayIntensity, 0f, t);
 
+            SetOverlayAlpha(t);
+
             yield return null;
         }
 
         if (sunLight != null) sunLight.intensity = 0f;
+        SetOverlayAlpha(1f);
 
         yield return new WaitForSeconds(lightSwitchDelay);
 
@@ -179,10 +188,13 @@ public class DayNightCycle : MonoBehaviour
             if (sunLight != null)
                 sunLight.intensity = Mathf.Lerp(0f, sunDayIntensity, t);
 
+            SetOverlayAlpha(1f - t);
+
             yield return null;
         }
 
         if (sunLight != null) sunLight.intensity = sunDayIntensity;
+        SetOverlayAlpha(0f);
 
         // Continue day from where sunrise left off
         float dayElapsed = sunFadeInDuration;
@@ -201,6 +213,14 @@ public class DayNightCycle : MonoBehaviour
     }
 
     // ─── Helpers ──────────────────────────────────────────────────────────────
+
+    private void SetOverlayAlpha(float alpha)
+    {
+        if (nightOverlay == null) return;
+        Color c = nightOverlay.color;
+        c.a = alpha;
+        nightOverlay.color = c;
+    }
 
     private IEnumerator FadeLight(Light2D light, float from, float to, float duration)
     {
