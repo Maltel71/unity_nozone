@@ -47,18 +47,8 @@ public class ShellDurability : MonoBehaviour
     private void Update()
     {
         if (_isDead) return;
-
-        if (_dayNightCycle == null)
-            Debug.LogWarning("[ShellDurability] DayNightCycle not found!", this);
-        else
-            Debug.Log($"[ShellDurability] BurnEnabled: {_dayNightCycle.BurnEnabled}");
-
         if (_dayNightCycle != null && !_dayNightCycle.BurnEnabled) return;
-
-        bool inSun = IsInSunlight();
-        Debug.Log($"[ShellDurability] IsInSunlight: {inSun} | SunLight: {(_sunLight != null ? _sunLight.name : "NULL")} | Health: {_currentHealth}");
-
-        if (!inSun) return;
+        if (!IsInSunlight()) return;
 
         _currentHealth -= damagePerSecond * Time.deltaTime;
         _currentHealth = Mathf.Max(_currentHealth, 0f);
@@ -71,22 +61,16 @@ public class ShellDurability : MonoBehaviour
 
     private bool IsInSunlight()
     {
-        if (_sunLight == null || !_sunLight.enabled)
-        {
-            Debug.Log("[ShellDurability] SunLight is null or disabled.");
-            return false;
-        }
+        if (_sunLight == null || !_sunLight.enabled) return false;
 
         Vector2 origin = (Vector2)transform.position;
         Vector2 dir = (Vector2)_sunLight.transform.position - origin;
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(origin, dir.normalized, dir.magnitude, shadowCasterLayers);
-        Debug.DrawRay(origin, dir.normalized * dir.magnitude, hits.Length > 0 ? Color.red : Color.green);
 
         foreach (RaycastHit2D hit in hits)
         {
             if (hit.collider.gameObject == gameObject) continue;
-            Debug.Log($"[ShellDurability] Blocked by: {hit.collider.gameObject.name}");
             return false;
         }
         return true;
@@ -112,7 +96,6 @@ public class ShellDurability : MonoBehaviour
     {
         _isDead = true;
 
-        // If carried, notify the PickupSystem to release
         PickupSystem pickup = FindFirstObjectByType<PickupSystem>();
         pickup?.ForceDropCarried();
 

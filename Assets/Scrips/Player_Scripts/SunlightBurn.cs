@@ -127,7 +127,6 @@ public class SunlightBurn : MonoBehaviour
         if (smokingParticles != null && !smokingParticles.isPlaying)
             smokingParticles.Play();
 
-        // Wait out the remaining burn delay (minus the smoke delay already elapsed)
         float remainingBurnDelay = Mathf.Max(0f, burnDelay - smokeDelay);
         yield return new WaitForSeconds(remainingBurnDelay);
 
