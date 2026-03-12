@@ -24,6 +24,8 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private string mainMenuSceneName = "MainMenu";
 
     private bool _isPaused;
+    private bool _usingController;
+    private Vector2 _lastMousePosition;
 
     private void Awake()
     {
@@ -50,6 +52,8 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
+        DetectInputDevice();
+
         var kb = Keyboard.current;
         if (kb != null && kb[pauseKey].wasPressedThisFrame)
             TogglePause();
@@ -57,6 +61,85 @@ public class PauseManager : MonoBehaviour
         var pad = Gamepad.current;
         if (pad != null && pad.startButton.wasPressedThisFrame)
             TogglePause();
+
+        if (_isPaused)
+            ManageSelection();
+    }
+
+    /// <summary>
+    /// Switches the active input mode between controller and mouse/keyboard
+    /// based on whichever device produced input most recently.
+    /// </summary>
+    private void DetectInputDevice()
+    {
+        var pad = Gamepad.current;
+        if (pad != null)
+        {
+            // Any stick or button activity counts as controller input
+            if (pad.leftStick.ReadValue().sqrMagnitude > 0.01f ||
+                pad.dpad.ReadValue().sqrMagnitude > 0.01f ||
+                pad.buttonSouth.isPressed || pad.buttonNorth.isPressed ||
+                pad.buttonEast.isPressed || pad.buttonWest.isPressed ||
+                pad.startButton.isPressed || pad.selectButton.isPressed)
+            {
+                SetControllerMode(true);
+                return;
+            }
+        }
+
+        var mouse = Mouse.current;
+        if (mouse != null)
+        {
+            Vector2 mousePos = mouse.position.ReadValue();
+            if (mousePos != _lastMousePosition || mouse.leftButton.isPressed)
+            {
+                _lastMousePosition = mousePos;
+                SetControllerMode(false);
+            }
+        }
+    }
+
+    private void SetControllerMode(bool controller)
+    {
+        if (_usingController == controller) return;
+        _usingController = controller;
+
+        if (!_isPaused) return;
+
+        if (_usingController)
+        {
+            // Restore selection to the first button so the controller can navigate
+            if (EventSystem.current != null && continueButton != null)
+                EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
+        }
+        else
+        {
+            // Clear selection so hover drives highlighting instead
+            if (EventSystem.current != null)
+                EventSystem.current.SetSelectedGameObject(null);
+        }
+    }
+
+    /// <summary>
+    /// While paused, keep selection cleared for mouse users and ensure a
+    /// button is always selected for controller users.
+    /// </summary>
+    private void ManageSelection()
+    {
+        if (EventSystem.current == null) return;
+
+        if (_usingController)
+        {
+            // Re-select the default button if nothing is selected
+            if (EventSystem.current.currentSelectedGameObject == null && continueButton != null)
+                EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
+        }
+        else
+        {
+            // Keep selection cleared for mouse so hover is the only highlight
+            if (EventSystem.current.currentSelectedGameObject != null)
+                EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 
     public void TogglePause()
@@ -77,7 +160,8 @@ public class PauseManager : MonoBehaviour
         if (pauseCanvas != null)
             pauseCanvas.gameObject.SetActive(true);
 
-        if (continueButton != null && EventSystem.current != null)
+        // Only auto-select when using a controller
+        if (_usingController && continueButton != null && EventSystem.current != null)
             EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
     }
 
