@@ -13,6 +13,9 @@ public class ShellCrabShooter : MonoBehaviour
     [SerializeField] private float projectileSpeed = 5f;
     [SerializeField] private float homingStrength = 3f;
 
+    [Header("VFX")]
+    [SerializeField] private ParticleSystem muzzleFlash;
+
     private ShellCrabController _controller;
     private ProjectilePool _pool;
     private Transform _player;
@@ -80,7 +83,7 @@ public class ShellCrabShooter : MonoBehaviour
 
         proj.gameObject.SetActive(true);
         _activeProjectile = proj;
-        proj.Prepare(_player, projectileSpeed, homingStrength);
+        proj.Prepare(_player, projectileSpeed, homingStrength, muzzleFlash);
     }
 
     private void OnDrawGizmosSelected()

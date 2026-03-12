@@ -9844,10 +9844,10 @@ MonoBehaviour:
   playerTag: Player
   arcDuration: 0.3
   arcUpwardSpeed: 6
-  minWiggleAngle: -8
-  maxWiggleAngle: 8
+  minWiggleAngle: -4
+  maxWiggleAngle: 4
   minWiggleInterval: 0.1
-  maxWiggleInterval: 0.7
+  maxWiggleInterval: 0.5
   spriteRotationOffset: -90
   preLaunchHeight: 0.1
   preLaunchUpTime: 0.5

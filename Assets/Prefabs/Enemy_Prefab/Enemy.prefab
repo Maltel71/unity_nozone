@@ -198,7 +198,8 @@ MonoBehaviour:
   playerTag: Player
   fireRate: 1
   projectileSpeed: 5
-  homingStrength: 3
+  homingStrength: 10
+  muzzleFlash: {fileID: 8048372737690742458}
 --- !u!61 &7389154328801114095
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -563,8 +564,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.5
-      minScalar: 0.1
+      scalar: 0.1
+      minScalar: 0.01
       maxCurve:
         serializedVersion: 2
         m_Curve:
