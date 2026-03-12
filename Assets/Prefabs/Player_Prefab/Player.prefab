@@ -791,6 +791,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6232611832188350168}
     m_Modifications:
+    - target: {fileID: 141014960676650038, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5320754
+      objectReference: {fileID: 0}
+    - target: {fileID: 141014960676650038, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+      propertyPath: m_Color.g
+      value: 0.399402
+      objectReference: {fileID: 0}
+    - target: {fileID: 141014960676650038, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+      propertyPath: m_Color.r
+      value: 0.37245277
+      objectReference: {fileID: 0}
     - target: {fileID: 1092392697542355574, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 444.8442
@@ -834,6 +846,26 @@ PrefabInstance:
     - target: {fileID: 2487873366075735233, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
       propertyPath: m_Name
       value: Day&NightCycle
+      objectReference: {fileID: 0}
+    - target: {fileID: 4141673946393690209, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9037736
+      objectReference: {fileID: 0}
+    - target: {fileID: 4141673946393690209, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+      propertyPath: m_Color.g
+      value: 0.94916344
+      objectReference: {fileID: 0}
+    - target: {fileID: 4141673946393690209, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4141673946393690209, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4141673946393690209, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+      propertyPath: m_PointLightInnerRadius
+      value: 650
       objectReference: {fileID: 0}
     - target: {fileID: 9069977017746738512, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
       propertyPath: sunDayIntensity
