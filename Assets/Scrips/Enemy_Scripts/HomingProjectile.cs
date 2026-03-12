@@ -38,6 +38,7 @@ public class HomingProjectile : MonoBehaviour
     private Vector2 _velocity;
     private bool _hit;
     private bool _isPreparing;
+    private ParticleSystem _muzzleFlash;
 
     private float _wiggleAngle;
     private float _wiggleTimer;
@@ -80,13 +81,14 @@ public class HomingProjectile : MonoBehaviour
     /// Starts the pre-launch animation then fires. Call this instead of Launch directly.
     /// The projectile must already be active and parented to the ProjectileHoldPoint.
     /// </summary>
-    public void Prepare(Transform target, float speed, float homingStrength)
+    public void Prepare(Transform target, float speed, float homingStrength, ParticleSystem muzzleFlash = null)
     {
         _target = target;
         _speed = speed;
         _homingStrength = homingStrength;
         _hit = false;
         _isPreparing = true;
+        _muzzleFlash = muzzleFlash;
 
         if (_spriteRenderer != null) _spriteRenderer.enabled = false;
         if (_collider != null) _collider.enabled = false;
@@ -142,6 +144,8 @@ public class HomingProjectile : MonoBehaviour
         PickNewWiggle();
 
         if (_collider != null) _collider.enabled = true;
+
+        _muzzleFlash?.Play();
 
         // Detach from hold point so it moves freely in world space
         transform.SetParent(null);
