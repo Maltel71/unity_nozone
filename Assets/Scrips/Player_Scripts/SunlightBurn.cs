@@ -22,6 +22,11 @@ public class SunlightBurn : MonoBehaviour
     [SerializeField] private Light2D[] sunLights;
     [SerializeField] private LayerMask shadowCasterLayers;
 
+    [Header("Camera Shake")]
+    [SerializeField] private float shakeIntensity = 0.1f;
+    [SerializeField] private float shakeDuration = 0.2f;
+    [SerializeField] private float shakeSpeed = 15f;
+
     private PlayerHealth _playerHealth;
     private Coroutine _burnCoroutine;
     private bool _isInSunlight;
@@ -33,7 +38,6 @@ public class SunlightBurn : MonoBehaviour
 
     private void Update()
     {
-        // Never burn at night
         if (dayNightCycle != null && !dayNightCycle.BurnEnabled)
         {
             if (_isInSunlight)
@@ -94,6 +98,8 @@ public class SunlightBurn : MonoBehaviour
         while (_isInSunlight)
         {
             _playerHealth.TakeDamage(burnDamagePerTick);
+            CameraShake2D.Instance?.TriggerShake(shakeIntensity, shakeDuration, shakeSpeed);
+
             yield return new WaitForSeconds(currentRate);
 
             if (!useAccelerando)

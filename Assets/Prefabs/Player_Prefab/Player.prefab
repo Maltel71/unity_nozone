@@ -787,6 +787,9 @@ MonoBehaviour:
   shadowCasterLayers:
     serializedVersion: 2
     m_Bits: 448
+  shakeIntensity: 0.001
+  shakeDuration: 0.3
+  shakeSpeed: 0.1
 --- !u!114 &4433857002374170856
 MonoBehaviour:
   m_ObjectHideFlags: 0

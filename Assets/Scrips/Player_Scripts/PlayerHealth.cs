@@ -24,11 +24,6 @@ public class PlayerHealth : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Slider healthBar;
 
-    [Header("Camera Shake")]
-    [SerializeField] private float damageShakeIntensity = 0.25f;
-    [SerializeField] private float damageShakeDuration = 0.3f;
-    [SerializeField] private float damageShakeSpeed = 25f;
-
     private float _currentHealth;
     private float _regenDelayTimer;
     private float _currentRegenRate;
@@ -63,8 +58,6 @@ public class PlayerHealth : MonoBehaviour
         _currentHealth = Mathf.Max(_currentHealth - amount, 0f);
         ResetRegen();
         UpdateBar();
-
-        CameraShake2D.Instance?.TriggerShake(damageShakeIntensity, damageShakeDuration, damageShakeSpeed);
 
         if (_currentHealth <= 0f)
             Die();
