@@ -6,6 +6,8 @@ public class CharacterController2D : MonoBehaviour
     [Header("Movement")]
     public float walkSpeed = 5f;
     public float runSpeed = 9f;
+    [SerializeField] private float acceleration = 40f;
+    [SerializeField] private float deceleration = 12f;
 
     [Header("Jump")]
     public float jumpForce = 12f;
@@ -34,6 +36,10 @@ public class CharacterController2D : MonoBehaviour
 
     private float _coyoteTimer;
     private float _jumpBufferTimer;
+    private float _currentSpeedX;
+    private bool _hasJumped;
+
+    public event System.Action OnJumped;
 
     private void Awake() => _rb = GetComponent<Rigidbody2D>();
 
@@ -48,18 +54,27 @@ public class CharacterController2D : MonoBehaviour
     private void FixedUpdate()
     {
         float speed = (_isRunning && !_isCrouching ? runSpeed : walkSpeed) * _speedMultiplier;
-        _rb.linearVelocity = new Vector2(_moveInput * speed, _rb.linearVelocity.y);
+        float targetX = _moveInput * speed;
+
+        float rate = Mathf.Abs(_moveInput) > 0.01f ? acceleration : deceleration;
+        _currentSpeedX = Mathf.MoveTowards(_currentSpeedX, targetX, rate * Time.fixedDeltaTime);
+
+        _rb.linearVelocity = new Vector2(_currentSpeedX, _rb.linearVelocity.y);
 
         if (_moveInput != 0f)
             transform.localScale = new Vector3(Mathf.Sign(_moveInput), 1f, 1f);
 
         // Consume buffered jump in FixedUpdate so physics is applied correctly
-        if (_jumpBufferTimer > 0f && CanCoyoteJump())
+        if (_jumpBufferTimer > 0f && CanCoyoteJump() && !_hasJumped)
         {
             ExecuteJump();
             _jumpBufferTimer = 0f;
             _coyoteTimer = 0f;
+            _hasJumped = true;
         }
+
+        if (_isGrounded && _rb.linearVelocity.y <= 0f)
+            _hasJumped = false;
     }
 
     private void CheckGrounded()
@@ -99,6 +114,7 @@ public class CharacterController2D : MonoBehaviour
     private void ExecuteJump()
     {
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
+        OnJumped?.Invoke();
     }
 
     public void SetMoveInput(float value) => _moveInput = value;

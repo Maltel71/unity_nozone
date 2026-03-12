@@ -30,6 +30,7 @@ public class PlayerInputHandler : MonoBehaviour
         _controller = GetComponent<CharacterController2D>();
         _stamina = GetComponent<StaminaSystem>();
         _pickup = GetComponent<PickupSystem>();
+        _controller.OnJumped += () => _stamina?.UseJumpStamina();
     }
 
     private void Start()
@@ -101,11 +102,8 @@ public class PlayerInputHandler : MonoBehaviour
 
         bool pickupAllowsJump = _pickup == null || _pickup.CanJump;
 
-        if (pressed && _controller.IsGrounded && pickupAllowsJump && (_stamina == null || _stamina.CanJump()))
-        {
+        if (pressed && pickupAllowsJump)
             _controller.Jump();
-            _stamina?.UseJumpStamina();
-        }
     }
 
     private void HandleRun()

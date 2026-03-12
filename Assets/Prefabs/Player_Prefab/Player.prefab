@@ -638,9 +638,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterController2D
   walkSpeed: 7
   runSpeed: 12
+  acceleration: 80
+  deceleration: 24
   jumpForce: 13
-  coyoteTime: 1
-  jumpBufferTime: 1
+  coyoteTime: 0.1
+  jumpBufferTime: 0.15
   fallGravityMultiplier: 6
   jumpGravityMultiplier: 3
   baseGravityScale: 0.9
@@ -1834,7 +1836,7 @@ Transform:
   m_GameObject: {fileID: 8518714761562769996}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.999, z: 0}
+  m_LocalPosition: {x: 0, y: -1.118, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
