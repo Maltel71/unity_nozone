@@ -2122,7 +2122,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 40
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -12156,6 +12156,10 @@ PrefabInstance:
     - target: {fileID: 4141673946393690209, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
       propertyPath: m_PointLightInnerRadius
       value: 650
+      objectReference: {fileID: 0}
+    - target: {fileID: 9069977017746738512, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+      propertyPath: teleportDelay
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9069977017746738512, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
       propertyPath: sunDayIntensity

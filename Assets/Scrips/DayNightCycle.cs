@@ -11,13 +11,13 @@ public class DayNightCycle : MonoBehaviour
 
     [Header("Day Settings")]
     [SerializeField] private float dayDuration = 240f;
-    [SerializeField] private float sunStartAngle = 180f;
-    [SerializeField] private float sunEndAngle = 0f;
+    [SerializeField] private float sunStartAngle = 0f;
+    [SerializeField] private float sunEndAngle = 180f;
     [SerializeField] private float sunDayIntensity = 1f;
 
     [Header("Sunset Settings")]
     [SerializeField] private float sunFadeOutDuration = 8f;
-    [SerializeField] private float lightSwitchDelay = 0.5f;
+    [SerializeField] private float teleportDelay = 0.5f;
 
     [Header("Night Light (Global Light 2D)")]
     [SerializeField] private Light2D nightLight;
@@ -25,8 +25,6 @@ public class DayNightCycle : MonoBehaviour
     [Header("Night Settings")]
     [SerializeField] private float nightDuration = 150f;
     [SerializeField] private float nightLightIntensity = 0.4f;
-    [SerializeField] private float nightFadeInDuration = 5f;
-    [SerializeField] private float nightFadeOutDuration = 5f;
 
     [Header("Sunrise Settings")]
     [SerializeField] private float sunFadeInDuration = 8f;
@@ -40,6 +38,9 @@ public class DayNightCycle : MonoBehaviour
 
     private CycleState _state;
     private float _currentSunAngle;
+
+    private float SunRotationSpeed => Mathf.Abs(sunEndAngle - sunStartAngle) / dayDuration;
+    private float SunDirection => Mathf.Sign(sunEndAngle - sunStartAngle);
 
     public bool BurnEnabled => _state == CycleState.Day ||
                                (_state == CycleState.Sunset && burnEnabledAtNight);
@@ -85,51 +86,18 @@ public class DayNightCycle : MonoBehaviour
             yield return null;
         }
 
+        _currentSunAngle = sunEndAngle;
+        PlaceSun(_currentSunAngle);
+
         StartCoroutine(SunsetRoutine());
     }
 
     // ─── Sunset ───────────────────────────────────────────────────────────────
+    // Sun fades out while night light fades in simultaneously. Sun keeps rotating.
 
     private IEnumerator SunsetRoutine()
     {
         _state = CycleState.Sunset;
-
-        float rotationSpeed = Mathf.Abs(sunEndAngle - sunStartAngle) / dayDuration;
-        float direction = Mathf.Sign(sunEndAngle - sunStartAngle);
-        float elapsed = 0f;
-
-        while (elapsed < sunFadeOutDuration)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / sunFadeOutDuration);
-
-            _currentSunAngle = sunEndAngle + rotationSpeed * elapsed * direction;
-            PlaceSun(_currentSunAngle);
-
-            if (sunLight != null)
-                sunLight.intensity = Mathf.Lerp(sunDayIntensity, 0f, t);
-
-            yield return null;
-        }
-
-        if (sunLight != null) sunLight.intensity = 0f;
-
-        yield return new WaitForSeconds(lightSwitchDelay);
-
-        if (sunLight != null) sunLight.enabled = false;
-
-        StartCoroutine(NightRoutine());
-    }
-
-    // ─── Night ────────────────────────────────────────────────────────────────
-
-    private IEnumerator NightRoutine()
-    {
-        _state = CycleState.Night;
-
-        // Snap sun to start angle silently while disabled
-        _currentSunAngle = sunStartAngle;
-        PlaceSun(_currentSunAngle);
 
         if (nightLight != null)
         {
@@ -137,27 +105,55 @@ public class DayNightCycle : MonoBehaviour
             nightLight.enabled = true;
         }
 
-        yield return StartCoroutine(FadeLight(nightLight, 0f, nightLightIntensity, nightFadeInDuration));
+        float elapsed = 0f;
+        while (elapsed < sunFadeOutDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / sunFadeOutDuration);
+
+            _currentSunAngle += SunRotationSpeed * SunDirection * Time.deltaTime;
+            PlaceSun(_currentSunAngle);
+
+            if (sunLight != null)
+                sunLight.intensity = Mathf.Lerp(sunDayIntensity, 0f, t);
+
+            if (nightLight != null)
+                nightLight.intensity = Mathf.Lerp(0f, nightLightIntensity, t);
+
+            yield return null;
+        }
+
+        if (sunLight != null) sunLight.intensity = 0f;
+        if (nightLight != null) nightLight.intensity = nightLightIntensity;
+
+        yield return new WaitForSeconds(teleportDelay);
+
+        // Teleport sun back to start and disable
+        _currentSunAngle = sunStartAngle;
+        PlaceSun(_currentSunAngle);
+        if (sunLight != null) sunLight.enabled = false;
+
+        StartCoroutine(NightRoutine());
+    }
+
+    // ─── Night ────────────────────────────────────────────────────────────────
+    // Sun is disabled and stays still. Night light is already at full intensity.
+
+    private IEnumerator NightRoutine()
+    {
+        _state = CycleState.Night;
 
         yield return new WaitForSeconds(nightDuration);
-
-        yield return StartCoroutine(FadeLight(nightLight, nightLightIntensity, 0f, nightFadeOutDuration));
-
-        if (nightLight != null) nightLight.enabled = false;
-
-        yield return new WaitForSeconds(lightSwitchDelay);
 
         StartCoroutine(SunriseRoutine());
     }
 
     // ─── Sunrise ──────────────────────────────────────────────────────────────
+    // Night light fades out while sun fades in simultaneously. Sun keeps rotating.
 
     private IEnumerator SunriseRoutine()
     {
         _state = CycleState.Sunrise;
-
-        _currentSunAngle = sunStartAngle;
-        PlaceSun(_currentSunAngle);
 
         if (sunLight != null)
         {
@@ -165,57 +161,51 @@ public class DayNightCycle : MonoBehaviour
             sunLight.enabled = true;
         }
 
-        float rotationSpeed = Mathf.Abs(sunEndAngle - sunStartAngle) / dayDuration;
-        float direction = Mathf.Sign(sunEndAngle - sunStartAngle);
         float elapsed = 0f;
-
         while (elapsed < sunFadeInDuration)
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / sunFadeInDuration);
 
-            _currentSunAngle = sunStartAngle + rotationSpeed * elapsed * direction;
+            _currentSunAngle += SunRotationSpeed * SunDirection * Time.deltaTime;
             PlaceSun(_currentSunAngle);
 
             if (sunLight != null)
                 sunLight.intensity = Mathf.Lerp(0f, sunDayIntensity, t);
 
+            if (nightLight != null)
+                nightLight.intensity = Mathf.Lerp(nightLightIntensity, 0f, t);
+
             yield return null;
         }
 
         if (sunLight != null) sunLight.intensity = sunDayIntensity;
+        if (nightLight != null)
+        {
+            nightLight.intensity = 0f;
+            nightLight.enabled = false;
+        }
 
-        // Continue day from where sunrise left off
-        float dayElapsed = sunFadeInDuration;
+        // Continue rotating until we reach sunEndAngle
         _state = CycleState.Day;
 
-        while (dayElapsed < dayDuration)
+        while (SunDirection > 0f ? _currentSunAngle < sunEndAngle : _currentSunAngle > sunEndAngle)
         {
-            dayElapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(dayElapsed / dayDuration);
-            _currentSunAngle = Mathf.Lerp(sunStartAngle, sunEndAngle, t);
+            _currentSunAngle += SunRotationSpeed * SunDirection * Time.deltaTime;
+            _currentSunAngle = SunDirection > 0f
+                ? Mathf.Min(_currentSunAngle, sunEndAngle)
+                : Mathf.Max(_currentSunAngle, sunEndAngle);
             PlaceSun(_currentSunAngle);
             yield return null;
         }
+
+        _currentSunAngle = sunEndAngle;
+        PlaceSun(_currentSunAngle);
 
         StartCoroutine(SunsetRoutine());
     }
 
     // ─── Helpers ──────────────────────────────────────────────────────────────
-
-    private IEnumerator FadeLight(Light2D light, float from, float to, float duration)
-    {
-        if (light == null) yield break;
-
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            light.intensity = Mathf.Lerp(from, to, Mathf.Clamp01(elapsed / duration));
-            yield return null;
-        }
-        light.intensity = to;
-    }
 
     private void PlaceSun(float angleDeg)
     {
