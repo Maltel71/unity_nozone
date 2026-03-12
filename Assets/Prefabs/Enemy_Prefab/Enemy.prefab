@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &811571355363833330
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6340292979659333493}
+  m_Layer: 9
+  m_Name: Prehold
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6340292979659333493
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811571355363833330}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.117, y: 0.532, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3960474701575071052}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1461756503137275598
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,13 +61,14 @@ Transform:
   m_GameObject: {fileID: 1461756503137275598}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.03368, y: -1.45015, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5512927827344574806}
   - {fileID: 2792705972972893502}
   - {fileID: 1490709936431063898}
+  - {fileID: 6340292979659333493}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3226556201726363565
@@ -166,7 +198,6 @@ MonoBehaviour:
   fireRate: 1
   projectileSpeed: 5
   homingStrength: 3
-  firePoint: {fileID: 5512927827344574806}
 --- !u!61 &7389154328801114095
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5133,7 +5164,7 @@ Transform:
   m_GameObject: {fileID: 4209562190830050703}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.116, y: 0.396, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5153,6 +5184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectilePool
   projectilePrefab: {fileID: 8273575964317256385, guid: a7ad1087a29c0ab44aa592419bcba5c4, type: 3}
   poolSize: 8
+  holdPoint: {fileID: 6340292979659333493}
 --- !u!1 &4566114506150053622
 GameObject:
   m_ObjectHideFlags: 0

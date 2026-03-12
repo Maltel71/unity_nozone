@@ -12,13 +12,13 @@ public class ShellCrabShooter : MonoBehaviour
     [Header("Projectile Settings")]
     [SerializeField] private float projectileSpeed = 5f;
     [SerializeField] private float homingStrength = 3f;
-    [SerializeField] private Transform firePoint;
 
     private ShellCrabController _controller;
     private ProjectilePool _pool;
     private Transform _player;
 
     private float _fireTimer;
+    private HomingProjectile _activeProjectile;
 
     private void Awake()
     {
@@ -44,11 +44,14 @@ public class ShellCrabShooter : MonoBehaviour
 
         if (playerInRange)
         {
-            // Stand still the entire time the player is visible
             if (_controller.State != CrabState.Idle)
                 _controller.SetState(CrabState.Idle);
 
-            _fireTimer += Time.deltaTime;
+            // Don't advance the timer while a projectile is still in its pre-launch animation
+            bool preparing = _activeProjectile != null && _activeProjectile.IsPreparing;
+            if (!preparing)
+                _fireTimer += Time.deltaTime;
+
             if (_fireTimer >= 1f / fireRate)
             {
                 _fireTimer = 0f;
@@ -75,10 +78,9 @@ public class ShellCrabShooter : MonoBehaviour
             return;
         }
 
-        Vector2 spawnPos = firePoint != null ? (Vector2)firePoint.position : (Vector2)transform.position;
-        proj.transform.position = spawnPos;
         proj.gameObject.SetActive(true);
-        proj.Launch(_player, projectileSpeed, homingStrength);
+        _activeProjectile = proj;
+        proj.Prepare(_player, projectileSpeed, homingStrength);
     }
 
     private void OnDrawGizmosSelected()

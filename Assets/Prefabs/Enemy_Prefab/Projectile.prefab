@@ -9849,6 +9849,52 @@ MonoBehaviour:
   minWiggleInterval: 0.1
   maxWiggleInterval: 0.7
   spriteRotationOffset: -90
+  preLaunchHeight: 0.1
+  preLaunchUpTime: 0.5
+  preLaunchDownTime: 1
+  preLaunchPauseTime: 0.1
+  preLaunchCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.1853087
+      value: 0.090291195
+      inSlope: 0.07467451
+      outSlope: 0.07467451
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.26788434
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7886564
+      value: 0.9865707
+      inSlope: 0.0026249667
+      outSlope: 0.0026249667
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.2502818
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!50 &5461248851532426816
 Rigidbody2D:
   serializedVersion: 5

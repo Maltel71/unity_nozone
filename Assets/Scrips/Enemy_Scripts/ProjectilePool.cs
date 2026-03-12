@@ -7,6 +7,10 @@ public class ProjectilePool : MonoBehaviour
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private int poolSize = 8;
 
+    [Header("Hold Point")]
+    [Tooltip("Empty Transform inside the enemy where projectiles sit while idle. Assign the ProjectileHoldPoint here.")]
+    [SerializeField] private Transform holdPoint;
+
     private readonly List<HomingProjectile> _pool = new();
 
     private void Awake()
@@ -17,10 +21,14 @@ public class ProjectilePool : MonoBehaviour
             return;
         }
 
+        Transform spawnParent = holdPoint != null ? holdPoint : transform;
+
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject obj = Instantiate(projectilePrefab, transform);
+            GameObject obj = Instantiate(projectilePrefab, spawnParent);
             obj.name = $"Projectile_{i}";
+            obj.transform.localPosition = Vector3.zero;
+            obj.transform.localRotation = Quaternion.identity;
             obj.SetActive(false);
 
             HomingProjectile proj = obj.GetComponent<HomingProjectile>();
@@ -46,10 +54,14 @@ public class ProjectilePool : MonoBehaviour
         return null;
     }
 
-    /// <summary>Disables the projectile and re-parents it back to this pool.</summary>
+    /// <summary>Disables the projectile, re-parents it to the hold point, and resets its local transform.</summary>
     public void ReturnProjectile(HomingProjectile proj)
     {
         proj.gameObject.SetActive(false);
-        proj.transform.SetParent(transform, false);
+
+        Transform returnParent = holdPoint != null ? holdPoint : transform;
+        proj.transform.SetParent(returnParent, false);
+        proj.transform.localPosition = Vector3.zero;
+        proj.transform.localRotation = Quaternion.identity;
     }
 }

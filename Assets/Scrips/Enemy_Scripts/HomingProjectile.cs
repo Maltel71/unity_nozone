@@ -22,6 +22,13 @@ public class HomingProjectile : MonoBehaviour
     [Header("Rotation")]
     [SerializeField] private float spriteRotationOffset = -90f;
 
+    [Header("Pre-Launch")]
+    [SerializeField] private float preLaunchHeight = 0.5f;
+    [SerializeField] private float preLaunchUpTime = 0.25f;
+    [SerializeField] private float preLaunchDownTime = 0.2f;
+    [SerializeField] private float preLaunchPauseTime = 0.1f;
+    [SerializeField] private AnimationCurve preLaunchCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+
     private ProjectilePool _pool;
     private Transform _target;
     private float _speed;
@@ -30,6 +37,7 @@ public class HomingProjectile : MonoBehaviour
     private float _arcTimer;
     private Vector2 _velocity;
     private bool _hit;
+    private bool _isPreparing;
 
     private float _wiggleAngle;
     private float _wiggleTimer;
@@ -61,36 +69,92 @@ public class HomingProjectile : MonoBehaviour
         }
     }
 
+    public bool IsPreparing => _isPreparing;
+
     public void Initialize(ProjectilePool pool)
     {
         _pool = pool;
     }
 
-    public void Launch(Transform target, float speed, float homingStrength)
+    /// <summary>
+    /// Starts the pre-launch animation then fires. Call this instead of Launch directly.
+    /// The projectile must already be active and parented to the ProjectileHoldPoint.
+    /// </summary>
+    public void Prepare(Transform target, float speed, float homingStrength)
     {
         _target = target;
         _speed = speed;
         _homingStrength = homingStrength;
+        _hit = false;
+        _isPreparing = true;
+
+        if (_spriteRenderer != null) _spriteRenderer.enabled = false;
+        if (_collider != null) _collider.enabled = false;
+
+        StartCoroutine(PreLaunchRoutine());
+    }
+
+    private IEnumerator PreLaunchRoutine()
+    {
+        Vector3 restLocal = Vector3.zero;
+        Vector3 upLocal = new Vector3(0f, preLaunchHeight, 0f);
+
+        // Become visible
+        if (_spriteRenderer != null) _spriteRenderer.enabled = true;
+
+        // Move upward
+        float t = 0f;
+        while (t < preLaunchUpTime)
+        {
+            t += Time.deltaTime;
+            float curved = preLaunchCurve.Evaluate(Mathf.Clamp01(t / preLaunchUpTime));
+            transform.localPosition = Vector3.Lerp(restLocal, upLocal, curved);
+            yield return null;
+        }
+
+        // Move back down
+        t = 0f;
+        while (t < preLaunchDownTime)
+        {
+            t += Time.deltaTime;
+            float curved = preLaunchCurve.Evaluate(Mathf.Clamp01(t / preLaunchDownTime));
+            transform.localPosition = Vector3.Lerp(upLocal, restLocal, curved);
+            yield return null;
+        }
+
+        transform.localPosition = restLocal;
+
+        // Pause at rest position
+        if (preLaunchPauseTime > 0f)
+            yield return new WaitForSeconds(preLaunchPauseTime);
+
+        Launch();
+    }
+
+    private void Launch()
+    {
+        _isPreparing = false;
         _lifetimeTimer = lifetime;
         _arcTimer = arcDuration;
-        _hit = false;
 
         _velocity = Vector2.up * arcUpwardSpeed;
 
         PickNewWiggle();
 
-        if (_spriteRenderer != null) _spriteRenderer.enabled = true;
         if (_collider != null) _collider.enabled = true;
+
+        // Detach from hold point so it moves freely in world space
+        transform.SetParent(null);
     }
 
     private void FixedUpdate()
     {
-        if (_hit) return;
+        if (_hit || _isPreparing) return;
 
         _lifetimeTimer -= Time.fixedDeltaTime;
         if (_lifetimeTimer <= 0f)
         {
-            Explode();
+            ReturnToPool();
             return;
         }
 
@@ -181,6 +245,7 @@ public class HomingProjectile : MonoBehaviour
     private void ReturnToPool()
     {
         _hit = false;
+        _isPreparing = false;
         _pool?.ReturnProjectile(this);
     }
 }

@@ -835,6 +835,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Day&NightCycle
       objectReference: {fileID: 0}
+    - target: {fileID: 9069977017746738512, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+      propertyPath: sunDayIntensity
+      value: 2.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
