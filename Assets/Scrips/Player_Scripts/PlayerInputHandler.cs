@@ -23,6 +23,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private bool _isRunning;
     private bool _isMoving;
+    private bool _inputDisabled;
 
     private void Awake()
     {
@@ -39,11 +40,28 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
+        if (_inputDisabled) return;
+        if (Time.timeScale == 0f) return;
+
         HandleMovement();
         HandleJump();
         HandleRun();
         HandleCrouch();
         HandleStaminaTick();
+    }
+
+    /// <summary>
+    /// Disables all player input and stops movement. Called on death.
+    /// </summary>
+    public void DisableInput()
+    {
+        _inputDisabled = true;
+        _isRunning = false;
+        _isMoving = false;
+
+        _controller.SetMoveInput(0f);
+        _controller.StopRun();
+        _controller.SetCrouch(false);
     }
 
     private void HandleMovement()

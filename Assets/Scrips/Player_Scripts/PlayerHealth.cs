@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,12 +17,28 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float accelerandoStartRate = 1f;
     [SerializeField] private float accelerandoAcceleration = 3f;
 
+    [Header("Death")]
+    [SerializeField] private string deathAnimationTrigger = "Death";
+    [SerializeField] private float gameOverDelay = 2f;
+
     [Header("UI")]
     [SerializeField] private Slider healthBar;
 
     private float _currentHealth;
     private float _regenDelayTimer;
     private float _currentRegenRate;
+    private bool _isDead;
+
+    private Animator _animator;
+    private PlayerInputHandler _inputHandler;
+    private CharacterController2D _controller;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+        _inputHandler = GetComponent<PlayerInputHandler>();
+        _controller = GetComponent<CharacterController2D>();
+    }
 
     private void Start()
     {
@@ -36,6 +53,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        if (_isDead) return;
+
         _currentHealth = Mathf.Max(_currentHealth - amount, 0f);
         ResetRegen();
         UpdateBar();
@@ -46,12 +65,15 @@ public class PlayerHealth : MonoBehaviour
 
     public void Heal(float amount)
     {
+        if (_isDead) return;
+
         _currentHealth = Mathf.Min(_currentHealth + amount, maxHealth);
         UpdateBar();
     }
 
     private void HandleRegen()
     {
+        if (_isDead) return;
         if (!regenEnabled || Mathf.Approximately(_currentHealth, maxHealth)) return;
 
         if (_regenDelayTimer > 0f)
@@ -85,7 +107,29 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Player died.");
-        // Hook death logic here
+        _isDead = true;
+
+        // Disable controls and stop all movement
+        if (_inputHandler != null)
+            _inputHandler.DisableInput();
+
+        if (_controller != null)
+            _controller.SetMoveInput(0f);
+
+        // Play death animation
+        if (_animator != null && !string.IsNullOrEmpty(deathAnimationTrigger))
+            _animator.SetTrigger(deathAnimationTrigger);
+
+        StartCoroutine(ShowGameOverAfterDelay());
+    }
+
+    private IEnumerator ShowGameOverAfterDelay()
+    {
+        yield return new WaitForSeconds(gameOverDelay);
+
+        if (GameOverManager.Instance != null)
+            GameOverManager.Instance.ShowGameOver();
+        else
+            Debug.Log("[PlayerHealth] Player died — no GameOverManager found in scene.");
     }
 }
