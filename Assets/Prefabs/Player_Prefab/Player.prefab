@@ -725,9 +725,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StaminaSystem
   maxStamina: 1000
-  runDrainPerSecond: 10
+  runDrainPerSecond: 2
   walkDrainPerSecond: 1
-  regenPerSecond: 10
+  regenPerSecond: 30
   jumpCost: 8
   regenDelay: 1
   regenAcceleration: 5
