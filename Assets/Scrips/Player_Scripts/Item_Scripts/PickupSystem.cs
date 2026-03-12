@@ -23,7 +23,8 @@ public class PickupSystem : MonoBehaviour
     [SerializeField] private List<string> smallItemTags = new();
 
     [Header("Drop")]
-    [SerializeField] private Vector2 dropOffset = new Vector2(0f, 1.5f);
+    [SerializeField] private float dropForwardForce = 2f;
+    [SerializeField] private float dropUpForce = 1f;
 
     [Header("Hold Position")]
     [SerializeField] private Vector2 holdOffset = new Vector2(0f, 1.5f);
@@ -186,17 +187,33 @@ public class PickupSystem : MonoBehaviour
         if (_activeIndex < 0) return;
 
         CarriedObjectEntry entry = carriedObjects[_activeIndex];
+        GameObject carried = entry.carriedObject;
 
-        entry.carriedObject.SetActive(false);
+        // Snapshot world position and rotation before deactivating
+        Vector2 spawnPos = carried.transform.position;
+        Quaternion spawnRot = carried.transform.rotation;
+
+        // Push direction: from player root toward where the object was held.
+        // This naturally respects any aim angle — held behind = pushes behind, held right = pushes right.
+        Vector2 holdDir = (Vector2)carried.transform.position - (Vector2)transform.position;
+        Vector2 pushDir = holdDir.sqrMagnitude > 0.001f
+            ? holdDir.normalized
+            : new Vector2(IsFacingRight ? 1f : -1f, 0f);
+
+        carried.SetActive(false);
 
         if (entry.worldPrefab != null)
         {
-            Vector2 spawnPos = (Vector2)transform.position + dropOffset;
-            GameObject spawned = Instantiate(entry.worldPrefab, spawnPos, Quaternion.identity);
-            if (spawned.GetComponent<Rigidbody2D>() == null)
-                spawned.AddComponent<Rigidbody2D>();
+            GameObject spawned = Instantiate(entry.worldPrefab, spawnPos, spawnRot);
 
-            if (debugMode) Debug.Log($"[PickupSystem] Dropped '{spawned.name}' at {spawnPos}.");
+            Rigidbody2D rb = spawned.GetComponent<Rigidbody2D>();
+            if (rb == null)
+                rb = spawned.AddComponent<Rigidbody2D>();
+
+            Vector2 force = pushDir * dropForwardForce + Vector2.up * dropUpForce;
+            rb.AddForce(force, ForceMode2D.Impulse);
+
+            if (debugMode) Debug.Log($"[PickupSystem] Dropped '{spawned.name}' at {spawnPos} with force {force}.");
         }
         else
         {
