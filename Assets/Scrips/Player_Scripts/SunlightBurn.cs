@@ -27,8 +27,15 @@ public class SunlightBurn : MonoBehaviour
     [SerializeField] private float shakeDuration = 0.2f;
     [SerializeField] private float shakeSpeed = 15f;
 
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem smokingParticles;
+    [SerializeField] private float smokeDelay = 0.5f;
+    [SerializeField] private float smokeLingerDuration = 1.5f;
+    [SerializeField] private ParticleSystem burningParticles;
+
     private PlayerHealth _playerHealth;
     private Coroutine _burnCoroutine;
+    private Coroutine _smokeLingerCoroutine;
     private bool _isInSunlight;
 
     private void Awake()
@@ -61,11 +68,25 @@ public class SunlightBurn : MonoBehaviour
     private void StopBurn()
     {
         _isInSunlight = false;
+
         if (_burnCoroutine != null)
         {
             StopCoroutine(_burnCoroutine);
             _burnCoroutine = null;
         }
+
+        burningParticles?.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+
+        if (_smokeLingerCoroutine != null)
+            StopCoroutine(_smokeLingerCoroutine);
+        _smokeLingerCoroutine = StartCoroutine(SmokeLingerRoutine());
+    }
+
+    private IEnumerator SmokeLingerRoutine()
+    {
+        yield return new WaitForSeconds(smokeLingerDuration);
+        smokingParticles?.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        _smokeLingerCoroutine = null;
     }
 
     private bool CheckSunlightExposure()
@@ -91,7 +112,30 @@ public class SunlightBurn : MonoBehaviour
             yield break;
         }
 
-        yield return new WaitForSeconds(burnDelay);
+        // Cancel any linger still running from a previous exposure
+        if (_smokeLingerCoroutine != null)
+        {
+            StopCoroutine(_smokeLingerCoroutine);
+            _smokeLingerCoroutine = null;
+        }
+
+        // Wait before smoke starts
+        yield return new WaitForSeconds(smokeDelay);
+
+        if (!_isInSunlight) yield break;
+
+        if (smokingParticles != null && !smokingParticles.isPlaying)
+            smokingParticles.Play();
+
+        // Wait out the remaining burn delay (minus the smoke delay already elapsed)
+        float remainingBurnDelay = Mathf.Max(0f, burnDelay - smokeDelay);
+        yield return new WaitForSeconds(remainingBurnDelay);
+
+        if (!_isInSunlight) yield break;
+
+        // Damage phase begins — start burning particles
+        if (burningParticles != null && !burningParticles.isPlaying)
+            burningParticles.Play();
 
         float currentRate = !useAccelerando ? burnTickRate : accelerandoStartRate;
 
