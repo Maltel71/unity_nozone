@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Reads player state from existing systems and drives all Animator parameters
-/// from a single centralized script. Contains no gameplay logic.
+/// Fully code-driven animation controller.
+/// Directly calls Animator.Play — no Animator transitions required.
+/// Animator states must be named identically to their AnimationClip names.
 /// </summary>
 [RequireComponent(typeof(Animator))]
 public class PlayerAnimationController : MonoBehaviour
@@ -14,38 +15,36 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField] private PickupSystem pickupSystem;
     [SerializeField] private PlayerHealth playerHealth;
 
-    // ── Animator Parameters ────────────────────────────────────────────────────
-    // Bools
-    // IsMoving     → blends Idle / Walk / Run
-    // IsRunning    → selects Run over Walk
-    // IsGrounded   → used for jump/fall transitions
-    // IsJumping    → drives Player_Jump_InAir_Anim loop
-    // IsFalling    → optional fall blend
-    // IsDead       → locks into death idle after death anim finishes
-    //
-    // Triggers
-    // Jump         → Player_Jump_Anim
-    // Land         → Player_Jump_Landing_Anim
-    // Damage       → Player_TakeDamage_Anim
-    // Death        → Player_Death_Anim → Player_Death_Idle_Anim
-    // ──────────────────────────────────────────────────────────────────────────
+    [Header("Movement")]
+    [SerializeField] private AnimationClip idleAnimation;
+    [SerializeField] private AnimationClip walkAnimation;
+    [SerializeField] private AnimationClip runAnimation;
 
-    [Header("Bool Parameters")]
-    [SerializeField] private string isMovingParam = "IsMoving";
-    [SerializeField] private string isRunningParam = "IsRunning";
-    [SerializeField] private string isGroundedParam = "IsGrounded";
-    [SerializeField] private string isJumpingParam = "IsJumping";
-    [SerializeField] private string isFallingParam = "IsFalling";
-    [SerializeField] private string isDeadParam = "IsDead";
+    [Header("Jump")]
+    [SerializeField] private AnimationClip jumpAnimation;
+    [SerializeField] private AnimationClip fallAnimation;
+    [SerializeField] private AnimationClip landAnimation;
 
-    [Header("Trigger Parameters")]
-    [SerializeField] private string jumpTrigger = "Jump";
-    [SerializeField] private string landTrigger = "Land";
-    [SerializeField] private string damageTrigger = "Damage";
-    [SerializeField] private string deathTrigger = "Death";
+    [Header("Carry")]
+    [SerializeField] private AnimationClip pickupAnimation;
+    [SerializeField] private AnimationClip carryIdleAnimation;
+    [SerializeField] private AnimationClip carryWalkAnimation;
+    [SerializeField] private AnimationClip dropAnimation;
 
-    private bool _wasGrounded;
+    [Header("Combat")]
+    [SerializeField] private AnimationClip damageAnimation;
+    [SerializeField] private AnimationClip deathAnimation;
+
+    [Header("Debug")]
+    [SerializeField] private string currentAnimationName;
+
+    private string _currentClipName;
+    private bool _isDead;
     private bool _isJumping;
+    private bool _isOneShotPlaying;
+    private float _oneShotEndTime;
+    private bool _wasGrounded;
+    private bool _wasCarrying;
 
     private void Awake()
     {
@@ -54,6 +53,13 @@ public class PlayerAnimationController : MonoBehaviour
         if (movementController == null) movementController = GetComponent<CharacterController2D>();
         if (pickupSystem == null) pickupSystem = GetComponent<PickupSystem>();
         if (playerHealth == null) playerHealth = GetComponent<PlayerHealth>();
+    }
+
+    private void Start()
+    {
+        _wasGrounded = movementController != null && movementController.IsGrounded;
+        _wasCarrying = pickupSystem != null && pickupSystem.IsCarrying;
+        Play(idleAnimation);
     }
 
     private void OnEnable()
@@ -82,71 +88,122 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Update()
     {
-        UpdateMovement();
-        UpdateGrounded();
-        UpdateFalling();
+        if (_isDead) return;
+
+        // Release one-shot lock once the clip duration has elapsed
+        if (_isOneShotPlaying && Time.time >= _oneShotEndTime)
+            _isOneShotPlaying = false;
+
+        if (_isOneShotPlaying) return;
+
+        bool grounded = movementController != null && movementController.IsGrounded;
+        bool carrying = pickupSystem != null && pickupSystem.IsCarrying;
+
+        // Landing — any transition from airborne to grounded
+        if (grounded && !_wasGrounded)
+        {
+            _isJumping = false;
+            _wasGrounded = grounded;
+            _wasCarrying = carrying;
+            PlayOneShot(landAnimation);
+            return;
+        }
+        _wasGrounded = grounded;
+
+        // Pickup / drop transitions
+        if (carrying != _wasCarrying)
+        {
+            AnimationClip transitionClip = carrying ? pickupAnimation : dropAnimation;
+            _wasCarrying = carrying;
+
+            if (transitionClip != null)
+            {
+                PlayOneShot(transitionClip);
+                return;
+            }
+        }
+
+        SelectLocomotion(grounded, carrying);
     }
 
-    // ─── Movement ─────────────────────────────────────────────────────────────
+    // ─── Locomotion Selection ─────────────────────────────────────────────────
 
-    private void UpdateMovement()
+    private void SelectLocomotion(bool grounded, bool carrying)
     {
-        if (movementController == null || rb == null) return;
+        float speedX = rb != null ? Mathf.Abs(rb.linearVelocity.x) : 0f;
+        float speedY = rb != null ? rb.linearVelocity.y : 0f;
+        bool moving = speedX > 0.05f;
+        bool running = movementController != null && movementController.IsRunning && moving;
 
-        float speed = Mathf.Abs(rb.linearVelocity.x);
-        bool isMoving = speed > 0.05f;
-        bool isRunning = movementController.IsRunning && isMoving;
+        // Airborne
+        if (!grounded)
+        {
+            // Switch from jump to fall once we begin descending
+            if (_isJumping && speedY < 0f)
+                _isJumping = false;
 
-        animator.SetBool(isMovingParam, isMoving);
-        animator.SetBool(isRunningParam, isRunning);
+            Play(_isJumping ? jumpAnimation : fallAnimation);
+            return;
+        }
+
+        // Grounded + carrying
+        if (carrying)
+        {
+            Play(moving
+                ? carryWalkAnimation != null ? carryWalkAnimation : walkAnimation
+                : carryIdleAnimation != null ? carryIdleAnimation : idleAnimation);
+            return;
+        }
+
+        // Grounded locomotion
+        if (running) Play(runAnimation);
+        else if (moving) Play(walkAnimation);
+        else Play(idleAnimation);
     }
 
-    // ─── Jump / Ground ────────────────────────────────────────────────────────
+    // ─── Event Callbacks ──────────────────────────────────────────────────────
 
     private void OnJumped()
     {
         _isJumping = true;
-        animator.SetBool(isJumpingParam, true);
-        animator.SetBool(isGroundedParam, false);
-        animator.SetTrigger(jumpTrigger);
+        _isOneShotPlaying = false; // Jump always interrupts other one-shots
+        Play(jumpAnimation);
     }
-
-    private void UpdateGrounded()
-    {
-        if (movementController == null) return;
-
-        bool grounded = movementController.IsGrounded;
-        animator.SetBool(isGroundedParam, grounded);
-
-        if (grounded && !_wasGrounded && _isJumping)
-        {
-            _isJumping = false;
-            animator.SetBool(isJumpingParam, false);
-            animator.SetBool(isFallingParam, false);
-            animator.SetTrigger(landTrigger);
-        }
-
-        _wasGrounded = grounded;
-    }
-
-    private void UpdateFalling()
-    {
-        if (rb == null || movementController == null) return;
-
-        bool falling = rb.linearVelocity.y < -0.1f && !movementController.IsGrounded;
-        animator.SetBool(isFallingParam, falling);
-    }
-
-    // ─── Combat ───────────────────────────────────────────────────────────────
 
     private void OnDamaged()
     {
-        animator.SetTrigger(damageTrigger);
+        if (damageAnimation == null) return;
+        PlayOneShot(damageAnimation);
     }
 
     private void OnDied()
     {
-        animator.SetBool(isDeadParam, true);
-        animator.SetTrigger(deathTrigger);
+        _isDead = true;
+        _isOneShotPlaying = false;
+        Play(deathAnimation);
+    }
+
+    // ─── Playback Helpers ─────────────────────────────────────────────────────
+
+    /// <summary>Plays a looping or persistent animation. Skips if already playing.</summary>
+    private void Play(AnimationClip clip)
+    {
+        if (clip == null || _currentClipName == clip.name) return;
+
+        _currentClipName = clip.name;
+        currentAnimationName = clip.name;
+        animator.Play(clip.name);
+    }
+
+    /// <summary>Plays a one-shot animation and locks locomotion for its full duration.</summary>
+    private void PlayOneShot(AnimationClip clip)
+    {
+        if (clip == null) return;
+
+        _isOneShotPlaying = true;
+        _oneShotEndTime = Time.time + clip.length;
+        _currentClipName = clip.name;
+        currentAnimationName = clip.name;
+        animator.Play(clip.name);
     }
 }
