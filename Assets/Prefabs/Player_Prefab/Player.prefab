@@ -6118,6 +6118,7 @@ GameObject:
   - component: {fileID: 1980950218231887976}
   - component: {fileID: 8111291209673855131}
   - component: {fileID: 1570451540065701307}
+  - component: {fileID: 3548105596202601253}
   m_Layer: 0
   m_Name: Player_Sprite
   m_TagString: Untagged
@@ -6252,6 +6253,28 @@ MonoBehaviour:
     - rid: 3484413056370868300
       type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 
+--- !u!95 &3548105596202601253
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6165384489969994290}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 146eec5c1a1c5fa4facb09bb616b3f08, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6607796786644964004
 GameObject:
   m_ObjectHideFlags: 0
