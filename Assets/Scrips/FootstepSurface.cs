@@ -63,9 +63,9 @@ public class FootstepSurface : MonoBehaviour
         instance.setParameterByName(SurfaceParam, _currentParamValue);
         instance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
         instance.start();
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Footstep");
         instance.release();
 
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Footstep");
     }
      
 
