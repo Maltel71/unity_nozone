@@ -87,9 +87,17 @@ public class Hotbar : MonoBehaviour
         }
     }
 
-    // Returns true if item was added or stacked
+    // Returns true if item was added, stacked, or consumed instantly
     public bool TryAddItem(ItemData item)
     {
+        // Instant-use items apply their effect immediately and never occupy a slot
+        if (item.useInstantly)
+        {
+            ApplyItemEffect(item);
+            Debug.Log($"Used '{item.itemName}' instantly on pickup.");
+            return true;
+        }
+
         // Try to stack first
         if (item.isStackable)
         {
@@ -116,6 +124,17 @@ public class Hotbar : MonoBehaviour
 
         Debug.Log("Hotbar is full.");
         return false;
+    }
+
+    private void ApplyItemEffect(ItemData item)
+    {
+        switch (item.itemType)
+        {
+            case ItemType.Consumable:
+                if (item.healAmount > 0f && _playerHealth != null)
+                    _playerHealth.Heal(item.healAmount);
+                break;
+        }
     }
 
     public void SetItem(int index, ItemData item)
