@@ -55,6 +55,12 @@ public class PickupSystem : MonoBehaviour
     public bool CanRun => !IsCarrying || !disableRunWhileCarrying;
     public bool CanJump => !IsCarrying || !disableJumpWhileCarrying;
 
+    /// <summary>World transform of the currently held object, or null if not carrying.</summary>
+    public Transform CarriedObjectTransform =>
+        _activeIndex >= 0 && carriedObjects[_activeIndex].carriedObject != null
+            ? carriedObjects[_activeIndex].carriedObject.transform
+            : null;
+
     private bool IsFacingRight => transform.localScale.x >= 0f;
 
     private void Awake()
@@ -194,12 +200,9 @@ public class PickupSystem : MonoBehaviour
         CarriedObjectEntry entry = carriedObjects[_activeIndex];
         GameObject carried = entry.carriedObject;
 
-        // Snapshot world position and rotation before deactivating
         Vector2 spawnPos = carried.transform.position;
         Quaternion spawnRot = carried.transform.rotation;
 
-        // Push direction: from player root toward where the object was held.
-        // This naturally respects any aim angle — held behind = pushes behind, held right = pushes right.
         Vector2 holdDir = (Vector2)carried.transform.position - (Vector2)transform.position;
         Vector2 pushDir = holdDir.sqrMagnitude > 0.001f
             ? holdDir.normalized
@@ -244,7 +247,6 @@ public class PickupSystem : MonoBehaviour
         {
             Vector2 aimDir = GetAimDirection();
 
-            // Only update the cached direction when there is real input
             if (aimDir != Vector2.zero)
                 _lastAimDir = aimDir;
 
@@ -271,13 +273,8 @@ public class PickupSystem : MonoBehaviour
         carried.transform.localRotation = Quaternion.identity;
     }
 
-    /// <summary>
-    /// Returns a normalised aim direction from the right stick (if above deadzone)
-    /// or the mouse (if available), or Vector2.zero if neither provides input.
-    /// </summary>
     private Vector2 GetAimDirection()
     {
-        // Gamepad right stick takes priority when above deadzone
         var pad = Gamepad.current;
         if (pad != null)
         {
@@ -286,7 +283,6 @@ public class PickupSystem : MonoBehaviour
                 return stick.normalized;
         }
 
-        // Fall back to mouse
         if (Mouse.current != null && Camera.main != null)
         {
             Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());

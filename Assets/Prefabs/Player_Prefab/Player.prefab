@@ -605,6 +605,7 @@ GameObject:
   - component: {fileID: 643191220365695202}
   - component: {fileID: 719419349147150118}
   - component: {fileID: 3327317419741800295}
+  - component: {fileID: 8460090091997757215}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -794,7 +795,6 @@ MonoBehaviour:
   shakeSpeed: 0.5
   smokingParticles: {fileID: 4669322437704402666}
   smokeDelay: 0.5
-  smokeLingerDuration: 1.5
   burningParticles: {fileID: 7455080076571875855}
 --- !u!114 &4433857002374170856
 MonoBehaviour:
@@ -902,6 +902,25 @@ MonoBehaviour:
   quitButton: {fileID: 5750645231359272074}
   pauseKey: 60
   mainMenuSceneName: Scene_MainMenu
+--- !u!114 &8460090091997757215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3725225455785822181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4da12f995a8c0104ca7b1b2fb47ecea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerArms
+  leftArm: {fileID: 0}
+  rightArm: {fileID: 0}
+  leftArmRestAngle: 0
+  rightArmRestAngle: 0
+  leftArmHoldOffset: 90
+  rightArmHoldOffset: 90
+  rotationSpeed: 12
 --- !u!1 &4103302617610713534
 GameObject:
   m_ObjectHideFlags: 0

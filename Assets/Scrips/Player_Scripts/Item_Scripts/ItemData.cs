@@ -16,4 +16,5 @@ public class ItemData : ScriptableObject
     [Header("Usage")]
     public ItemType itemType = ItemType.Consumable;
     public float healAmount = 0f;
+    public bool useInstantly = false;
 }

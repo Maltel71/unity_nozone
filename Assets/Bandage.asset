@@ -18,3 +18,4 @@ MonoBehaviour:
   maxStack: 10
   itemType: 0
   healAmount: 100
+  useInstantly: 1
