@@ -849,7 +849,8 @@ MonoBehaviour:
   pickupRange: 2
   largeObjectTags:
   - Shell
-  smallItemTags: []
+  smallItemTags:
+  - Bandage
   dropForwardForce: 5
   dropUpForce: 7
   holdOffset: {x: 0, y: 1.5}
@@ -12364,7 +12365,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4141673946393690209, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
       propertyPath: m_PointLightInnerRadius
-      value: 650
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4141673946393690209, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9069977017746738512, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+      propertyPath: orbitRadius
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 9069977017746738512, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
       propertyPath: teleportDelay
