@@ -36,8 +36,17 @@ public class DayNightCycle : MonoBehaviour
     [Header("Gameplay")]
     [SerializeField] private bool burnEnabledAtNight = false;
 
+    [Header("FMOD")]
+    [SerializeField] private string fmodParameterName = "DayNight";
+
     private CycleState _state;
     private float _currentSunAngle;
+
+    // FMOD parameter values
+    private const float FmodDay = 0f;
+    private const float FmodSunset = 1f;
+    private const float FmodNight = 2f;
+    private const float FmodSunrise = 3f;
 
     private float SunRotationSpeed => Mathf.Abs(sunEndAngle - sunStartAngle) / dayDuration;
     private float SunDirection => Mathf.Sign(sunEndAngle - sunStartAngle);
@@ -67,6 +76,7 @@ public class DayNightCycle : MonoBehaviour
         PlaceSun(_currentSunAngle);
 
         _state = CycleState.Day;
+        SetFmodParameter(FmodDay);
         StartCoroutine(DayRoutine());
     }
 
@@ -75,6 +85,7 @@ public class DayNightCycle : MonoBehaviour
     private IEnumerator DayRoutine()
     {
         _state = CycleState.Day;
+        SetFmodParameter(FmodDay);
 
         float elapsed = 0f;
         while (elapsed < dayDuration)
@@ -93,11 +104,11 @@ public class DayNightCycle : MonoBehaviour
     }
 
     // ─── Sunset ───────────────────────────────────────────────────────────────
-    // Sun fades out while night light fades in simultaneously. Sun keeps rotating.
 
     private IEnumerator SunsetRoutine()
     {
         _state = CycleState.Sunset;
+        SetFmodParameter(FmodSunset);
 
         if (nightLight != null)
         {
@@ -128,7 +139,6 @@ public class DayNightCycle : MonoBehaviour
 
         yield return new WaitForSeconds(teleportDelay);
 
-        // Teleport sun back to start and disable
         _currentSunAngle = sunStartAngle;
         PlaceSun(_currentSunAngle);
         if (sunLight != null) sunLight.enabled = false;
@@ -137,11 +147,11 @@ public class DayNightCycle : MonoBehaviour
     }
 
     // ─── Night ────────────────────────────────────────────────────────────────
-    // Sun is disabled and stays still. Night light is already at full intensity.
 
     private IEnumerator NightRoutine()
     {
         _state = CycleState.Night;
+        SetFmodParameter(FmodNight);
 
         yield return new WaitForSeconds(nightDuration);
 
@@ -149,11 +159,11 @@ public class DayNightCycle : MonoBehaviour
     }
 
     // ─── Sunrise ──────────────────────────────────────────────────────────────
-    // Night light fades out while sun fades in simultaneously. Sun keeps rotating.
 
     private IEnumerator SunriseRoutine()
     {
         _state = CycleState.Sunrise;
+        SetFmodParameter(FmodSunrise);
 
         if (sunLight != null)
         {
@@ -186,8 +196,8 @@ public class DayNightCycle : MonoBehaviour
             nightLight.enabled = false;
         }
 
-        // Continue rotating until we reach sunEndAngle
         _state = CycleState.Day;
+        SetFmodParameter(FmodDay);
 
         while (SunDirection > 0f ? _currentSunAngle < sunEndAngle : _currentSunAngle > sunEndAngle)
         {
@@ -203,6 +213,13 @@ public class DayNightCycle : MonoBehaviour
         PlaceSun(_currentSunAngle);
 
         StartCoroutine(SunsetRoutine());
+    }
+
+    // ─── FMOD ─────────────────────────────────────────────────────────────────
+
+    private void SetFmodParameter(float value)
+    {
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName(fmodParameterName, value);
     }
 
     // ─── Helpers ──────────────────────────────────────────────────────────────
