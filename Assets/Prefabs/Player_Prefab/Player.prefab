@@ -974,6 +974,7 @@ MonoBehaviour:
   dropAnimation: {fileID: 0}
   damageAnimation: {fileID: 7400000, guid: 66698edbd2731bc49858508500b03e1a, type: 2}
   deathAnimation: {fileID: 7400000, guid: b426324328e75b344a1b84e35dd892a3, type: 2}
+  deathIdleAnimation: {fileID: 7400000, guid: 244ffc4cb5707064586652352904ed77, type: 2}
   currentAnimationName: 
 --- !u!1 &4103302617610713534
 GameObject:
