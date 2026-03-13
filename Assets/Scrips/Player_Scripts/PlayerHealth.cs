@@ -24,6 +24,9 @@ public class PlayerHealth : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Slider healthBar;
 
+    public event System.Action OnDamaged;
+    public event System.Action OnDied;
+
     private float _currentHealth;
     private float _regenDelayTimer;
     private float _currentRegenRate;
@@ -32,6 +35,8 @@ public class PlayerHealth : MonoBehaviour
     private Animator _animator;
     private PlayerInputHandler _inputHandler;
     private CharacterController2D _controller;
+
+    public bool IsDead => _isDead;
 
     private void Awake()
     {
@@ -58,6 +63,8 @@ public class PlayerHealth : MonoBehaviour
         _currentHealth = Mathf.Max(_currentHealth - amount, 0f);
         ResetRegen();
         UpdateBar();
+
+        OnDamaged?.Invoke();
 
         if (_currentHealth <= 0f)
             Die();
@@ -117,6 +124,8 @@ public class PlayerHealth : MonoBehaviour
 
         if (_animator != null && !string.IsNullOrEmpty(deathAnimationTrigger))
             _animator.SetTrigger(deathAnimationTrigger);
+
+        OnDied?.Invoke();
 
         StartCoroutine(ShowGameOverAfterDelay());
     }
