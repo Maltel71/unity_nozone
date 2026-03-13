@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccc619dd569b7ab4b921df5a3282155c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageZone
-  damage: 50
+  damage: 150
   damageInterval: 0.5
   playerTag: Player
 --- !u!61 &8277466876064423076
