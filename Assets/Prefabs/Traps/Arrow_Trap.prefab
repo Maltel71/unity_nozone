@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -459.17, y: -86.8, z: 0}
-  m_LocalScale: {x: 5.1529, y: 1, z: 1}
+  m_LocalScale: {x: 1.5538023, y: 1.4348079, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8353029525461449412}
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ba1e33a1e12aef47964151eb45533f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec5e60213742513488f959df73d2bfca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrapShooter
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 117754570924680855, guid: 1c3f4b21a638816488e3e61327e62013, type: 3}
   shootPoint: {fileID: 8353029525461449412}
   shootForce: 10
   shootCount: 1
@@ -137,7 +137,7 @@ Transform:
   m_GameObject: {fileID: 3186826363834582516}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: -0.7680001, y: 0, z: 0}
+  m_LocalPosition: {x: -0.03, y: 1.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -239,7 +239,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.004147649, y: 2.5794919}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -249,5 +249,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9063488, y: 8.385555}
   m_EdgeRadius: 0
