@@ -97,6 +97,7 @@ public class SunlightBurn : MonoBehaviour
 
         while (_isInSunlight)
         {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Reaction/Burning");
             _playerHealth.TakeDamage(burnDamagePerTick, DamageSource.Sunlight);
             yield return new WaitForSeconds(currentRate);
 
