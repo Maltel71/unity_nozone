@@ -606,8 +606,8 @@ GameObject:
   - component: {fileID: 719419349147150118}
   - component: {fileID: 3327317419741800295}
   - component: {fileID: 8460090091997757215}
-  - component: {fileID: 3488600937956000325}
-  - component: {fileID: 1031492004963885554}
+  - component: {fileID: 7718452915739545835}
+  - component: {fileID: 2787176234781608937}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -811,10 +811,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StaminaSystem
   maxStamina: 1000
-  runDrainPerSecond: 2
-  walkDrainPerSecond: 1
-  regenPerSecond: 30
   jumpCost: 8
+  runStaminaCostPerSecond: 15
+  idleStaminaRegenRate: 10
+  walkStaminaRegenRate: 2
   regenDelay: 1
   regenAcceleration: 5
   reducedJumpMultiplier: 0.5
@@ -923,7 +923,7 @@ MonoBehaviour:
   leftArmHoldOffset: 90
   rightArmHoldOffset: 90
   rotationSpeed: 12
---- !u!95 &3488600937956000325
+--- !u!95 &7718452915739545835
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -945,7 +945,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1031492004963885554
+--- !u!114 &2787176234781608937
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -957,28 +957,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c508ba6614a1b549815947f34097ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
-  animator: {fileID: 3488600937956000325}
+  animator: {fileID: 7718452915739545835}
   rb: {fileID: 6173971472068626119}
   movementController: {fileID: 1859069764144588568}
   pickupSystem: {fileID: 643191220365695202}
   playerHealth: {fileID: 8342907246752658871}
-  moveSpeedParameter: MoveSpeed
-  isMovingParameter: IsMoving
-  isRunningParameter: IsRunning
-  isJumpingParameter: IsJumping
-  isFallingParameter: IsFalling
-  isGroundedParameter: IsGrounded
-  isCarryingParameter: IsCarrying
-  carryTypeParameter: CarryType
-  isTakingDamageParameter: IsTakingDamage
-  isDeadParameter: IsDead
-  isSleepingParameter: IsSleeping
-  jumpTrigger: Jump
-  landTrigger: Land
-  pickupTrigger: Pickup
-  dropTrigger: Drop
-  damageTrigger: Damage
-  deathTrigger: Death
+  idleAnimation: {fileID: 7400000, guid: dae605b9706cb2f4ca950382c542ca0c, type: 2}
+  walkAnimation: {fileID: 7400000, guid: 24d8da49bc9abfc4ea9f15a81bfd5a66, type: 2}
+  runAnimation: {fileID: 7400000, guid: 77163d5dc7e4acb469dfb6fabcdfa276, type: 2}
+  jumpAnimation: {fileID: 7400000, guid: e350af6f8039c83459f6d600f6691336, type: 2}
+  fallAnimation: {fileID: 7400000, guid: 3ef9550c7a0a70242bf9ea79580f8dea, type: 2}
+  landAnimation: {fileID: 7400000, guid: 84bc43277dbf78f41b7e8ebd6da25e0d, type: 2}
+  pickupAnimation: {fileID: 0}
+  carryIdleAnimation: {fileID: 0}
+  carryWalkAnimation: {fileID: 0}
+  dropAnimation: {fileID: 0}
+  damageAnimation: {fileID: 7400000, guid: 66698edbd2731bc49858508500b03e1a, type: 2}
+  deathAnimation: {fileID: 7400000, guid: b426324328e75b344a1b84e35dd892a3, type: 2}
+  currentAnimationName: 
 --- !u!1 &4103302617610713534
 GameObject:
   m_ObjectHideFlags: 0
@@ -6193,8 +6189,8 @@ Transform:
   m_GameObject: {fileID: 6165384489969994290}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.254, y: 0.035, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.07, y: -0.105, z: 0}
+  m_LocalScale: {x: 0.3712239, y: 0.3712239, z: 0.3712239}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6232611832188350168}
