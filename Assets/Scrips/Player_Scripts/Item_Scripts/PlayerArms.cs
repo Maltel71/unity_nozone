@@ -1,9 +1,8 @@
 using UnityEngine;
 
 /// <summary>
-/// Rotates the player's arm sprites toward the carried object when holding one,
-/// and returns them to their rest angles when idle.
-/// Attach to the player root alongside PickupSystem.
+/// Rotates the player's arm sprites toward the carried object when holding one.
+/// When free, arms swing during walk/run and angle forward when airborne.
 /// </summary>
 public class PlayerArms : MonoBehaviour
 {
@@ -21,47 +20,98 @@ public class PlayerArms : MonoBehaviour
     [SerializeField] private float leftArmHoldOffset = 0f;
     [SerializeField] private float rightArmHoldOffset = 0f;
 
+    [Header("Walk Swing")]
+    [SerializeField] private float walkSwingMin = -25f;
+    [SerializeField] private float walkSwingMax = 25f;
+    [SerializeField] private float walkSwingSpeed = 6f;
+
+    [Header("Run Swing")]
+    [SerializeField] private float runSwingMin = -45f;
+    [SerializeField] private float runSwingMax = 45f;
+    [SerializeField] private float runSwingSpeed = 10f;
+
+    [Header("Jump")]
+    [SerializeField] private float jumpLeftArmAngle = 35f;
+    [SerializeField] private float jumpRightArmAngle = -35f;
+
     [Header("Smoothing")]
     [SerializeField] private float rotationSpeed = 12f;
 
     private PickupSystem _pickup;
+    private CharacterController2D _controller;
+    private Rigidbody2D _rb;
+
+    private float _swingTime;
 
     private void Awake()
     {
         _pickup = GetComponent<PickupSystem>();
+        _controller = GetComponent<CharacterController2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
-    // LateUpdate so we always run after PickupSystem has positioned the held object
     private void LateUpdate()
     {
+        AdvanceSwing();
+
         if (leftArm != null)
-            UpdateArm(leftArm, leftArmRestAngle, leftArmHoldOffset);
+            UpdateArm(leftArm, leftArmRestAngle, leftArmHoldOffset, leftArmJumpAngle: jumpLeftArmAngle, swingPhase: 0f);
 
         if (rightArm != null)
-            UpdateArm(rightArm, rightArmRestAngle, rightArmHoldOffset);
+            UpdateArm(rightArm, rightArmRestAngle, rightArmHoldOffset, leftArmJumpAngle: jumpRightArmAngle, swingPhase: Mathf.PI);
     }
 
-    private void UpdateArm(Transform arm, float restAngle, float holdOffset)
+    private void AdvanceSwing()
     {
-        Quaternion targetRotation;
+        bool grounded = _controller != null && _controller.IsGrounded;
+        bool moving = _rb != null && Mathf.Abs(_rb.linearVelocity.x) > 0.05f;
 
+        if (grounded && moving)
+        {
+            bool running = _controller != null && _controller.IsRunning;
+            float speed = running ? runSwingSpeed : walkSwingSpeed;
+            _swingTime += Time.deltaTime * speed;
+        }
+        else if (grounded)
+        {
+            _swingTime = 0f;
+        }
+    }
+
+    private void UpdateArm(Transform arm, float restAngle, float holdOffset, float leftArmJumpAngle, float swingPhase)
+    {
         Transform carried = _pickup != null ? _pickup.CarriedObjectTransform : null;
 
         if (carried != null)
         {
-            // World-space angle from this arm's pivot toward the held object
             Vector2 dir = (Vector2)carried.position - (Vector2)arm.position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + holdOffset;
-            targetRotation = Quaternion.Euler(0f, 0f, angle);
+            arm.rotation = Quaternion.Lerp(arm.rotation, Quaternion.Euler(0f, 0f, angle), rotationSpeed * Time.deltaTime);
+            return;
+        }
 
-            // Smoothly rotate in world space
-            arm.rotation = Quaternion.Lerp(arm.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        bool grounded = _controller != null && _controller.IsGrounded;
+        bool running = _controller != null && _controller.IsRunning;
+        bool moving = _rb != null && Mathf.Abs(_rb.linearVelocity.x) > 0.05f;
+
+        float targetAngle;
+
+        if (!grounded)
+        {
+            targetAngle = restAngle + leftArmJumpAngle;
+        }
+        else if (moving)
+        {
+            float min = running ? runSwingMin : walkSwingMin;
+            float max = running ? runSwingMax : walkSwingMax;
+            float t = Mathf.Sin(_swingTime + swingPhase) * 0.5f + 0.5f;
+            targetAngle = restAngle + Mathf.Lerp(min, max, t);
         }
         else
         {
-            // Smoothly return to rest local rotation
-            targetRotation = Quaternion.Euler(0f, 0f, restAngle);
-            arm.localRotation = Quaternion.Lerp(arm.localRotation, targetRotation, rotationSpeed * Time.deltaTime);
+            targetAngle = restAngle;
         }
+
+        arm.localRotation = Quaternion.Lerp(arm.localRotation, Quaternion.Euler(0f, 0f, targetAngle), rotationSpeed * Time.deltaTime);
     }
 }
