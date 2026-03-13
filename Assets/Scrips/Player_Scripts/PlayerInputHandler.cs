@@ -51,9 +51,6 @@ public class PlayerInputHandler : MonoBehaviour
         HandleStaminaTick();
     }
 
-    /// <summary>
-    /// Disables all player input and stops movement. Called on death.
-    /// </summary>
     public void DisableInput()
     {
         _inputDisabled = true;
@@ -159,9 +156,9 @@ public class PlayerInputHandler : MonoBehaviour
         if (_isRunning && _isMoving)
             _stamina.DrainRunStamina(Time.deltaTime);
         else if (_isMoving)
-            _stamina.DrainWalkStamina(Time.deltaTime);
+            _stamina.RegenerateWalk(Time.deltaTime);
         else
-            _stamina.RegenerateStamina(Time.deltaTime);
+            _stamina.RegenerateIdle(Time.deltaTime);
     }
 
     private void HandleCrouch()

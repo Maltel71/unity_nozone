@@ -606,6 +606,8 @@ GameObject:
   - component: {fileID: 719419349147150118}
   - component: {fileID: 3327317419741800295}
   - component: {fileID: 8460090091997757215}
+  - component: {fileID: 3488600937956000325}
+  - component: {fileID: 1031492004963885554}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -921,6 +923,62 @@ MonoBehaviour:
   leftArmHoldOffset: 90
   rightArmHoldOffset: 90
   rotationSpeed: 12
+--- !u!95 &3488600937956000325
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3725225455785822181}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1031492004963885554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3725225455785822181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c508ba6614a1b549815947f34097ec5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
+  animator: {fileID: 3488600937956000325}
+  rb: {fileID: 6173971472068626119}
+  movementController: {fileID: 1859069764144588568}
+  pickupSystem: {fileID: 643191220365695202}
+  playerHealth: {fileID: 8342907246752658871}
+  moveSpeedParameter: MoveSpeed
+  isMovingParameter: IsMoving
+  isRunningParameter: IsRunning
+  isJumpingParameter: IsJumping
+  isFallingParameter: IsFalling
+  isGroundedParameter: IsGrounded
+  isCarryingParameter: IsCarrying
+  carryTypeParameter: CarryType
+  isTakingDamageParameter: IsTakingDamage
+  isDeadParameter: IsDead
+  isSleepingParameter: IsSleeping
+  jumpTrigger: Jump
+  landTrigger: Land
+  pickupTrigger: Pickup
+  dropTrigger: Drop
+  damageTrigger: Damage
+  deathTrigger: Death
 --- !u!1 &4103302617610713534
 GameObject:
   m_ObjectHideFlags: 0
