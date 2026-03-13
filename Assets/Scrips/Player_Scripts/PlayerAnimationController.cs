@@ -34,6 +34,7 @@ public class PlayerAnimationController : MonoBehaviour
     [Header("Combat")]
     [SerializeField] private AnimationClip damageAnimation;
     [SerializeField] private AnimationClip deathAnimation;
+    [SerializeField] private AnimationClip deathIdleAnimation;
 
     [Header("Debug")]
     [SerializeField] private string currentAnimationName;
@@ -45,6 +46,7 @@ public class PlayerAnimationController : MonoBehaviour
     private float _oneShotEndTime;
     private bool _wasGrounded;
     private bool _wasCarrying;
+    private bool _deathIdlePlaying;
 
     private void Awake()
     {
@@ -88,7 +90,16 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Update()
     {
-        if (_isDead) return;
+        // During death: wait for death anim to finish, then lock on death idle
+        if (_isDead)
+        {
+            if (!_deathIdlePlaying && Time.time >= _oneShotEndTime)
+            {
+                _deathIdlePlaying = true;
+                Play(deathIdleAnimation);
+            }
+            return;
+        }
 
         // Release one-shot lock once the clip duration has elapsed
         if (_isOneShotPlaying && Time.time >= _oneShotEndTime)
@@ -138,7 +149,6 @@ public class PlayerAnimationController : MonoBehaviour
         // Airborne
         if (!grounded)
         {
-            // Switch from jump to fall once we begin descending
             if (_isJumping && speedY < 0f)
                 _isJumping = false;
 
@@ -166,7 +176,7 @@ public class PlayerAnimationController : MonoBehaviour
     private void OnJumped()
     {
         _isJumping = true;
-        _isOneShotPlaying = false; // Jump always interrupts other one-shots
+        _isOneShotPlaying = false;
         Play(jumpAnimation);
     }
 
@@ -179,7 +189,13 @@ public class PlayerAnimationController : MonoBehaviour
     private void OnDied()
     {
         _isDead = true;
+        _deathIdlePlaying = false;
         _isOneShotPlaying = false;
+
+        // Use _oneShotEndTime to know when to switch to death idle
+        float duration = deathAnimation != null ? deathAnimation.length : 0f;
+        _oneShotEndTime = Time.time + duration;
+
         Play(deathAnimation);
     }
 
