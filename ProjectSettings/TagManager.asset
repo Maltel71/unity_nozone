@@ -8,6 +8,9 @@ TagManager:
   - Small_Item
   - Enemy
   - Shell
+  - Dirt
+  - Metal
+  - Concrete
   layers:
   - Default
   - TransparentFX
