@@ -5,12 +5,16 @@ public class StaminaSystem : MonoBehaviour
 {
     [Header("Stamina")]
     [SerializeField] private float maxStamina = 100f;
-    [SerializeField] private float runDrainPerSecond = 15f;
-    [SerializeField] private float walkDrainPerSecond = 0f;
-    [SerializeField] private float regenPerSecond = 10f;
     [SerializeField] private float jumpCost = 10f;
 
-    [Header("Regen")]
+    [Header("Run Cost")]
+    [SerializeField] private float runStaminaCostPerSecond = 15f;
+
+    [Header("Regeneration")]
+    [SerializeField] private float idleStaminaRegenRate = 10f;
+    [SerializeField] private float walkStaminaRegenRate = 2f;
+
+    [Header("Regen Delay")]
     [SerializeField] private float regenDelay = 1.5f;
     [SerializeField] private float regenAcceleration = 5f; // rate/sec² the regen speeds up
 
@@ -46,28 +50,37 @@ public class StaminaSystem : MonoBehaviour
 
     public void DrainRunStamina(float deltaTime)
     {
-        _currentStamina = Mathf.Max(_currentStamina - runDrainPerSecond * deltaTime, 0f);
+        _currentStamina = Mathf.Max(_currentStamina - runStaminaCostPerSecond * deltaTime, 0f);
         ResetRegen();
         UpdateBar();
     }
 
-    public void DrainWalkStamina(float deltaTime)
+    public void RegenerateIdle(float deltaTime)
     {
-        _currentStamina = Mathf.Max(_currentStamina - walkDrainPerSecond * deltaTime, 0f);
-        ResetRegen();
-        UpdateBar();
-    }
+        if (Mathf.Approximately(_currentStamina, maxStamina)) return;
 
-    public void RegenerateStamina(float deltaTime)
-    {
         if (_regenDelayTimer > 0f)
         {
             _regenDelayTimer -= deltaTime;
             return;
         }
 
-        _currentRegenRate = Mathf.Min(_currentRegenRate + regenAcceleration * deltaTime, regenPerSecond);
+        _currentRegenRate = Mathf.Min(_currentRegenRate + regenAcceleration * deltaTime, idleStaminaRegenRate);
         _currentStamina = Mathf.Min(_currentStamina + _currentRegenRate * deltaTime, maxStamina);
+        UpdateBar();
+    }
+
+    public void RegenerateWalk(float deltaTime)
+    {
+        if (Mathf.Approximately(_currentStamina, maxStamina)) return;
+
+        if (_regenDelayTimer > 0f)
+        {
+            _regenDelayTimer -= deltaTime;
+            return;
+        }
+
+        _currentStamina = Mathf.Min(_currentStamina + walkStaminaRegenRate * deltaTime, maxStamina);
         UpdateBar();
     }
 
