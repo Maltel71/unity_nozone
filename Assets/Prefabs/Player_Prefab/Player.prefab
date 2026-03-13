@@ -827,7 +827,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -1044,6 +1044,14 @@ MonoBehaviour:
   rightArmRestAngle: 0
   leftArmHoldOffset: 90
   rightArmHoldOffset: 90
+  walkSwingMin: -25
+  walkSwingMax: 25
+  walkSwingSpeed: 6
+  runSwingMin: -45
+  runSwingMax: 45
+  runSwingSpeed: 10
+  jumpLeftArmAngle: 35
+  jumpRightArmAngle: -35
   rotationSpeed: 12
 --- !u!95 &7718452915739545835
 Animator:
