@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6868778082711846056}
   m_Layer: 6
   m_Name: Metalplatform_02
-  m_TagString: Untagged
+  m_TagString: Metal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

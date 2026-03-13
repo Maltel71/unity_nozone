@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2029015725781498128}
   m_Layer: 6
   m_Name: Platform_01
-  m_TagString: Ground
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
