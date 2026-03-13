@@ -11,6 +11,7 @@ TagManager:
   - Dirt
   - Metal
   - Concrete
+  - Bandage
   layers:
   - Default
   - TransparentFX
