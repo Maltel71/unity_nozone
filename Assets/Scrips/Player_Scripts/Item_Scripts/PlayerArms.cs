@@ -3,6 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Rotates the player's arm sprites toward the carried object when holding one.
 /// When free, arms swing during walk/run and angle forward when airborne.
+/// On death, arms smoothly drop downward.
 /// </summary>
 public class PlayerArms : MonoBehaviour
 {
@@ -37,21 +38,61 @@ public class PlayerArms : MonoBehaviour
     [Header("Smoothing")]
     [SerializeField] private float rotationSpeed = 12f;
 
+    [Header("Death Drop")]
+    [SerializeField] private float deathDropAmount = 0.4f;
+    [SerializeField] private float deathDropSpeed = 4f;
+
     private PickupSystem _pickup;
     private CharacterController2D _controller;
     private Rigidbody2D _rb;
+    private PlayerHealth _playerHealth;
 
     private float _swingTime;
+    private bool _isDead;
+    private float _leftArmBaseY;
+    private float _rightArmBaseY;
+    private float _currentDropOffset;
 
     private void Awake()
     {
         _pickup = GetComponent<PickupSystem>();
         _controller = GetComponent<CharacterController2D>();
         _rb = GetComponent<Rigidbody2D>();
+        _playerHealth = GetComponent<PlayerHealth>();
+    }
+
+    private void Start()
+    {
+        if (leftArm != null) _leftArmBaseY = leftArm.localPosition.y;
+        if (rightArm != null) _rightArmBaseY = rightArm.localPosition.y;
+    }
+
+    private void OnEnable()
+    {
+        if (_playerHealth != null)
+            _playerHealth.OnDied += OnDied;
+    }
+
+    private void OnDisable()
+    {
+        if (_playerHealth != null)
+            _playerHealth.OnDied -= OnDied;
+    }
+
+    private void OnDied()
+    {
+        _isDead = true;
     }
 
     private void LateUpdate()
     {
+        if (_isDead)
+        {
+            _currentDropOffset = Mathf.MoveTowards(_currentDropOffset, deathDropAmount, deathDropSpeed * Time.deltaTime);
+            ApplyDropOffset();
+            return;
+        }
+
         AdvanceSwing();
 
         if (leftArm != null)
@@ -59,6 +100,23 @@ public class PlayerArms : MonoBehaviour
 
         if (rightArm != null)
             UpdateArm(rightArm, rightArmRestAngle, rightArmHoldOffset, leftArmJumpAngle: jumpRightArmAngle, swingPhase: Mathf.PI);
+    }
+
+    private void ApplyDropOffset()
+    {
+        if (leftArm != null)
+        {
+            Vector3 pos = leftArm.localPosition;
+            pos.y = _leftArmBaseY - _currentDropOffset;
+            leftArm.localPosition = pos;
+        }
+
+        if (rightArm != null)
+        {
+            Vector3 pos = rightArm.localPosition;
+            pos.y = _rightArmBaseY - _currentDropOffset;
+            rightArm.localPosition = pos;
+        }
     }
 
     private void AdvanceSwing()

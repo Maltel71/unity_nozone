@@ -225,6 +225,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5069415429255980670}
+  - {fileID: 6397766456463169372}
   m_Father: {fileID: 6232611832188350168}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &546081785372980295
@@ -760,7 +761,6 @@ Transform:
   - {fileID: 551737016537850237}
   - {fileID: 1523423907913795105}
   - {fileID: 6746453216074805315}
-  - {fileID: 6397766456463169372}
   - {fileID: 3468451604372917053}
   - {fileID: 6302504927488266575}
   - {fileID: 6124598205375680703}
@@ -1053,6 +1053,8 @@ MonoBehaviour:
   jumpLeftArmAngle: 35
   jumpRightArmAngle: -35
   rotationSpeed: 12
+  deathDropAmount: 1
+  deathDropSpeed: 2
 --- !u!95 &7718452915739545835
 Animator:
   serializedVersion: 7
@@ -1632,12 +1634,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6012942460861703769}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.269, y: 0.419, z: 0}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.14699996, y: 0.17899998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6232611832188350168}
+  m_Father: {fileID: 6124598205375680703}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &4669322437704402666
 ParticleSystem:
