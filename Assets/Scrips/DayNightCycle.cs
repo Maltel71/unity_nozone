@@ -33,6 +33,9 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] private Vector2 orbitCenter = Vector2.zero;
     [SerializeField] private float orbitRadius = 20f;
 
+    [Header("Night Sky")]
+    [SerializeField] private SpriteRenderer nightSkyRenderer;
+
     [Header("Gameplay")]
     [SerializeField] private bool burnEnabledAtNight = false;
 
@@ -42,7 +45,6 @@ public class DayNightCycle : MonoBehaviour
     private CycleState _state;
     private float _currentSunAngle;
 
-    // FMOD parameter values
     private const float FmodDay = 0f;
     private const float FmodSunset = 1f;
     private const float FmodNight = 2f;
@@ -64,6 +66,8 @@ public class DayNightCycle : MonoBehaviour
             nightLight.intensity = 0f;
             nightLight.enabled = false;
         }
+
+        SetNightSkyAlpha(0f);
 
         _currentSunAngle = sunStartAngle;
 
@@ -131,11 +135,14 @@ public class DayNightCycle : MonoBehaviour
             if (nightLight != null)
                 nightLight.intensity = Mathf.Lerp(0f, nightLightIntensity, t);
 
+            SetNightSkyAlpha(t);
+
             yield return null;
         }
 
         if (sunLight != null) sunLight.intensity = 0f;
         if (nightLight != null) nightLight.intensity = nightLightIntensity;
+        SetNightSkyAlpha(1f);
 
         yield return new WaitForSeconds(teleportDelay);
 
@@ -186,6 +193,8 @@ public class DayNightCycle : MonoBehaviour
             if (nightLight != null)
                 nightLight.intensity = Mathf.Lerp(nightLightIntensity, 0f, t);
 
+            SetNightSkyAlpha(1f - t);
+
             yield return null;
         }
 
@@ -195,6 +204,7 @@ public class DayNightCycle : MonoBehaviour
             nightLight.intensity = 0f;
             nightLight.enabled = false;
         }
+        SetNightSkyAlpha(0f);
 
         _state = CycleState.Day;
         SetFmodParameter(FmodDay);
@@ -223,6 +233,14 @@ public class DayNightCycle : MonoBehaviour
     }
 
     // ─── Helpers ──────────────────────────────────────────────────────────────
+
+    private void SetNightSkyAlpha(float alpha)
+    {
+        if (nightSkyRenderer == null) return;
+        Color c = nightSkyRenderer.color;
+        c.a = alpha;
+        nightSkyRenderer.color = c;
+    }
 
     private void PlaceSun(float angleDeg)
     {
