@@ -1130,7 +1130,9 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
-  surfaces: []
+  surfaces:
+  - tag: 
+    parameterValue: 0
 --- !u!1 &4103302617610713534
 GameObject:
   m_ObjectHideFlags: 0
@@ -6452,6 +6454,7 @@ GameObject:
   - component: {fileID: 8111291209673855131}
   - component: {fileID: 1570451540065701307}
   - component: {fileID: 3548105596202601253}
+  - component: {fileID: 8667837965723606057}
   m_Layer: 0
   m_Name: Player_Graphics
   m_TagString: Untagged
@@ -6608,6 +6611,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8667837965723606057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6165384489969994290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6b4edafbfeb1e54c88b0f6acbae1a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FootstepRelay
 --- !u!1 &6607796786644964004
 GameObject:
   m_ObjectHideFlags: 0
