@@ -2,10 +2,6 @@
 using FMODUnity;
 using FMOD.Studio;
 
-/// <summary>
-/// Raycasts downward to detect the ground tag and fires FMOD footstep events
-/// with a matching surface parameter. Call TriggerFootstep() from an animation event.
-/// </summary>
 public class FootstepSurface : MonoBehaviour
 {
     [Header("Raycast")]
@@ -54,7 +50,6 @@ public class FootstepSurface : MonoBehaviour
         }
     }
 
-    /// <summary>Call this from an Animation Event on footstep frames.</summary>
     public void TriggerFootstep()
     {
         if (footstepEvent.IsNull) return;
@@ -63,11 +58,8 @@ public class FootstepSurface : MonoBehaviour
         instance.setParameterByName(SurfaceParam, _currentParamValue);
         instance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
         instance.start();
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Footstep");
         instance.release();
-
     }
-     
 
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
