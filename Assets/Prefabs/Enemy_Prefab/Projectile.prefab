@@ -9897,7 +9897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27305fdf0d040cb429733b6c158bf18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HomingProjectile
-  damage: 10
+  damage: 100
   lifetime: 3
   playerTag: Player
   arcDuration: 0.3
@@ -9953,6 +9953,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  shakeIntensity: 0.3
+  shakeDuration: 0.35
+  shakeSpeed: 25
 --- !u!50 &5461248851532426816
 Rigidbody2D:
   serializedVersion: 5
