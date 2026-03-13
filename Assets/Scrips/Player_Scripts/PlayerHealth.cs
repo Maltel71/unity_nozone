@@ -1,6 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+
+public enum DamageSource { Default, Sunlight }
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -18,13 +20,12 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float accelerandoAcceleration = 3f;
 
     [Header("Death")]
-    [SerializeField] private string deathAnimationTrigger = "Death";
     [SerializeField] private float gameOverDelay = 2f;
 
     [Header("UI")]
     [SerializeField] private Slider healthBar;
 
-    public event System.Action OnDamaged;
+    public event System.Action<DamageSource> OnDamaged;
     public event System.Action OnDied;
 
     private float _currentHealth;
@@ -32,7 +33,6 @@ public class PlayerHealth : MonoBehaviour
     private float _currentRegenRate;
     private bool _isDead;
 
-    private Animator _animator;
     private PlayerInputHandler _inputHandler;
     private CharacterController2D _controller;
 
@@ -40,7 +40,6 @@ public class PlayerHealth : MonoBehaviour
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
         _inputHandler = GetComponent<PlayerInputHandler>();
         _controller = GetComponent<CharacterController2D>();
     }
@@ -56,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
         HandleRegen();
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(float amount, DamageSource source = DamageSource.Default)
     {
         if (_isDead) return;
 
@@ -64,7 +63,7 @@ public class PlayerHealth : MonoBehaviour
         ResetRegen();
         UpdateBar();
 
-        OnDamaged?.Invoke();
+        OnDamaged?.Invoke(source);
 
         if (_currentHealth <= 0f)
             Die();
@@ -122,9 +121,6 @@ public class PlayerHealth : MonoBehaviour
         if (_controller != null)
             _controller.SetMoveInput(0f);
 
-        if (_animator != null && !string.IsNullOrEmpty(deathAnimationTrigger))
-            _animator.SetTrigger(deathAnimationTrigger);
-
         OnDied?.Invoke();
 
         StartCoroutine(ShowGameOverAfterDelay());
@@ -137,6 +133,6 @@ public class PlayerHealth : MonoBehaviour
         if (GameOverManager.Instance != null)
             GameOverManager.Instance.ShowGameOver();
         else
-            Debug.Log("[PlayerHealth] Player died � no GameOverManager found in scene.");
+            Debug.Log("[PlayerHealth] Player died — no GameOverManager found in scene.");
     }
 }

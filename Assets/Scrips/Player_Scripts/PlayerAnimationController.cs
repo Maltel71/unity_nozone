@@ -1,10 +1,5 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Fully code-driven animation controller.
-/// Directly calls Animator.Play — no Animator transitions required.
-/// Animator states must be named identically to their AnimationClip names.
-/// </summary>
 [RequireComponent(typeof(Animator))]
 public class PlayerAnimationController : MonoBehaviour
 {
@@ -90,7 +85,6 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Update()
     {
-        // During death: wait for death anim to finish, then lock on death idle
         if (_isDead)
         {
             if (!_deathIdlePlaying && Time.time >= _oneShotEndTime)
@@ -101,7 +95,6 @@ public class PlayerAnimationController : MonoBehaviour
             return;
         }
 
-        // Release one-shot lock once the clip duration has elapsed
         if (_isOneShotPlaying && Time.time >= _oneShotEndTime)
             _isOneShotPlaying = false;
 
@@ -110,7 +103,6 @@ public class PlayerAnimationController : MonoBehaviour
         bool grounded = movementController != null && movementController.IsGrounded;
         bool carrying = pickupSystem != null && pickupSystem.IsCarrying;
 
-        // Landing — any transition from airborne to grounded
         if (grounded && !_wasGrounded)
         {
             _isJumping = false;
@@ -121,7 +113,6 @@ public class PlayerAnimationController : MonoBehaviour
         }
         _wasGrounded = grounded;
 
-        // Pickup / drop transitions
         if (carrying != _wasCarrying)
         {
             AnimationClip transitionClip = carrying ? pickupAnimation : dropAnimation;
@@ -137,8 +128,6 @@ public class PlayerAnimationController : MonoBehaviour
         SelectLocomotion(grounded, carrying);
     }
 
-    // ─── Locomotion Selection ─────────────────────────────────────────────────
-
     private void SelectLocomotion(bool grounded, bool carrying)
     {
         float speedX = rb != null ? Mathf.Abs(rb.linearVelocity.x) : 0f;
@@ -146,7 +135,6 @@ public class PlayerAnimationController : MonoBehaviour
         bool moving = speedX > 0.05f;
         bool running = movementController != null && movementController.IsRunning && moving;
 
-        // Airborne
         if (!grounded)
         {
             if (_isJumping && speedY < 0f)
@@ -156,7 +144,6 @@ public class PlayerAnimationController : MonoBehaviour
             return;
         }
 
-        // Grounded + carrying
         if (carrying)
         {
             Play(moving
@@ -165,13 +152,10 @@ public class PlayerAnimationController : MonoBehaviour
             return;
         }
 
-        // Grounded locomotion
         if (running) Play(runAnimation);
         else if (moving) Play(walkAnimation);
         else Play(idleAnimation);
     }
-
-    // ─── Event Callbacks ──────────────────────────────────────────────────────
 
     private void OnJumped()
     {
@@ -180,8 +164,9 @@ public class PlayerAnimationController : MonoBehaviour
         Play(jumpAnimation);
     }
 
-    private void OnDamaged()
+    private void OnDamaged(DamageSource source)
     {
+        if (source == DamageSource.Sunlight) return;
         if (damageAnimation == null) return;
         PlayOneShot(damageAnimation);
     }
@@ -192,16 +177,12 @@ public class PlayerAnimationController : MonoBehaviour
         _deathIdlePlaying = false;
         _isOneShotPlaying = false;
 
-        // Use _oneShotEndTime to know when to switch to death idle
         float duration = deathAnimation != null ? deathAnimation.length : 0f;
         _oneShotEndTime = Time.time + duration;
 
         Play(deathAnimation);
     }
 
-    // ─── Playback Helpers ─────────────────────────────────────────────────────
-
-    /// <summary>Plays a looping or persistent animation. Skips if already playing.</summary>
     private void Play(AnimationClip clip)
     {
         if (clip == null || _currentClipName == clip.name) return;
@@ -211,7 +192,6 @@ public class PlayerAnimationController : MonoBehaviour
         animator.Play(clip.name);
     }
 
-    /// <summary>Plays a one-shot animation and locks locomotion for its full duration.</summary>
     private void PlayOneShot(AnimationClip clip)
     {
         if (clip == null) return;
