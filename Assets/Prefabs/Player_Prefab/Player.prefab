@@ -749,7 +749,7 @@ Transform:
   m_GameObject: {fileID: 3725225455785822181}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.07, y: 0.68, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -885,7 +885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52bc8ab87cf19ea44b3c2ab150ee9c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 500
+  maxHealth: 400
   regenEnabled: 1
   regenDelay: 3
   regenPerSecond: 5
@@ -934,11 +934,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StaminaSystem
   maxStamina: 900000
   jumpCost: 8
-  runStaminaCostPerSecond: 15
-  idleStaminaRegenRate: 10
-  walkStaminaRegenRate: 2
+  runStaminaCostPerSecond: 2
+  idleStaminaRegenRate: 40
+  walkStaminaRegenRate: 10
   regenDelay: 1
-  regenAcceleration: 5
+  regenAcceleration: 10
   reducedJumpMultiplier: 0.5
   staminaBar: {fileID: 9210556671595668101}
 --- !u!114 &6959629795275205701
@@ -17199,6 +17199,10 @@ PrefabInstance:
     - target: {fileID: 2469263896842087662, guid: 03f163d9e7161e3469487544313eaaba, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643932612329782362, guid: 03f163d9e7161e3469487544313eaaba, type: 3}
+      propertyPath: m_Name
+      value: Player_Health
       objectReference: {fileID: 0}
     - target: {fileID: 4091603279067821135, guid: 03f163d9e7161e3469487544313eaaba, type: 3}
       propertyPath: m_AnchorMax.y
