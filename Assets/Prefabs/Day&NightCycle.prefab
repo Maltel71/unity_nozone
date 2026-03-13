@@ -215,17 +215,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayNightCycle
   sunLight: {fileID: 4141673946393690209}
-  dayDuration: 240
+  dayDuration: 60
   sunStartAngle: 160
   sunEndAngle: 60
   sunDayIntensity: 1
   sunFadeOutDuration: 8
-  lightSwitchDelay: 0.5
+  teleportDelay: 0.5
   nightLight: {fileID: 141014960676650038}
-  nightDuration: 150
+  nightDuration: 45
   nightLightIntensity: 0.4
-  nightFadeInDuration: 5
-  nightFadeOutDuration: 5
   sunFadeInDuration: 8
   orbitCenter: {x: 0, y: 0}
   orbitRadius: 400

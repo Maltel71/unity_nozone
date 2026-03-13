@@ -191,7 +191,7 @@ MonoBehaviour:
   sleepCollider: {fileID: 5115429025961944040}
   awakeCollider: {fileID: 4558913770305254394}
   damageTriggerCollider: {fileID: 10046418768640025}
-  contactDamage: 10
+  contactDamage: 30
   playerTag: Player
 --- !u!114 &2020347790950626101
 MonoBehaviour:
