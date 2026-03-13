@@ -12286,6 +12286,10 @@ PrefabInstance:
       value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 9069977017746738512, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
+      propertyPath: orbitRadius
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 9069977017746738512, guid: e9987f2d54965954cb89c019cb5f58c7, type: 3}
       propertyPath: teleportDelay
       value: 9
       objectReference: {fileID: 0}
