@@ -25,6 +25,8 @@ public class ShellCrabController : MonoBehaviour
 
     [Header("Day/Night")]
     [SerializeField] private DayNightCycle dayNightCycle;
+    [SerializeField] private float sleepDelay = 0f;
+    [SerializeField] private float wakeDelay = 0f;
 
     [Header("Sleep")]
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -44,7 +46,6 @@ public class ShellCrabController : MonoBehaviour
     private CrabState _state = CrabState.Patrol;
     private int _facingDir = 1;
     private float _edgeTurnCooldownTimer;
-    private bool _wasDaytime;
     private bool _isSleeping;
 
     public CrabState State => _state;
@@ -58,28 +59,54 @@ public class ShellCrabController : MonoBehaviour
             dayNightCycle = FindFirstObjectByType<DayNightCycle>();
     }
 
+    private void OnEnable()
+    {
+        if (dayNightCycle == null) return;
+        dayNightCycle.OnSunsetBegin += OnSunsetBegin;
+        dayNightCycle.OnSunriseBegin += OnSunriseBegin;
+    }
+
+    private void OnDisable()
+    {
+        if (dayNightCycle == null) return;
+        dayNightCycle.OnSunsetBegin -= OnSunsetBegin;
+        dayNightCycle.OnSunriseBegin -= OnSunriseBegin;
+    }
+
+    private void OnSunsetBegin()
+    {
+        StopAllCoroutines();
+        if (wakeDelay > 0f)
+            StartCoroutine(DelayedCall(ExitSleepState, wakeDelay));
+        else
+            ExitSleepState();
+    }
+
+    private void OnSunriseBegin()
+    {
+        StopAllCoroutines();
+        if (sleepDelay > 0f)
+            StartCoroutine(DelayedCall(EnterSleepState, sleepDelay));
+        else
+            EnterSleepState();
+    }
+
+    private System.Collections.IEnumerator DelayedCall(System.Action action, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        action();
+    }
+
     private void Start()
     {
-        if (IsDaytime())
+        bool isDay = dayNightCycle != null &&
+                     (dayNightCycle.State == DayNightCycle.CycleState.Day ||
+                      dayNightCycle.State == DayNightCycle.CycleState.Sunset);
+
+        if (isDay)
             EnterSleepState();
         else
             ExitSleepState();
-
-        _wasDaytime = IsDaytime();
-    }
-
-    private void Update()
-    {
-        if (dayNightCycle == null) return;
-
-        bool daytime = IsDaytime();
-
-        if (daytime && !_wasDaytime)
-            EnterSleepState();
-        else if (!daytime && _wasDaytime)
-            ExitSleepState();
-
-        _wasDaytime = daytime;
     }
 
     private void FixedUpdate()
@@ -142,14 +169,6 @@ public class ShellCrabController : MonoBehaviour
         if (sleepCollider != null) sleepCollider.enabled = false;
         if (awakeCollider != null) awakeCollider.enabled = true;
         if (damageTriggerCollider != null) damageTriggerCollider.enabled = true;
-    }
-
-    // Day and Sunset count as daytime (sun is present); Night and Sunrise are active hours
-    private bool IsDaytime()
-    {
-        if (dayNightCycle == null) return false;
-        return dayNightCycle.State == DayNightCycle.CycleState.Day ||
-               dayNightCycle.State == DayNightCycle.CycleState.Sunset;
     }
 
     private void Patrol()

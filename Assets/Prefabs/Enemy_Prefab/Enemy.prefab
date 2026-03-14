@@ -187,6 +187,8 @@ MonoBehaviour:
   backEdgeOffset: {x: 0.61, y: -0.3}
   edgeTurnCooldown: 0.5
   dayNightCycle: {fileID: 0}
+  sleepDelay: 7
+  wakeDelay: 4
   spriteRenderer: {fileID: 3226556201726363565}
   sleepSprite: {fileID: -7853969425414020529, guid: 26d5a2d5f4f54b947b551487a4b5006b, type: 3}
   awakeSprite: {fileID: -3323499705957950145, guid: 0121f77641459614d92d52dfb3c1a49d, type: 3}

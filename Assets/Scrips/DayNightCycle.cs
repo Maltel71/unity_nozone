@@ -53,6 +53,9 @@ public class DayNightCycle : MonoBehaviour
     private float SunRotationSpeed => Mathf.Abs(sunEndAngle - sunStartAngle) / dayDuration;
     private float SunDirection => Mathf.Sign(sunEndAngle - sunStartAngle);
 
+    public event System.Action OnSunsetBegin;
+    public event System.Action OnSunriseBegin;
+
     public bool BurnEnabled => _state == CycleState.Day ||
                                (_state == CycleState.Sunset && burnEnabledAtNight);
     public bool IsDay => _state == CycleState.Day;
@@ -113,6 +116,7 @@ public class DayNightCycle : MonoBehaviour
     {
         _state = CycleState.Sunset;
         SetFmodParameter(FmodSunset);
+        OnSunsetBegin?.Invoke();
 
         if (nightLight != null)
         {
@@ -171,6 +175,7 @@ public class DayNightCycle : MonoBehaviour
     {
         _state = CycleState.Sunrise;
         SetFmodParameter(FmodSunrise);
+        OnSunriseBegin?.Invoke();
 
         if (sunLight != null)
         {
