@@ -1555,8 +1555,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948b84846e336c2408354d92ff319e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShellDurability
-  maxHealth: 100
-  _currentHealth: 100
+  maxHealth: 200
+  _currentHealth: 200
   shadowCasterLayers:
     serializedVersion: 2
     m_Bits: 192

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7022305848984651755}
   - component: {fileID: 8634131166812870142}
   - component: {fileID: 3952363069564308458}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Projectile_Boom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4905,7 +4905,7 @@ GameObject:
   - component: {fileID: 3833131186546527533}
   - component: {fileID: 4184072760216159521}
   - component: {fileID: 9088691544367219842}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PartSyst_thruster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9802,7 +9802,7 @@ GameObject:
   - component: {fileID: 5461248851532426816}
   - component: {fileID: -6264410742052551499}
   - component: {fileID: 3282078351945674356}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
