@@ -1,0 +1,403 @@
+fileFormatVersion: 2
+guid: 1c6fff21f9d89244c93c8f8ab7132642
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -584911114603160835
+    second: Graffiti-TAG-CatAllure_0
+  - first:
+      213: -5612735233729728537
+    second: Graffiti-TAG-CatAllure_1
+  - first:
+      213: -8459776599903694645
+    second: Graffiti-TAG-CatAllure_2
+  - first:
+      213: -3049530499732039172
+    second: Graffiti-TAG-CatAllure_3
+  - first:
+      213: -2444256395135003143
+    second: Graffiti-TAG-CatAllure_4
+  - first:
+      213: 6005975806001338647
+    second: Graffiti-TAG-CatAllure_5
+  - first:
+      213: -6216286244896820269
+    second: Graffiti-TAG-CatAllure_6
+  - first:
+      213: -8504964287855880034
+    second: Graffiti-TAG-CatAllure_7
+  - first:
+      213: -3921339095851530613
+    second: Graffiti-TAG-CatAllure_8
+  - first:
+      213: 1523181966351109922
+    second: Graffiti-TAG-CatAllure_9
+  - first:
+      213: -8099919853571617151
+    second: Graffiti-TAG-CatAllure_10
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Graffiti-TAG-CatAllure_0
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 372
+        width: 89
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfa96e4b07af1e7f0800000000000000
+      internalID: -584911114603160835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-CatAllure_1
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 343
+        width: 76
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ef683fda0f8b12b0800000000000000
+      internalID: -5612735233729728537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-CatAllure_2
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 304
+        width: 221
+        height: 264
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc014931106d89a80800000000000000
+      internalID: -8459776599903694645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-CatAllure_3
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 298
+        width: 77
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf990c7ea24eda5d0800000000000000
+      internalID: -3049530499732039172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-CatAllure_4
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 181
+        width: 80
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f5500442c1441ed0800000000000000
+      internalID: -2444256395135003143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-CatAllure_5
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 253
+        width: 84
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 719dc4eac23895350800000000000000
+      internalID: 6005975806001338647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-CatAllure_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1
+        width: 183
+        height: 331
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d337c678905bb9a0800000000000000
+      internalID: -6216286244896820269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-CatAllure_7
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 15
+        width: 171
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9897fa9a0c48f980800000000000000
+      internalID: -8504964287855880034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-CatAllure_8
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 188
+        width: 142
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b860be35eda9499c0800000000000000
+      internalID: -3921339095851530613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-CatAllure_9
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 0
+        width: 118
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22f83a0aded632510800000000000000
+      internalID: 1523181966351109922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-CatAllure_10
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 0
+        width: 19
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18ecab2fecd479f80800000000000000
+      internalID: -8099919853571617151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Graffiti-TAG-CatAllure_0: -584911114603160835
+      Graffiti-TAG-CatAllure_1: -5612735233729728537
+      Graffiti-TAG-CatAllure_10: -8099919853571617151
+      Graffiti-TAG-CatAllure_2: -8459776599903694645
+      Graffiti-TAG-CatAllure_3: -3049530499732039172
+      Graffiti-TAG-CatAllure_4: -2444256395135003143
+      Graffiti-TAG-CatAllure_5: 6005975806001338647
+      Graffiti-TAG-CatAllure_6: -6216286244896820269
+      Graffiti-TAG-CatAllure_7: -8504964287855880034
+      Graffiti-TAG-CatAllure_8: -3921339095851530613
+      Graffiti-TAG-CatAllure_9: 1523181966351109922
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: 2bf1fed090417c346969105bbe727091
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2533262803555953531
+    second: Graffiti-TAG-txt_PoF_0
+  - first:
+      213: -595580773802522354
+    second: Graffiti-TAG-txt_PoF_1
+  - first:
+      213: 5450962063395667025
+    second: Graffiti-TAG-txt_PoF_2
+  - first:
+      213: 4188559831087857976
+    second: Graffiti-TAG-txt_PoF_3
+  - first:
+      213: 724733116869917056
+    second: Graffiti-TAG-txt_PoF_4
+  - first:
+      213: 4610148301648441607
+    second: Graffiti-TAG-txt_PoF_5
+  - first:
+      213: -7317792370557180287
+    second: Graffiti-TAG-txt_PoF_6
+  - first:
+      213: -2520828064629443831
+    second: Graffiti-TAG-txt_PoF_7
+  - first:
+      213: 2737738394222443042
+    second: Graffiti-TAG-txt_PoF_8
+  - first:
+      213: 944171827393627249
+    second: Graffiti-TAG-txt_PoF_9
+  - first:
+      213: -946659332188771703
+    second: Graffiti-TAG-txt_PoF_10
+  - first:
+      213: -7657775313256116863
+    second: Graffiti-TAG-txt_PoF_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_PoF_0
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 296
+        width: 161
+        height: 225
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7ba9a81915f72320800000000000000
+      internalID: 2533262803555953531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_PoF_1
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 351
+        width: 74
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e09c27611721cb7f0800000000000000
+      internalID: -595580773802522354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_PoF_2
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 361
+        width: 171
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15c34d0cd15b5ab40800000000000000
+      internalID: 5450962063395667025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_PoF_3
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 371
+        width: 132
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 831467479f0c02a30800000000000000
+      internalID: 4188559831087857976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_PoF_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 144
+        height: 186
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0893ef31ee4ce0a00800000000000000
+      internalID: 724733116869917056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_PoF_5
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 243
+        width: 116
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70130a964798aff30800000000000000
+      internalID: 4610148301648441607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_PoF_6
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 211
+        width: 106
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18620ec3c9af17a90800000000000000
+      internalID: -7317792370557180287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_PoF_7
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 63
+        width: 76
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9033deb2b38340dd0800000000000000
+      internalID: -2520828064629443831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_PoF_8
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 30
+        width: 158
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22ab39b70966ef520800000000000000
+      internalID: 2737738394222443042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_PoF_9
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 114
+        width: 93
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1748aba464f5a1d00800000000000000
+      internalID: 944171827393627249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_PoF_10
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 89
+        width: 92
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98a649d5a5accd2f0800000000000000
+      internalID: -946659332188771703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_PoF_11
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 98
+        width: 96
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18d0d9bdced1ab590800000000000000
+      internalID: -7657775313256116863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Graffiti-TAG-txt_PoF_0: 2533262803555953531
+      Graffiti-TAG-txt_PoF_1: -595580773802522354
+      Graffiti-TAG-txt_PoF_10: -946659332188771703
+      Graffiti-TAG-txt_PoF_11: -7657775313256116863
+      Graffiti-TAG-txt_PoF_2: 5450962063395667025
+      Graffiti-TAG-txt_PoF_3: 4188559831087857976
+      Graffiti-TAG-txt_PoF_4: 724733116869917056
+      Graffiti-TAG-txt_PoF_5: 4610148301648441607
+      Graffiti-TAG-txt_PoF_6: -7317792370557180287
+      Graffiti-TAG-txt_PoF_7: -2520828064629443831
+      Graffiti-TAG-txt_PoF_8: 2737738394222443042
+      Graffiti-TAG-txt_PoF_9: 944171827393627249
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

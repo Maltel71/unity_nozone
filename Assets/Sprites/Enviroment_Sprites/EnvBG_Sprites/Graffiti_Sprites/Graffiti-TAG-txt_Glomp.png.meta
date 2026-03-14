@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: 3e0dcf835647ffe4dabc49b97719c28c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8790924815512785191
+    second: Graffiti-TAG-txt_Glomp_0
+  - first:
+      213: 2818385715738240543
+    second: Graffiti-TAG-txt_Glomp_1
+  - first:
+      213: -1825050732847274000
+    second: Graffiti-TAG-txt_Glomp_2
+  - first:
+      213: 5663422958855433231
+    second: Graffiti-TAG-txt_Glomp_3
+  - first:
+      213: -8095573034295001390
+    second: Graffiti-TAG-txt_Glomp_4
+  - first:
+      213: 4553866054575986312
+    second: Graffiti-TAG-txt_Glomp_5
+  - first:
+      213: 7664337057969858284
+    second: Graffiti-TAG-txt_Glomp_6
+  - first:
+      213: -7641987663340705398
+    second: Graffiti-TAG-txt_Glomp_7
+  - first:
+      213: 6906163680400854259
+    second: Graffiti-TAG-txt_Glomp_8
+  - first:
+      213: 1216058703496268798
+    second: Graffiti-TAG-txt_Glomp_9
+  - first:
+      213: -3080738767045307937
+    second: Graffiti-TAG-txt_Glomp_10
+  - first:
+      213: 3775154236952589242
+    second: Graffiti-TAG-txt_Glomp_11
+  - first:
+      213: 821946765395387900
+    second: Graffiti-TAG-txt_Glomp_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Glomp_0
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 131
+        width: 153
+        height: 291
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dea134e47c500680800000000000000
+      internalID: -8790924815512785191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Glomp_1
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 357
+        width: 92
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f16ec9240eaec1720800000000000000
+      internalID: 2818385715738240543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Glomp_2
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 397
+        width: 68
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f7629b270e1ca6e0800000000000000
+      internalID: -1825050732847274000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Glomp_3
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 331
+        width: 21
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0cae5bcc25889e40800000000000000
+      internalID: 5663422958855433231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Glomp_4
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 209
+        width: 71
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2de7d9da73fb6af80800000000000000
+      internalID: -8095573034295001390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Glomp_5
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 199
+        width: 92
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88616b99c05923f30800000000000000
+      internalID: 4553866054575986312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Glomp_6
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 56
+        width: 254
+        height: 278
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce6e72362f13d5a60800000000000000
+      internalID: 7664337057969858284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Glomp_7
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 190
+        width: 126
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a89e8ac85b432f590800000000000000
+      internalID: -7641987663340705398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Glomp_8
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 332
+        width: 18
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fc4ff2e64f97df50800000000000000
+      internalID: 6906163680400854259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Glomp_9
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 200
+        width: 14
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efbcae7a2fe40e010800000000000000
+      internalID: 1216058703496268798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Glomp_10
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 195
+        width: 13
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd15d70f9640f35d0800000000000000
+      internalID: -3080738767045307937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Glomp_11
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 160
+        width: 78
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab3bed1e6ca046430800000000000000
+      internalID: 3775154236952589242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Glomp_12
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 127
+        width: 53
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf56caf6a34286b00800000000000000
+      internalID: 821946765395387900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Graffiti-TAG-txt_Glomp_0: -8790924815512785191
+      Graffiti-TAG-txt_Glomp_1: 2818385715738240543
+      Graffiti-TAG-txt_Glomp_10: -3080738767045307937
+      Graffiti-TAG-txt_Glomp_11: 3775154236952589242
+      Graffiti-TAG-txt_Glomp_12: 821946765395387900
+      Graffiti-TAG-txt_Glomp_2: -1825050732847274000
+      Graffiti-TAG-txt_Glomp_3: 5663422958855433231
+      Graffiti-TAG-txt_Glomp_4: -8095573034295001390
+      Graffiti-TAG-txt_Glomp_5: 4553866054575986312
+      Graffiti-TAG-txt_Glomp_6: 7664337057969858284
+      Graffiti-TAG-txt_Glomp_7: -7641987663340705398
+      Graffiti-TAG-txt_Glomp_8: 6906163680400854259
+      Graffiti-TAG-txt_Glomp_9: 1216058703496268798
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

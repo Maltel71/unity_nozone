@@ -1,0 +1,585 @@
+fileFormatVersion: 2
+guid: a2edaf3646897db4d86ee81f2846596b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 986892194173393147
+    second: Graffiti-TAG-txt_Lino_0
+  - first:
+      213: 5970538381131145405
+    second: Graffiti-TAG-txt_Lino_1
+  - first:
+      213: -2341574002745584524
+    second: Graffiti-TAG-txt_Lino_2
+  - first:
+      213: 5786386633381527213
+    second: Graffiti-TAG-txt_Lino_3
+  - first:
+      213: -6370385743615306507
+    second: Graffiti-TAG-txt_Lino_4
+  - first:
+      213: -2989812826531975800
+    second: Graffiti-TAG-txt_Lino_5
+  - first:
+      213: 5231949164234446224
+    second: Graffiti-TAG-txt_Lino_6
+  - first:
+      213: 6164380793808959477
+    second: Graffiti-TAG-txt_Lino_7
+  - first:
+      213: 4435005428020075614
+    second: Graffiti-TAG-txt_Lino_8
+  - first:
+      213: 3416059349383223633
+    second: Graffiti-TAG-txt_Lino_9
+  - first:
+      213: -5709785555412234607
+    second: Graffiti-TAG-txt_Lino_10
+  - first:
+      213: -724930202406673980
+    second: Graffiti-TAG-txt_Lino_11
+  - first:
+      213: 5470107356138326635
+    second: Graffiti-TAG-txt_Lino_12
+  - first:
+      213: -3964278562138244077
+    second: Graffiti-TAG-txt_Lino_13
+  - first:
+      213: 5675454902020009276
+    second: Graffiti-TAG-txt_Lino_14
+  - first:
+      213: -4172026970264161147
+    second: Graffiti-TAG-txt_Lino_15
+  - first:
+      213: 1418684077648192335
+    second: Graffiti-TAG-txt_Lino_16
+  - first:
+      213: 4260919635663035540
+    second: Graffiti-TAG-txt_Lino_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_0
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 422
+        width: 17
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf89f49c83522bd00800000000000000
+      internalID: 986892194173393147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_1
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 420
+        width: 19
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db0682d360d9bd250800000000000000
+      internalID: 5970538381131145405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_2
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 410
+        width: 41
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4745f07c9de018fd0800000000000000
+      internalID: -2341574002745584524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_3
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 181
+        width: 128
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dae36c74cff5d4050800000000000000
+      internalID: 5786386633381527213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_4
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 384
+        width: 21
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f4d89dfae7d797a0800000000000000
+      internalID: -6370385743615306507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_5
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 326
+        width: 94
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88da7a1331d0286d0800000000000000
+      internalID: -2989812826531975800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_6
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 382
+        width: 23
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09598197b0e9b9840800000000000000
+      internalID: 5231949164234446224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_7
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 136
+        width: 122
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f73933fba74c8550800000000000000
+      internalID: 6164380793808959477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_8
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 376
+        width: 65
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5cd01a60fd4c8d30800000000000000
+      internalID: 4435005428020075614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_9
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 309
+        width: 20
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15993a311e7486f20800000000000000
+      internalID: 3416059349383223633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_10
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 277
+        width: 30
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19e4ff10a44c2c0b0800000000000000
+      internalID: -5709785555412234607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_11
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 262
+        width: 37
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c1299e52d780f5f0800000000000000
+      internalID: -724930202406673980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_12
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 216
+        width: 13
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6a40e598a9b9eb40800000000000000
+      internalID: 5470107356138326635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_13
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 176
+        width: 112
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31cbd01c6ad0cf8c0800000000000000
+      internalID: -3964278562138244077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_14
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 248
+        width: 19
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3de6add92443ce40800000000000000
+      internalID: 5675454902020009276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_15
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 264
+        width: 21
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5843e0c239bf916c0800000000000000
+      internalID: -4172026970264161147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_16
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 297
+        width: 13
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4329b0f6ad20b310800000000000000
+      internalID: 1418684077648192335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Graffiti-TAG-txt_Lino_17
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 159
+        width: 38
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49c9e2455d3d12b30800000000000000
+      internalID: 4260919635663035540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Graffiti-TAG-txt_Lino_0: 986892194173393147
+      Graffiti-TAG-txt_Lino_1: 5970538381131145405
+      Graffiti-TAG-txt_Lino_10: -5709785555412234607
+      Graffiti-TAG-txt_Lino_11: -724930202406673980
+      Graffiti-TAG-txt_Lino_12: 5470107356138326635
+      Graffiti-TAG-txt_Lino_13: -3964278562138244077
+      Graffiti-TAG-txt_Lino_14: 5675454902020009276
+      Graffiti-TAG-txt_Lino_15: -4172026970264161147
+      Graffiti-TAG-txt_Lino_16: 1418684077648192335
+      Graffiti-TAG-txt_Lino_17: 4260919635663035540
+      Graffiti-TAG-txt_Lino_2: -2341574002745584524
+      Graffiti-TAG-txt_Lino_3: 5786386633381527213
+      Graffiti-TAG-txt_Lino_4: -6370385743615306507
+      Graffiti-TAG-txt_Lino_5: -2989812826531975800
+      Graffiti-TAG-txt_Lino_6: 5231949164234446224
+      Graffiti-TAG-txt_Lino_7: 6164380793808959477
+      Graffiti-TAG-txt_Lino_8: 4435005428020075614
+      Graffiti-TAG-txt_Lino_9: 3416059349383223633
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
