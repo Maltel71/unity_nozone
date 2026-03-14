@@ -187,11 +187,12 @@ MonoBehaviour:
   backEdgeOffset: {x: 0.61, y: -0.3}
   edgeTurnCooldown: 0.5
   dayNightCycle: {fileID: 0}
-  sleepDelay: 7
-  wakeDelay: 4
+  sleepDelay: 0.5
+  wakeDelay: 7
   spriteRenderer: {fileID: 3226556201726363565}
   sleepSprite: {fileID: -7853969425414020529, guid: 26d5a2d5f4f54b947b551487a4b5006b, type: 3}
   awakeSprite: {fileID: -3323499705957950145, guid: 0121f77641459614d92d52dfb3c1a49d, type: 3}
+  sleepParticles: {fileID: 253630756361788073}
   sleepCollider: {fileID: 5115429025961944040}
   awakeCollider: {fileID: 4558913770305254394}
   damageTriggerCollider: {fileID: 10046418768640025}
@@ -590,7 +591,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -1848,8 +1849,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.4627451, g: 0.9490196, b: 0.5405836, a: 1}
-        key1: {r: 0.5647059, g: 0.8696568, b: 1, a: 0}
+        key0: {r: 0.67508006, g: 0.9245283, b: 0.715115, a: 1}
+        key1: {r: 0.6735849, g: 0.8764407, b: 0.9622642, a: 0}
         key2: {r: 0.5647059, g: 0.8696568, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}

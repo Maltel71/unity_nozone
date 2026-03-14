@@ -32,6 +32,7 @@ public class ShellCrabController : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite sleepSprite;
     [SerializeField] private Sprite awakeSprite;
+    [SerializeField] private ParticleSystem sleepParticles;
 
     [Header("Colliders")]
     [SerializeField] private Collider2D sleepCollider;
@@ -156,6 +157,7 @@ public class ShellCrabController : MonoBehaviour
         if (awakeCollider != null) awakeCollider.enabled = false;
         if (sleepCollider != null) sleepCollider.enabled = true;
         if (damageTriggerCollider != null) damageTriggerCollider.enabled = false;
+        if (sleepParticles != null) sleepParticles.Play();
     }
 
     private void ExitSleepState()
@@ -169,6 +171,7 @@ public class ShellCrabController : MonoBehaviour
         if (sleepCollider != null) sleepCollider.enabled = false;
         if (awakeCollider != null) awakeCollider.enabled = true;
         if (damageTriggerCollider != null) damageTriggerCollider.enabled = true;
+        if (sleepParticles != null) sleepParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
     }
 
     private void Patrol()
