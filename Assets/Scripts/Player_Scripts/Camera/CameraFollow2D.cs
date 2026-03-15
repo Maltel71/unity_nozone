@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraFollow2D : MonoBehaviour
 {
     [Header("Target")]
     [SerializeField] private Transform target;
+    [SerializeField] private string playerTag = "Player";
 
     [Header("Follow Settings")]
     [SerializeField] private float followSpeed = 5f;
@@ -19,11 +21,40 @@ public class CameraFollow2D : MonoBehaviour
     private CharacterController2D _controller;
     private Rigidbody2D _targetRb;
 
-    private void Awake()
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        FindTarget();
+        SnapToTarget();
+    }
+
+    private void FindTarget()
+    {
+        GameObject player = GameObject.FindWithTag(playerTag);
+        if (player != null)
+        {
+            target = player.transform;
+            _controller = target.GetComponent<CharacterController2D>();
+            _targetRb = target.GetComponent<Rigidbody2D>();
+        }
+
+        _lookAheadOffset = Vector2.zero;
+        _velocity = Vector2.zero;
+    }
+
+    private void SnapToTarget()
     {
         if (target == null) return;
-        _controller = target.GetComponent<CharacterController2D>();
-        _targetRb = target.GetComponent<Rigidbody2D>();
+        transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
     }
 
     private void LateUpdate()
@@ -35,14 +66,12 @@ public class CameraFollow2D : MonoBehaviour
         Vector2 desiredPos = (Vector2)target.position + _lookAheadOffset;
         Vector2 currentPos = transform.position;
 
-        // Clamp desired position to max distance
         Vector2 delta = desiredPos - currentPos;
         if (delta.magnitude > maxDistance)
             desiredPos = currentPos + delta.normalized * maxDistance;
 
         Vector2 smoothed = Vector2.SmoothDamp(currentPos, desiredPos, ref _velocity, smoothTime, followSpeed);
 
-        // Apply shake offset on top of the final follow position
         Vector2 shakeOffset = CameraShake2D.Instance != null ? CameraShake2D.Instance.ShakeOffset : Vector2.zero;
 
         transform.position = new Vector3(
