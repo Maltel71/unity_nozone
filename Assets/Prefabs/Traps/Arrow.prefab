@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 3458237794164452028}
   - component: {fileID: 38332442179697123}
   m_Layer: 10
-  m_Name: Arrow_Boom
+  m_Name: Arrow_PartSyst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -427,8 +427,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.1
+      scalar: 0.5
+      minScalar: 0.05
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1506,8 +1506,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.78867924, g: 0.29017434, b: 0.32301003, a: 1}
-        key1: {r: 0.735849, g: 0.42623708, b: 0.43716466, a: 0}
+        key0: {r: 0.78113204, g: 0.7155058, b: 0.4937344, a: 1}
+        key1: {r: 0.82641506, g: 0.82641506, b: 0.82641506, a: 0}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}

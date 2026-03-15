@@ -27,6 +27,7 @@ public class CharacterController2D : MonoBehaviour
     public LayerMask groundLayer;
 
     private Rigidbody2D _rb;
+    private PlayerHealth _playerHealth;
     private bool _isGrounded;
     private bool _wasGrounded;
     private bool _isRunning;
@@ -41,7 +42,11 @@ public class CharacterController2D : MonoBehaviour
 
     public event System.Action OnJumped;
 
-    private void Awake() => _rb = GetComponent<Rigidbody2D>();
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+        _playerHealth = GetComponent<PlayerHealth>();
+    }
 
     private void Update()
     {
@@ -53,6 +58,8 @@ public class CharacterController2D : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_playerHealth != null && _playerHealth.IsKnockedBack) return;
+
         float speed = (_isRunning && !_isCrouching ? runSpeed : walkSpeed) * _speedMultiplier;
         float targetX = _moveInput * speed;
 
@@ -64,7 +71,6 @@ public class CharacterController2D : MonoBehaviour
         if (_moveInput != 0f)
             transform.localScale = new Vector3(Mathf.Sign(_moveInput), 1f, 1f);
 
-        // Consume buffered jump in FixedUpdate so physics is applied correctly
         if (_jumpBufferTimer > 0f && CanCoyoteJump() && !_hasJumped)
         {
             ExecuteJump();

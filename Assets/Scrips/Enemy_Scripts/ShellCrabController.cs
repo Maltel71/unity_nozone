@@ -144,7 +144,7 @@ public class ShellCrabController : MonoBehaviour
         if (_isSleeping) return;
         if (!other.CompareTag(playerTag)) return;
 
-        other.GetComponent<PlayerHealth>()?.TakeDamage(contactDamage);
+        other.GetComponent<PlayerHealth>()?.TakeDamage(contactDamage, DamageSource.Default, transform.position);
     }
 
     // Blocked while sleeping so ShellCrabShooter cannot override the idle state

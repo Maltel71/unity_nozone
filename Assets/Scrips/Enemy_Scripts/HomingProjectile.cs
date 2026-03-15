@@ -218,7 +218,7 @@ public class HomingProjectile : MonoBehaviour
 
         if (other.CompareTag(playerTag))
         {
-            other.GetComponent<PlayerHealth>()?.TakeDamage(damage);
+            other.GetComponent<PlayerHealth>()?.TakeDamage(damage, DamageSource.Default, transform.position);
             CameraShake2D.Instance?.TriggerShake(shakeIntensity, shakeDuration, shakeSpeed);
         }
 

@@ -19,11 +19,18 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float accelerandoStartRate = 1f;
     [SerializeField] private float accelerandoAcceleration = 3f;
 
+    [Header("Knockback")]
+    [SerializeField] private float knockbackForce = 8f;
+    [SerializeField] private float knockbackDuration = 0.15f;
+
     [Header("Death")]
     [SerializeField] private float gameOverDelay = 2f;
 
     [Header("UI")]
     [SerializeField] private Slider healthBar;
+
+    [Header("VFX")]
+    [SerializeField] private ParticleSystem hitParticles;
 
     public event System.Action<DamageSource> OnDamaged;
     public event System.Action OnDied;
@@ -31,17 +38,21 @@ public class PlayerHealth : MonoBehaviour
     private float _currentHealth;
     private float _regenDelayTimer;
     private float _currentRegenRate;
+    private float _knockbackTimer;
     private bool _isDead;
 
     private PlayerInputHandler _inputHandler;
     private CharacterController2D _controller;
+    private Rigidbody2D _rb;
 
     public bool IsDead => _isDead;
+    public bool IsKnockedBack => _knockbackTimer > 0f;
 
     private void Awake()
     {
         _inputHandler = GetComponent<PlayerInputHandler>();
         _controller = GetComponent<CharacterController2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -53,9 +64,10 @@ public class PlayerHealth : MonoBehaviour
     private void Update()
     {
         HandleRegen();
+        if (_knockbackTimer > 0f) _knockbackTimer -= Time.deltaTime;
     }
 
-    public void TakeDamage(float amount, DamageSource source = DamageSource.Default)
+    public void TakeDamage(float amount, DamageSource source = DamageSource.Default, Vector2? sourcePosition = null)
     {
         if (_isDead) return;
 
@@ -65,8 +77,21 @@ public class PlayerHealth : MonoBehaviour
 
         OnDamaged?.Invoke(source);
 
+        if (source != DamageSource.Sunlight)
+            hitParticles?.Play();
+
+        if (sourcePosition.HasValue && source != DamageSource.Sunlight)
+            ApplyKnockback(sourcePosition.Value);
+
         if (_currentHealth <= 0f)
             Die();
+    }
+
+    private void ApplyKnockback(Vector2 sourcePosition)
+    {
+        Vector2 dir = ((Vector2)transform.position - sourcePosition).normalized;
+        _rb.linearVelocity = dir * knockbackForce;
+        _knockbackTimer = knockbackDuration;
     }
 
     public void Heal(float amount)

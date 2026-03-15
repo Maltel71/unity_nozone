@@ -30,6 +30,12 @@ public class DamageZone : MonoBehaviour
 
     private void ApplyDamage(Collider2D other)
     {
-        other.GetComponent<PlayerHealth>()?.TakeDamage(damage);
+        var health = other.GetComponent<PlayerHealth>();
+        if (health == null) return;
+
+        health.TakeDamage(damage, DamageSource.Default, transform.position);
+
+        if (!health.IsDead)
+            CameraShake2D.Instance?.TriggerShake();
     }
 }
