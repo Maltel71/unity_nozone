@@ -18,6 +18,12 @@ public class TrapShooter : MonoBehaviour
         StartCoroutine(ShootAndCooldown());
     }
 
+    public void Activate()
+    {
+        if (_onCooldown) return;
+        StartCoroutine(ShootAndCooldown());
+    }
+
     private IEnumerator ShootAndCooldown()
     {
         _onCooldown = true;
