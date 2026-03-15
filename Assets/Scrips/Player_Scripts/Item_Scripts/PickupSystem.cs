@@ -84,7 +84,12 @@ public class PickupSystem : MonoBehaviour
         }
 
         if (IsCarrying)
+        {
+            if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+                Drop();
+
             UpdateHeldPosition();
+        }
     }
 
     private bool InteractPressed()
