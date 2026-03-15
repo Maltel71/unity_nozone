@@ -40,12 +40,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha_Threshold: 0
-    - _Damage_Pattern: 0.1
-    - _Power: 7.7
+    - _Damage_Pattern: 42.86
+    - _Power: 0.04
+    - _Power_2: 9.11
     - _QueueControl: 0
-    - _damage_1: 1
-    - _damage_2: 1
+    - _damage_1: 50
+    - _damage_2: 0.2
     m_Colors:
-    - _Damage_amount: {r: 5, g: 5, b: 0, a: 0}
+    - _Damage_amount: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
