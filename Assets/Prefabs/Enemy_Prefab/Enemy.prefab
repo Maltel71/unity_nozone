@@ -193,10 +193,11 @@ MonoBehaviour:
   sleepSprite: {fileID: -7853969425414020529, guid: 26d5a2d5f4f54b947b551487a4b5006b, type: 3}
   awakeSprite: {fileID: -3323499705957950145, guid: 0121f77641459614d92d52dfb3c1a49d, type: 3}
   sleepParticles: {fileID: 253630756361788073}
+  kinematicDelay: 0.5
   sleepCollider: {fileID: 5115429025961944040}
   awakeCollider: {fileID: 4558913770305254394}
   damageTriggerCollider: {fileID: 10046418768640025}
-  contactDamage: 30
+  contactDamage: 100
   playerTag: Player
 --- !u!114 &2020347790950626101
 MonoBehaviour:
@@ -10366,7 +10367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1906804380184053044
 Transform:
   m_ObjectHideFlags: 0
