@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class ShellDurability : MonoBehaviour
@@ -97,7 +97,9 @@ public class ShellDurability : MonoBehaviour
         _isDead = true;
 
         PickupSystem pickup = FindFirstObjectByType<PickupSystem>();
-        pickup?.ForceDropCarried();
+        if (pickup != null && pickup.CarriedObjectTransform != null &&
+            pickup.CarriedObjectTransform.IsChildOf(transform))
+            pickup.ForceDropCarried();
 
         if (crumbs != null)
         {
