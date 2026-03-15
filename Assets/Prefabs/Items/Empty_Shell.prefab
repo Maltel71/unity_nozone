@@ -1547,21 +1547,39 @@ MonoBehaviour:
   m_AlphaCutoff: 0.1
   m_ApplyToSortingLayers: 00000000
   m_ShapePath:
-  - {x: -0.5, y: -0.28866673, z: 0}
-  - {x: -0.5, y: 0.7113333, z: 0}
-  - {x: 0.5, y: 0.7113333, z: 0}
-  - {x: 0.5, y: -0.28866673, z: 0}
-  m_ShapePathHash: 0
+  - {x: -0.48149455, y: -0.249012, z: 0}
+  - {x: -1.0573968, y: -0.235622, z: 0}
+  - {x: -1.0910947, y: -0.19249281, z: 0}
+  - {x: -1.0686111, y: -0.16167617, z: 0}
+  - {x: -0.9166205, y: -0.16674244, z: 0}
+  - {x: -0.5392709, y: -0.09021547, z: 0}
+  - {x: -0.24245158, y: 0.017929174, z: 0}
+  - {x: -0.14041942, y: 0.22111844, z: 0}
+  - {x: -0.062050678, y: 0.25563467, z: 0}
+  - {x: 0.041815072, y: 0.27330527, z: 0}
+  - {x: 0.08932403, y: 0.19094843, z: 0}
+  - {x: 0.10293168, y: 0.10777867, z: 0}
+  - {x: 0.4665226, y: 0.0027540624, z: 0}
+  - {x: 0.9169762, y: -0.06395526, z: 0}
+  - {x: 1.1297356, y: -0.075476296, z: 0}
+  - {x: 1.2113081, y: -0.07770946, z: 0}
+  - {x: 1.2382444, y: -0.11105702, z: 0}
+  - {x: 1.1690097, y: -0.15437528, z: 0}
+  - {x: 1.082314, y: -0.16920866, z: 0}
+  - {x: 0.79511017, y: -0.1718523, z: 0}
+  - {x: 0.5670441, y: -0.2292931, z: 0}
+  - {x: 0.25640693, y: -0.2132357, z: 0}
+  m_ShapePathHash: 189138173
   m_InstanceId: 0
   m_ShadowShape2DComponent: {fileID: 0}
   m_ShadowShape2DProvider:
-    rid: 374791885509886035
-  m_ShadowCastingSource: 2
+    rid: -2
+  m_ShadowCastingSource: 1
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
     m_LocalBounds:
-      m_Center: {x: -0.0049972534, y: 0, z: 0}
-      m_Extent: {x: 1.1999893, y: 0.2999878, z: 0}
+      m_Center: {x: 0.07357478, y: 0.012146652, z: 0}
+      m_Extent: {x: 1.1646695, y: 0.26115865, z: 0}
     m_EdgeProcessing: 1
     m_TrimEdge: 0
     m_FlipX: 0
@@ -1570,14 +1588,13 @@ MonoBehaviour:
   m_CastingOption: 1
   m_PreviousTrimEdge: 0
   m_PreviousEdgeProcessing: 1
-  m_PreviousShadowCastingSource: 2
+  m_PreviousShadowCastingSource: 1
   m_PreviousShadowShape2DSource: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 374791885509886035
-      type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
-      data: 
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!114 &8620377384232292021
 MonoBehaviour:
   m_ObjectHideFlags: 0
