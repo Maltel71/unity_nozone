@@ -9,10 +9,26 @@ public class TrapShooter : MonoBehaviour
     [SerializeField] private float cooldown = 3f;
     [SerializeField] private string playerTag = "Player";
 
+    [Header("Sprites")]
+    [SerializeField] private GameObject armedSprite;
+    [SerializeField] private GameObject emptySprite;
+    [SerializeField] private float rearmVisualLeadTime = 1.5f;
+
     private bool _onCooldown;
     private Transform ShootOrigin => spawnPoint != null ? spawnPoint : transform;
 
+    private void Start()
+    {
+        SetArmed(true);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (_onCooldown || !other.CompareTag(playerTag)) return;
+        StartCoroutine(ShootAndCooldown());
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (_onCooldown || !other.CompareTag(playerTag)) return;
         StartCoroutine(ShootAndCooldown());
@@ -27,14 +43,24 @@ public class TrapShooter : MonoBehaviour
     private IEnumerator ShootAndCooldown()
     {
         _onCooldown = true;
+        SetArmed(false);
 
         Transform origin = ShootOrigin;
         GameObject proj = Instantiate(projectilePrefab, origin.position, origin.rotation);
         Rigidbody2D rb = proj.GetComponent<Rigidbody2D>() ?? proj.AddComponent<Rigidbody2D>();
         rb.AddForce(origin.up * shootForce, ForceMode2D.Impulse);
 
-        yield return new WaitForSeconds(cooldown);
+        yield return new WaitForSeconds(cooldown - rearmVisualLeadTime);
+        SetArmed(true);
+
+        yield return new WaitForSeconds(rearmVisualLeadTime);
         _onCooldown = false;
+    }
+
+    private void SetArmed(bool armed)
+    {
+        if (armedSprite != null) armedSprite.SetActive(armed);
+        if (emptySprite != null) emptySprite.SetActive(!armed);
     }
 
     private void OnDrawGizmosSelected()
