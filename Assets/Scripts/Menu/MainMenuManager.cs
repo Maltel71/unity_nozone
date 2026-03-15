@@ -100,6 +100,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
+        SpeedrunTimer.Instance?.Restart();
         SceneManager.LoadScene(gameSceneName);
     }
 
@@ -113,9 +114,6 @@ public class MainMenuManager : MonoBehaviour
 #endif
     }
 
-    /// <summary>
-    /// Explicit wrapping navigation: Start → Exit → (wraps back to) Start
-    /// </summary>
     private void BuildNavigation()
     {
         if (startButton == null || exitButton == null) return;

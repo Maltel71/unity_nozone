@@ -66,16 +66,11 @@ public class PauseManager : MonoBehaviour
             ManageSelection();
     }
 
-    /// <summary>
-    /// Switches the active input mode between controller and mouse/keyboard
-    /// based on whichever device produced input most recently.
-    /// </summary>
     private void DetectInputDevice()
     {
         var pad = Gamepad.current;
         if (pad != null)
         {
-            // Any stick or button activity counts as controller input
             if (pad.leftStick.ReadValue().sqrMagnitude > 0.01f ||
                 pad.dpad.ReadValue().sqrMagnitude > 0.01f ||
                 pad.buttonSouth.isPressed || pad.buttonNorth.isPressed ||
@@ -108,35 +103,27 @@ public class PauseManager : MonoBehaviour
 
         if (_usingController)
         {
-            // Restore selection to the first button so the controller can navigate
             if (EventSystem.current != null && continueButton != null)
                 EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
         }
         else
         {
-            // Clear selection so hover drives highlighting instead
             if (EventSystem.current != null)
                 EventSystem.current.SetSelectedGameObject(null);
         }
     }
 
-    /// <summary>
-    /// While paused, keep selection cleared for mouse users and ensure a
-    /// button is always selected for controller users.
-    /// </summary>
     private void ManageSelection()
     {
         if (EventSystem.current == null) return;
 
         if (_usingController)
         {
-            // Re-select the default button if nothing is selected
             if (EventSystem.current.currentSelectedGameObject == null && continueButton != null)
                 EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
         }
         else
         {
-            // Keep selection cleared for mouse so hover is the only highlight
             if (EventSystem.current.currentSelectedGameObject != null)
                 EventSystem.current.SetSelectedGameObject(null);
         }
@@ -160,7 +147,6 @@ public class PauseManager : MonoBehaviour
         if (pauseCanvas != null)
             pauseCanvas.gameObject.SetActive(true);
 
-        // Only auto-select when using a controller
         if (_usingController && continueButton != null && EventSystem.current != null)
             EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
     }
@@ -181,6 +167,7 @@ public class PauseManager : MonoBehaviour
 
     public void Restart()
     {
+        SpeedrunTimer.Instance?.Restart();
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -201,11 +188,6 @@ public class PauseManager : MonoBehaviour
 #endif
     }
 
-    /// <summary>
-    /// Sets up explicit wrapping navigation so all input methods can cycle
-    /// through buttons without dead ends.
-    /// Order: Continue → Restart → MainMenu → Quit → (wraps back to) Continue
-    /// </summary>
     private void BuildNavigation()
     {
         if (continueButton == null || restartButton == null ||

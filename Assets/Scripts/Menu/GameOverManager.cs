@@ -66,10 +66,6 @@ public class GameOverManager : MonoBehaviour
             GoToMainMenu();
     }
 
-    /// <summary>
-    /// Switches the active input mode between controller and mouse/keyboard
-    /// based on whichever device produced input most recently.
-    /// </summary>
     private void DetectInputDevice()
     {
         var pad = Gamepad.current;
@@ -117,10 +113,6 @@ public class GameOverManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// While the death screen is up, keep selection cleared for mouse users
-    /// and ensure a button is always selected for controller users.
-    /// </summary>
     private void ManageSelection()
     {
         if (EventSystem.current == null) return;
@@ -148,13 +140,13 @@ public class GameOverManager : MonoBehaviour
         if (deathCanvas != null)
             deathCanvas.gameObject.SetActive(true);
 
-        // Only auto-select when already using a controller
         if (_usingController && restartButton != null && EventSystem.current != null)
             EventSystem.current.SetSelectedGameObject(restartButton.gameObject);
     }
 
     public void Retry()
     {
+        SpeedrunTimer.Instance?.Restart();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -173,11 +165,6 @@ public class GameOverManager : MonoBehaviour
 #endif
     }
 
-    /// <summary>
-    /// Sets up explicit wrapping navigation so the controller can cycle
-    /// through all three buttons in both directions without dead ends.
-    /// Order: Restart → MainMenu → Quit → (wraps back to) Restart
-    /// </summary>
     private void BuildNavigation()
     {
         if (restartButton == null || mainMenuButton == null || quitButton == null) return;

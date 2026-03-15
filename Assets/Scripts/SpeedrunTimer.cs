@@ -32,6 +32,12 @@ public class SpeedrunTimer : MonoBehaviour
         _running = false;
     }
 
+    public void Restart()
+    {
+        _elapsed = 0f;
+        _running = true;
+    }
+
     public static string FormatTime(float seconds)
     {
         int m = (int)(seconds / 60);
