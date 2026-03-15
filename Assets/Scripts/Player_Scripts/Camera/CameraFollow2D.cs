@@ -7,17 +7,23 @@ public class CameraFollow2D : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private string playerTag = "Player";
 
-    [Header("Follow Settings")]
-    [SerializeField] private float followSpeed = 5f;
-    [SerializeField] private float smoothTime = 0.12f;
-    [SerializeField] private float maxDistance = 3f;
+    [Header("Follow X")]
+    [SerializeField] private float followSpeedX = 5f;
+    [SerializeField] private float smoothTimeX = 0.12f;
+    [SerializeField] private float maxDistanceX = 3f;
+
+    [Header("Follow Y")]
+    [SerializeField] private float followSpeedY = 5f;
+    [SerializeField] private float smoothTimeY = 0.12f;
+    [SerializeField] private float maxDistanceY = 3f;
 
     [Header("Look Ahead")]
     [SerializeField] private float lookAheadDistance = 2f;
     [SerializeField] private float lookAheadSpeed = 3f;
 
     private Vector2 _lookAheadOffset;
-    private Vector2 _velocity;
+    private float _velocityX;
+    private float _velocityY;
     private CharacterController2D _controller;
     private Rigidbody2D _targetRb;
 
@@ -48,7 +54,8 @@ public class CameraFollow2D : MonoBehaviour
         }
 
         _lookAheadOffset = Vector2.zero;
-        _velocity = Vector2.zero;
+        _velocityX = 0f;
+        _velocityY = 0f;
     }
 
     private void SnapToTarget()
@@ -66,17 +73,22 @@ public class CameraFollow2D : MonoBehaviour
         Vector2 desiredPos = (Vector2)target.position + _lookAheadOffset;
         Vector2 currentPos = transform.position;
 
-        Vector2 delta = desiredPos - currentPos;
-        if (delta.magnitude > maxDistance)
-            desiredPos = currentPos + delta.normalized * maxDistance;
+        float deltaX = desiredPos.x - currentPos.x;
+        float deltaY = desiredPos.y - currentPos.y;
 
-        Vector2 smoothed = Vector2.SmoothDamp(currentPos, desiredPos, ref _velocity, smoothTime, followSpeed);
+        if (Mathf.Abs(deltaX) > maxDistanceX)
+            desiredPos.x = currentPos.x + Mathf.Sign(deltaX) * maxDistanceX;
+        if (Mathf.Abs(deltaY) > maxDistanceY)
+            desiredPos.y = currentPos.y + Mathf.Sign(deltaY) * maxDistanceY;
+
+        float smoothX = Mathf.SmoothDamp(currentPos.x, desiredPos.x, ref _velocityX, smoothTimeX, followSpeedX);
+        float smoothY = Mathf.SmoothDamp(currentPos.y, desiredPos.y, ref _velocityY, smoothTimeY, followSpeedY);
 
         Vector2 shakeOffset = CameraShake2D.Instance != null ? CameraShake2D.Instance.ShakeOffset : Vector2.zero;
 
         transform.position = new Vector3(
-            smoothed.x + shakeOffset.x,
-            smoothed.y + shakeOffset.y,
+            smoothX + shakeOffset.x,
+            smoothY + shakeOffset.y,
             transform.position.z
         );
     }
