@@ -33,6 +33,7 @@ public class ShellCrabController : MonoBehaviour
     [SerializeField] private Sprite sleepSprite;
     [SerializeField] private Sprite awakeSprite;
     [SerializeField] private ParticleSystem sleepParticles;
+    [SerializeField] private float kinematicDelay = 0.5f;
 
     [Header("Colliders")]
     [SerializeField] private Collider2D sleepCollider;
@@ -98,6 +99,13 @@ public class ShellCrabController : MonoBehaviour
         action();
     }
 
+    private System.Collections.IEnumerator DelayedKinematic()
+    {
+        yield return new WaitForSeconds(kinematicDelay);
+        if (_isSleeping)
+            _rb.bodyType = RigidbodyType2D.Kinematic;
+    }
+
     private void Start()
     {
         bool isDay = dayNightCycle != null &&
@@ -151,6 +159,8 @@ public class ShellCrabController : MonoBehaviour
         _isSleeping = true;
         _state = CrabState.Idle;
 
+        StartCoroutine(DelayedKinematic());
+
         if (spriteRenderer != null && sleepSprite != null)
             spriteRenderer.sprite = sleepSprite;
 
@@ -164,6 +174,7 @@ public class ShellCrabController : MonoBehaviour
     {
         _isSleeping = false;
         _state = CrabState.Patrol;
+        _rb.bodyType = RigidbodyType2D.Dynamic;
 
         if (spriteRenderer != null && awakeSprite != null)
             spriteRenderer.sprite = awakeSprite;
