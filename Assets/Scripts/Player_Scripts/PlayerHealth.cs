@@ -41,6 +41,8 @@ public class PlayerHealth : MonoBehaviour
     private float _knockbackTimer;
     private bool _isDead;
 
+    private bool _canRunAudio = true;
+
     private PlayerInputHandler _inputHandler;
     private CharacterController2D _controller;
     private Rigidbody2D _rb;
@@ -77,8 +79,23 @@ public class PlayerHealth : MonoBehaviour
 
         OnDamaged?.Invoke(source);
 
+        if (source != DamageSource.Default)
+        {
+            _canRunAudio = false;
+           // FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Reaction/CatHurt");
+            _canRunAudio = true;
+        }
+
+        if (source != DamageSource.Sunlight && _canRunAudio)
+        {
+            _canRunAudio = false;
+           // FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Reaction/Burning");
+        }
+
         if (source != DamageSource.Sunlight)
             hitParticles?.Play();
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/Music/DayTime/SunBurnMusic");
+            
 
         if (sourcePosition.HasValue && source != DamageSource.Sunlight)
             ApplyKnockback(sourcePosition.Value);
