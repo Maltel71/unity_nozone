@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5464594987621519057}
   - component: {fileID: 5000633574517437808}
   - component: {fileID: 3426601894247552610}
+  - component: {fileID: 7320401318790363493}
   m_Layer: 11
   m_Name: Metalplatform_04
   m_TagString: Metal
@@ -101,7 +102,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7762542145129550137}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 9088e106b21aa3342b0fa1865a142cfb, type: 2}
@@ -155,8 +156,8 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 170
-  m_UseSideFriction: 0
+  m_SurfaceArc: 155
+  m_UseSideFriction: 1
   m_UseSideBounce: 0
   m_SideArc: 1
 --- !u!114 &3426601894247552610
@@ -187,9 +188,9 @@ MonoBehaviour:
   - {x: 3.2949982, y: -0.39999962, z: 0}
   m_ShapePathHash: 0
   m_InstanceId: 0
-  m_ShadowShape2DComponent: {fileID: 5464594987621519057}
+  m_ShadowShape2DComponent: {fileID: 7320401318790363493}
   m_ShadowShape2DProvider:
-    rid: 3360371701452898420
+    rid: 3360371818607673510
   m_ShadowCastingSource: 2
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
@@ -209,6 +210,43 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 3360371701452898420
+    - rid: 3360371818607673510
       type: {class: ShadowShape2DProvider_Collider2D, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 
+--- !u!70 &7320401318790363493
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7762542145129550137}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 9088e106b21aa3342b0fa1865a142cfb, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 1
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.000000027204404, y: 0.22820711}
+  m_Size: {x: 6.590002, y: 0.18925098}
+  m_Direction: 1
