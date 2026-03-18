@@ -146,7 +146,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.9166667
+  - time: 0.7083333
     functionName: TriggerFootstep
     data: 
     objectReferenceParameter: {fileID: 0}
