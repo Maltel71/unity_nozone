@@ -32,6 +32,9 @@ public class PlayerHealth : MonoBehaviour
     [Header("VFX")]
     [SerializeField] private ParticleSystem hitParticles;
 
+    [Header("FMOD")]
+    [SerializeField] private string fmodHealthParameter = "PlayerHealthNormalized";
+
     public event System.Action<DamageSource> OnDamaged;
     public event System.Action OnDied;
 
@@ -82,20 +85,19 @@ public class PlayerHealth : MonoBehaviour
         if (source != DamageSource.Default)
         {
             _canRunAudio = false;
-           // FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Reaction/CatHurt");
+            // FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Reaction/CatHurt");
             _canRunAudio = true;
         }
 
         if (source != DamageSource.Sunlight && _canRunAudio)
         {
             _canRunAudio = false;
-           // FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Reaction/Burning");
+            // FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Reaction/Burning");
         }
 
         if (source != DamageSource.Sunlight)
             hitParticles?.Play();
         //FMODUnity.RuntimeManager.PlayOneShot("event:/Music/DayTime/SunBurnMusic");
-            
 
         if (sourcePosition.HasValue && source != DamageSource.Sunlight)
             ApplyKnockback(sourcePosition.Value);
@@ -147,10 +149,12 @@ public class PlayerHealth : MonoBehaviour
 
     private void UpdateBar()
     {
-        if (healthBar == null) return;
         float normalized = _currentHealth / maxHealth;
-        if (!Mathf.Approximately(healthBar.value, normalized))
+
+        if (healthBar != null && !Mathf.Approximately(healthBar.value, normalized))
             healthBar.value = normalized;
+
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName(fmodHealthParameter, normalized);
     }
 
     private void Die()
