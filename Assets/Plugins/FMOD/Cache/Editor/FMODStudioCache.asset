@@ -124,7 +124,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Bank/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639094553419908477
+  lastModified: 639094744140000000
   FileSizes: []
   Exists: 1
 --- !u!114 &-6370884823607049061
@@ -224,7 +224,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Bank/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639094553420119198
+  lastModified: 639094744160000000
   FileSizes: []
   Exists: 1
 --- !u!114 &-2608201339958867757
@@ -266,10 +266,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Bank/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639094553419918717
+  lastModified: 639094744140000000
   FileSizes:
   - Name: 
-    Value: 1740
+    Value: 1884
   Exists: 1
 --- !u!114 &-1772787693511701345
 MonoBehaviour:
@@ -353,13 +353,16 @@ MonoBehaviour:
   - {fileID: 40561846970073798}
   - {fileID: -7430745007651616529}
   - {fileID: 5986356613164962149}
+  - {fileID: 7403291143585569012}
+  - {fileID: 3196361587821836534}
+  - {fileID: 7843905590629375363}
   EditorParameters: []
   MasterBanks:
   - {fileID: -6453885985488046609}
   StringsBanks:
   - {fileID: -1820759746792499346}
   cacheVersion: 131858
-  cacheTime: 639094553420338068
+  cacheTime: 639094744160000000
   SerializableEventsDict:
   - key: event:/Music/DayTime/ShadowMusic
     index: 0
@@ -387,6 +390,12 @@ MonoBehaviour:
     index: 11
   - key: event:/SFX/Player/Footstep
     index: 12
+  - key: event:/Music/DayNightMusic
+    index: 13
+  - key: event:/Music/NightTime/NightMusicEdit
+    index: 14
+  - key: event:/Music/DayTime/DayMusicEdit
+    index: 15
 --- !u!114 &40561846970073798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,7 +466,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Bank/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639094553420338068
+  lastModified: 639094646820000000
   FileSizes: []
   Exists: 1
 --- !u!114 &1939555956124481188
@@ -516,6 +525,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 102000
+--- !u!114 &3196361587821836534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/NightTime/NightMusicEdit
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Music/NightTime/NightMusicEdit
+  Guid:
+    Data1: -1300808786
+    Data2: 1190774475
+    Data3: -51518320
+    Data4: -887785603
+  Banks:
+  - {fileID: -2617396198274405508}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &3624271822227798159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,6 +680,60 @@ MonoBehaviour:
   Parameters:
   - {fileID: 1939555956124481188}
   - {fileID: -7408581245787430979}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7403291143585569012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/DayNightMusic
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Music/DayNightMusic
+  Guid:
+    Data1: -999183535
+    Data2: 1235046301
+    Data3: -566644594
+    Data4: 1657685414
+  Banks:
+  - {fileID: -2617396198274405508}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 102000
+--- !u!114 &7843905590629375363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/DayTime/DayMusicEdit
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Music/DayTime/DayMusicEdit
+  Guid:
+    Data1: -1959817508
+    Data2: 1302526739
+    Data3: -5445194
+    Data4: -1835741204
+  Banks:
+  - {fileID: -2617396198274405508}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 0
