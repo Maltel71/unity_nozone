@@ -42,6 +42,12 @@ public class DayNightCycle : MonoBehaviour
     [Header("FMOD")]
     [SerializeField] private string fmodParameterName = "DayNight";
 
+    [Header("FMOD Music Events")]
+    [SerializeField] private FMODUnity.EventReference fmodDuskDayFadeOut;
+    [SerializeField] private FMODUnity.EventReference fmodDuskNightFadeIn;
+    [SerializeField] private FMODUnity.EventReference fmodDawnNightFadeOut;
+    [SerializeField] private FMODUnity.EventReference fmodDawnDayFadeIn;
+
     private CycleState _state;
     private float _currentSunAngle;
 
@@ -118,6 +124,9 @@ public class DayNightCycle : MonoBehaviour
         SetFmodParameter(FmodSunset);
         OnSunsetBegin?.Invoke();
 
+        PlayFmodEvent(fmodDuskDayFadeOut);
+        PlayFmodEvent(fmodDuskNightFadeIn);
+
         if (nightLight != null)
         {
             nightLight.intensity = 0f;
@@ -177,6 +186,9 @@ public class DayNightCycle : MonoBehaviour
         SetFmodParameter(FmodSunrise);
         OnSunriseBegin?.Invoke();
 
+        PlayFmodEvent(fmodDawnNightFadeOut);
+        PlayFmodEvent(fmodDawnDayFadeIn);
+
         if (sunLight != null)
         {
             sunLight.intensity = 0f;
@@ -235,6 +247,12 @@ public class DayNightCycle : MonoBehaviour
     private void SetFmodParameter(float value)
     {
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName(fmodParameterName, value);
+    }
+
+    private void PlayFmodEvent(FMODUnity.EventReference eventRef)
+    {
+        if (eventRef.IsNull) return;
+        FMODUnity.RuntimeManager.PlayOneShot(eventRef);
     }
 
     // ─── Helpers ──────────────────────────────────────────────────────────────
