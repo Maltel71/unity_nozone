@@ -1,31 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8483465430463765000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/NightMusic/Hurt
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
-  Name: Hurt
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 2252185313
-    data2: 4093244391
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Damage
-  - Nothing
-  Exists: 1
 --- !u!114 &-7430745007651616529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,36 +53,6 @@ MonoBehaviour:
   - Walk
   - Run
   Exists: 1
---- !u!114 &-6861597674974317256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/NightTime/NightMusic
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Music/NightTime/NightMusic
-  Guid:
-    Data1: 1194956675
-    Data2: 1200181863
-    Data3: -43997299
-    Data4: 1351932692
-  Banks:
-  - {fileID: -2617396198274405508}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -8483465430463765000}
-  - {fileID: 5135103369082153809}
-  - {fileID: -528677418623447217}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 61090
 --- !u!114 &-6453885985488046609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +68,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Bank/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639094744140000000
+  lastModified: 639095954180000000
   FileSizes: []
   Exists: 1
 --- !u!114 &-6370884823607049061
@@ -174,15 +118,14 @@ MonoBehaviour:
     Data4: -863280260
   Banks:
   - {fileID: 1472308110426539833}
-  IsStream: 1
+  IsStream: 0
   Is3D: 1
   IsOneShot: 1
-  Parameters:
-  - {fileID: -2608201339958867757}
+  Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-3322494750506334809
+--- !u!114 &-4478328863337697349
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,24 +134,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/Menu/MenuMusic
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Music/Menu/MenuMusic
-  Guid:
-    Data1: -1661360644
-    Data2: 1302459323
-    Data3: -519092604
-    Data4: -487823859
-  Banks:
-  - {fileID: -2617396198274405508}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/DayNightMusic/PlayerHealthNormalized
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: PlayerHealthNormalized
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 1
+  ID:
+    data1: 2104739932
+    data2: 2806766727
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-2617396198274405508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,32 +164,8 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Bank/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639094744160000000
+  lastModified: 639095954180000000
   FileSizes: []
-  Exists: 1
---- !u!114 &-2608201339958867757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Burning/HealthBar
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
-  Name: HealthBar
-  StudioPath: 
-  Min: 0
-  Max: 100
-  Default: 100
-  ID:
-    data1: 2347828811
-    data2: 1974775926
-  Type: 1
-  IsGlobal: 0
-  Labels: []
   Exists: 1
 --- !u!114 &-1820759746792499346
 MonoBehaviour:
@@ -266,12 +182,12 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Bank/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639094744140000000
+  lastModified: 639095954180000000
   FileSizes:
   - Name: 
-    Value: 1884
+    Value: 1632
   Exists: 1
---- !u!114 &-1772787693511701345
+--- !u!114 &-1131575456918874038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -281,24 +197,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/DayTime/SunBurnMusic
+  m_Name: event:/Music/DayNightMusic
   m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Music/DayTime/SunBurnMusic
+  Path: event:/Music/DayNightMusic
   Guid:
-    Data1: -935382936
-    Data2: 1261092929
-    Data3: -214633305
-    Data4: 106847085
+    Data1: -1504693516
+    Data2: 1312180028
+    Data3: 1542107314
+    Data4: -605677955
   Banks:
   - {fileID: -2617396198274405508}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
-  Parameters: []
+  Parameters:
+  - {fileID: -4478328863337697349}
+  - {fileID: 3324841397373464934}
   MinDistance: 1
   MaxDistance: 20
-  Length: 11294
---- !u!114 &-528677418623447217
+  Length: 236479
+--- !u!114 &-1122760436244011125
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -307,21 +225,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/NightMusic/EQ Trigger
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
-  Name: EQ Trigger
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 1154194728
-    data2: 3411243864
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/DayMusic
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Music/DayMusic
+  Guid:
+    Data1: -1959817508
+    Data2: 1302526739
+    Data3: -5445194
+    Data4: -1835741204
+  Banks:
+  - {fileID: -2617396198274405508}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 4838084280091667923}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 129171
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,12 +262,7 @@ MonoBehaviour:
   - {fileID: -2617396198274405508}
   - {fileID: 1472308110426539833}
   EditorEvents:
-  - {fileID: 2154692653987741818}
-  - {fileID: -1772787693511701345}
   - {fileID: 1322198015618535717}
-  - {fileID: -6861597674974317256}
-  - {fileID: 8334110042922773565}
-  - {fileID: -3322494750506334809}
   - {fileID: -5812003084518641015}
   - {fileID: -6370884823607049061}
   - {fileID: 3624271822227798159}
@@ -353,49 +270,42 @@ MonoBehaviour:
   - {fileID: 40561846970073798}
   - {fileID: -7430745007651616529}
   - {fileID: 5986356613164962149}
-  - {fileID: 7403291143585569012}
-  - {fileID: 3196361587821836534}
-  - {fileID: 7843905590629375363}
+  - {fileID: 8803987344571293780}
+  - {fileID: -1122760436244011125}
+  - {fileID: 7643159507899488719}
+  - {fileID: -1131575456918874038}
   EditorParameters: []
   MasterBanks:
   - {fileID: -6453885985488046609}
   StringsBanks:
   - {fileID: -1820759746792499346}
   cacheVersion: 131858
-  cacheTime: 639094744160000000
+  cacheTime: 639095991180000000
   SerializableEventsDict:
-  - key: event:/Music/DayTime/ShadowMusic
-    index: 0
-  - key: event:/Music/DayTime/SunBurnMusic
-    index: 1
   - key: event:/SFX/Player/Backpack
-    index: 2
-  - key: event:/Music/NightTime/NightMusic
-    index: 3
-  - key: event:/Music/NightTime/NightMusicHurt
-    index: 4
-  - key: event:/Music/Menu/MenuMusic
-    index: 5
+    index: 0
   - key: event:/SFX/Reaction/Burning
-    index: 6
+    index: 1
   - key: event:/SFX/Player/Jump
-    index: 7
+    index: 2
   - key: event:/SFX/Reaction/CatHurt
-    index: 8
+    index: 3
   - key: event:/SFX/Player/CatStepB
-    index: 9
+    index: 4
   - key: event:/SFX/Enemy/Footstep
-    index: 10
+    index: 5
   - key: event:/SFX/Player/CatStepA
-    index: 11
+    index: 6
   - key: event:/SFX/Player/Footstep
-    index: 12
+    index: 7
+  - key: event:/Music/NightMusic
+    index: 8
+  - key: event:/Music/DayMusic
+    index: 9
+  - key: event:/Music/MenuMusic
+    index: 10
   - key: event:/Music/DayNightMusic
-    index: 13
-  - key: event:/Music/NightTime/NightMusicEdit
-    index: 14
-  - key: event:/Music/DayTime/DayMusicEdit
-    index: 15
+    index: 11
 --- !u!114 &40561846970073798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,6 +333,30 @@ MonoBehaviour:
   MinDistance: 2.4
   MaxDistance: 30
   Length: 0
+--- !u!114 &756720245442741770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/NightMusic/EQ Trigger
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: EQ Trigger
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1154194728
+    data2: 3411243864
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &1322198015618535717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,7 +400,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Bank/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639094646820000000
+  lastModified: 639095991180000000
   FileSizes: []
   Exists: 1
 --- !u!114 &1939555956124481188
@@ -497,7 +431,7 @@ MonoBehaviour:
   - Metal
   - Water
   Exists: 1
---- !u!114 &2154692653987741818
+--- !u!114 &3324841397373464934
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -506,52 +440,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/DayTime/ShadowMusic
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Music/DayTime/ShadowMusic
-  Guid:
-    Data1: 161466756
-    Data2: 1282556230
-    Data3: 1331103121
-    Data4: 633882480
-  Banks:
-  - {fileID: -6453885985488046609}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 3945282175543636877}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 102000
---- !u!114 &3196361587821836534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/NightTime/NightMusicEdit
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Music/NightTime/NightMusicEdit
-  Guid:
-    Data1: -1300808786
-    Data2: 1190774475
-    Data3: -51518320
-    Data4: -887785603
-  Banks:
-  - {fileID: -2617396198274405508}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/DayNightMusic/DayNight
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: DayNight
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 2715922258
+    data2: 3299159046
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Day
+  - Night
+  Exists: 1
 --- !u!114 &3624271822227798159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,7 +484,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &3945282175543636877
+--- !u!114 &4838084280091667923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -589,40 +494,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/ShadowMusic/Progression
+  m_Name: parameter:/DayMusic/PlayerHealthNormalized
   m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
-  Name: Progression
+  Name: PlayerHealthNormalized
   StudioPath: 
   Min: 0
   Max: 1
-  Default: 0
+  Default: 1
   ID:
-    data1: 281730423
-    data2: 1621753831
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &5135103369082153809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/NightMusic/Progression
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
-  Name: Progression
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 281730423
-    data2: 1621753831
+    data1: 2104739932
+    data2: 2806766727
   Type: 0
   IsGlobal: 0
   Labels: []
@@ -654,6 +535,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &5768814938841076802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/NightMusic/PlayerHealthNormalized
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: PlayerHealthNormalized
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 1
+  ID:
+    data1: 2104739932
+    data2: 2806766727
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &5986356613164962149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,7 +588,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &7403291143585569012
+--- !u!114 &7643159507899488719
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -693,51 +598,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/DayNightMusic
+  m_Name: event:/Music/MenuMusic
   m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Music/DayNightMusic
+  Path: event:/Music/MenuMusic
   Guid:
-    Data1: -999183535
-    Data2: 1235046301
-    Data3: -566644594
-    Data4: 1657685414
+    Data1: -1661360644
+    Data2: 1302459323
+    Data3: -519092604
+    Data4: -487823859
   Banks:
   - {fileID: -2617396198274405508}
   IsStream: 1
   Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 102000
---- !u!114 &7843905590629375363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/DayTime/DayMusicEdit
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Music/DayTime/DayMusicEdit
-  Guid:
-    Data1: -1959817508
-    Data2: 1302526739
-    Data3: -5445194
-    Data4: -1835741204
-  Banks:
-  - {fileID: -2617396198274405508}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &8334110042922773565
+--- !u!114 &8803987344571293780
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -747,20 +625,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/NightTime/NightMusicHurt
+  m_Name: event:/Music/NightMusic
   m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Music/NightTime/NightMusicHurt
+  Path: event:/Music/NightMusic
   Guid:
-    Data1: -1379696214
-    Data2: 1318391482
-    Data3: 1943159440
-    Data4: 544079429
+    Data1: 1194956675
+    Data2: 1200181863
+    Data3: -43997299
+    Data4: 1351932692
   Banks:
   - {fileID: -2617396198274405508}
   IsStream: 1
   Is3D: 0
-  IsOneShot: 1
-  Parameters: []
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 5768814938841076802}
+  - {fileID: 756720245442741770}
   MinDistance: 1
   MaxDistance: 20
-  Length: 54914
+  Length: 96008

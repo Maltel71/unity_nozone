@@ -153,14 +153,14 @@ AnimationClip:
   m_Events:
   - time: 0.33333334
     functionName: TriggerFootstep
-    data: 
+    data: footstepEvent
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.8333333
     functionName: TriggerFootstep
-    data: 
+    data: footstepEvent
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

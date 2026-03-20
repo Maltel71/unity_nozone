@@ -15,6 +15,8 @@ public class FootstepSurface : MonoBehaviour
 
     [Header("FMOD")]
     [SerializeField] private EventReference footstepEvent;
+    [SerializeField] private EventReference JumpEvent;
+    [SerializeField] private EventReference HurtEvent;
 
     [Header("Surface Tags → FMOD Parameter Values")]
     [SerializeField] private SurfaceEntry[] surfaces;
@@ -64,10 +66,23 @@ public class FootstepSurface : MonoBehaviour
         instance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
         instance.start();
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Footstep");
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/CatStepB");
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Backpack");
         instance.release();
 
     }
-     
+
+    public void Jump()
+    {
+        if (JumpEvent.IsNull) return;
+
+        EventInstance instance = RuntimeManager.CreateInstance(JumpEvent);
+        instance.setParameterByName(SurfaceParam, _currentParamValue);
+        instance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+        instance.start();
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Player/Jump");
+        instance.release();
+    }
 
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()

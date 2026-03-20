@@ -34,6 +34,7 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("FMOD")]
     [SerializeField] private string fmodHealthParameter = "PlayerHealthNormalized";
+    
 
     public event System.Action<DamageSource> OnDamaged;
     public event System.Action OnDied;
@@ -97,14 +98,16 @@ public class PlayerHealth : MonoBehaviour
 
         if (source != DamageSource.Sunlight)
             hitParticles?.Play();
-        //FMODUnity.RuntimeManager.PlayOneShot("event:/Music/DayTime/SunBurnMusic");
+        
 
         if (sourcePosition.HasValue && source != DamageSource.Sunlight)
             ApplyKnockback(sourcePosition.Value);
 
         if (_currentHealth <= 0f)
             Die();
+           // FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Reaction/CatHurt");
     }
+
 
     private void ApplyKnockback(Vector2 sourcePosition)
     {

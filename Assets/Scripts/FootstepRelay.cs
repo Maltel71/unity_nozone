@@ -1,3 +1,5 @@
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 
 public class FootstepRelay : MonoBehaviour
@@ -13,5 +15,10 @@ public class FootstepRelay : MonoBehaviour
     public void TriggerFootstep()
     {
         _footstepSurface?.TriggerFootstep();
+    }
+
+    public void Jump()
+    {
+        _footstepSurface?.Jump();
     }
 }
