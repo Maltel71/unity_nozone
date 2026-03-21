@@ -12,24 +12,25 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] private Light2D sunLight;
 
     [Header("Day Settings")]
-    [SerializeField] private float dayDuration = 240f;
+    [SerializeField] private float dayDuration = 60f;
+    [SerializeField] private float subsequentDayDuration = 55f;
     [SerializeField] private float sunStartAngle = 0f;
     [SerializeField] private float sunEndAngle = 180f;
     [SerializeField] private float sunDayIntensity = 1f;
 
     [Header("Sunset Settings")]
-    [SerializeField] private float sunFadeOutDuration = 8f;
+    [SerializeField] private float sunFadeOutDuration = 3f;
     [SerializeField] private float teleportDelay = 0.5f;
 
     [Header("Night Light (Global Light 2D)")]
     [SerializeField] private Light2D nightLight;
 
     [Header("Night Settings")]
-    [SerializeField] private float nightDuration = 150f;
+    [SerializeField] private float nightDuration = 45f;
     [SerializeField] private float nightLightIntensity = 0.4f;
 
     [Header("Sunrise Settings")]
-    [SerializeField] private float sunFadeInDuration = 8f;
+    [SerializeField] private float sunFadeInDuration = 3f;
 
     [Header("Orbit")]
     [SerializeField] private Vector2 orbitCenter = Vector2.zero;
@@ -55,13 +56,15 @@ public class DayNightCycle : MonoBehaviour
     private EventInstance _musicInstance;
     private CycleState _state;
     private float _currentSunAngle;
+    private bool _firstDayPassed;
 
     private const float FmodDay = 0f;
     private const float FmodSunset = 1f;
     private const float FmodNight = 2f;
     private const float FmodSunrise = 3f;
 
-    private float SunRotationSpeed => Mathf.Abs(sunEndAngle - sunStartAngle) / dayDuration;
+    private float CurrentDayDuration => _firstDayPassed ? subsequentDayDuration : dayDuration;
+    private float SunRotationSpeed => Mathf.Abs(sunEndAngle - sunStartAngle) / CurrentDayDuration;
     private float SunDirection => Mathf.Sign(sunEndAngle - sunStartAngle);
 
     public event System.Action OnSunsetBegin;
@@ -100,7 +103,7 @@ public class DayNightCycle : MonoBehaviour
 
         _state = CycleState.Day;
         SetFmodParameter(FmodDay);
-        TriggerMusicEvent();
+        StartMusicEvent();
         StartCoroutine(DayRoutine());
     }
 
@@ -121,11 +124,13 @@ public class DayNightCycle : MonoBehaviour
         SetFmodParameter(FmodDay);
         SetDebugText("♪ Daytime Music");
 
+        float duration = CurrentDayDuration;
+
         float elapsed = 0f;
-        while (elapsed < dayDuration)
+        while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / dayDuration);
+            float t = Mathf.Clamp01(elapsed / duration);
             _currentSunAngle = Mathf.Lerp(sunStartAngle, sunEndAngle, t);
             PlaceSun(_currentSunAngle);
             yield return null;
@@ -133,6 +138,8 @@ public class DayNightCycle : MonoBehaviour
 
         _currentSunAngle = sunEndAngle;
         PlaceSun(_currentSunAngle);
+
+        _firstDayPassed = true;
 
         StartCoroutine(SunsetRoutine());
     }
@@ -243,7 +250,6 @@ public class DayNightCycle : MonoBehaviour
 
         _state = CycleState.Day;
         SetFmodParameter(FmodDay);
-        TriggerMusicEvent();
 
         while (SunDirection > 0f ? _currentSunAngle < sunEndAngle : _currentSunAngle > sunEndAngle)
         {
@@ -269,7 +275,7 @@ public class DayNightCycle : MonoBehaviour
         Debug.Log($"[DayNightCycle] FMOD parameter '{fmodParameterName}' set to {value} ({_state})");
     }
 
-    private void TriggerMusicEvent()
+    private void StartMusicEvent()
     {
         if (fmodDayNightMusic.IsNull)
         {
@@ -277,16 +283,10 @@ public class DayNightCycle : MonoBehaviour
             return;
         }
 
-        if (_musicInstance.isValid())
-        {
-            _musicInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            _musicInstance.release();
-            Debug.Log("[DayNightCycle] Stopped previous music instance.");
-        }
-
         _musicInstance = FMODUnity.RuntimeManager.CreateInstance(fmodDayNightMusic);
         _musicInstance.start();
-        Debug.Log("[DayNightCycle] Music event triggered (new day).");
+        _musicInstance.release();
+        Debug.Log("[DayNightCycle] Music event started.");
     }
 
     public void SetDebugText(string message)
