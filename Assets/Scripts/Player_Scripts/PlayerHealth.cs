@@ -34,7 +34,7 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("FMOD")]
     [SerializeField] private string fmodHealthParameter = "PlayerHealthNormalized";
-    
+    [SerializeField] private float lowHealthThreshold = 0.3f;
 
     public event System.Action<DamageSource> OnDamaged;
     public event System.Action OnDied;
@@ -44,6 +44,7 @@ public class PlayerHealth : MonoBehaviour
     private float _currentRegenRate;
     private float _knockbackTimer;
     private bool _isDead;
+    private bool _isLowHealth;
 
     private bool _canRunAudio = true;
 
@@ -98,16 +99,13 @@ public class PlayerHealth : MonoBehaviour
 
         if (source != DamageSource.Sunlight)
             hitParticles?.Play();
-        
 
         if (sourcePosition.HasValue && source != DamageSource.Sunlight)
             ApplyKnockback(sourcePosition.Value);
 
         if (_currentHealth <= 0f)
             Die();
-           // FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Reaction/CatHurt");
     }
-
 
     private void ApplyKnockback(Vector2 sourcePosition)
     {
@@ -158,11 +156,26 @@ public class PlayerHealth : MonoBehaviour
             healthBar.value = normalized;
 
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName(fmodHealthParameter, normalized);
+        Debug.Log($"[PlayerHealth] FMOD '{fmodHealthParameter}' = {normalized:F2} (health: {_currentHealth:F1}/{maxHealth})");
+
+        // Update debug canvas and track low health state changes
+        bool nowLowHealth = normalized <= lowHealthThreshold;
+        if (nowLowHealth != _isLowHealth)
+        {
+            _isLowHealth = nowLowHealth;
+            string msg = _isLowHealth
+                ? $"⚠ Low HP — Transitioning → Low Health Music ({normalized:P0})"
+                : $"♥ HP Recovered — Transitioning back ({normalized:P0})";
+            DayNightCycle.Instance?.SetDebugText(msg);
+            Debug.Log($"[PlayerHealth] {msg}");
+        }
     }
 
     private void Die()
     {
         _isDead = true;
+
+        DayNightCycle.Instance?.SetDebugText("✝ Player Dead");
 
         if (_inputHandler != null)
             _inputHandler.DisableInput();

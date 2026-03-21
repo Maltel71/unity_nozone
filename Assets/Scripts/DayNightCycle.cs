@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using FMOD.Studio;
+using TMPro;
 
 public class DayNightCycle : MonoBehaviour
 {
@@ -42,12 +44,15 @@ public class DayNightCycle : MonoBehaviour
     [Header("FMOD")]
     [SerializeField] private string fmodParameterName = "DayNight";
 
-    [Header("FMOD Music Events")]
-    [SerializeField] private FMODUnity.EventReference fmodDuskDayFadeOut;
-    [SerializeField] private FMODUnity.EventReference fmodDuskNightFadeIn;
-    [SerializeField] private FMODUnity.EventReference fmodDawnNightFadeOut;
-    [SerializeField] private FMODUnity.EventReference fmodDawnDayFadeIn;
+    [Header("FMOD Music")]
+    [SerializeField] private FMODUnity.EventReference fmodDayNightMusic;
 
+    [Header("Debug")]
+    [SerializeField] private TextMeshProUGUI debugText;
+
+    public static DayNightCycle Instance { get; private set; }
+
+    private EventInstance _musicInstance;
     private CycleState _state;
     private float _currentSunAngle;
 
@@ -67,6 +72,11 @@ public class DayNightCycle : MonoBehaviour
     public bool IsDay => _state == CycleState.Day;
     public CycleState State => _state;
     public Light2D SunLight => sunLight;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -90,7 +100,17 @@ public class DayNightCycle : MonoBehaviour
 
         _state = CycleState.Day;
         SetFmodParameter(FmodDay);
+        TriggerMusicEvent();
         StartCoroutine(DayRoutine());
+    }
+
+    private void OnDestroy()
+    {
+        if (_musicInstance.isValid())
+        {
+            _musicInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            _musicInstance.release();
+        }
     }
 
     // ─── Day ──────────────────────────────────────────────────────────────────
@@ -99,6 +119,7 @@ public class DayNightCycle : MonoBehaviour
     {
         _state = CycleState.Day;
         SetFmodParameter(FmodDay);
+        SetDebugText("♪ Daytime Music");
 
         float elapsed = 0f;
         while (elapsed < dayDuration)
@@ -123,9 +144,7 @@ public class DayNightCycle : MonoBehaviour
         _state = CycleState.Sunset;
         SetFmodParameter(FmodSunset);
         OnSunsetBegin?.Invoke();
-
-        PlayFmodEvent(fmodDuskDayFadeOut);
-        PlayFmodEvent(fmodDuskNightFadeIn);
+        SetDebugText("↓ Transitioning → Night Music");
 
         if (nightLight != null)
         {
@@ -172,6 +191,7 @@ public class DayNightCycle : MonoBehaviour
     {
         _state = CycleState.Night;
         SetFmodParameter(FmodNight);
+        SetDebugText("♪ Night Music");
 
         yield return new WaitForSeconds(nightDuration);
 
@@ -185,9 +205,7 @@ public class DayNightCycle : MonoBehaviour
         _state = CycleState.Sunrise;
         SetFmodParameter(FmodSunrise);
         OnSunriseBegin?.Invoke();
-
-        PlayFmodEvent(fmodDawnNightFadeOut);
-        PlayFmodEvent(fmodDawnDayFadeIn);
+        SetDebugText("↑ Transitioning → Day Music");
 
         if (sunLight != null)
         {
@@ -225,6 +243,7 @@ public class DayNightCycle : MonoBehaviour
 
         _state = CycleState.Day;
         SetFmodParameter(FmodDay);
+        TriggerMusicEvent();
 
         while (SunDirection > 0f ? _currentSunAngle < sunEndAngle : _currentSunAngle > sunEndAngle)
         {
@@ -247,12 +266,33 @@ public class DayNightCycle : MonoBehaviour
     private void SetFmodParameter(float value)
     {
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName(fmodParameterName, value);
+        Debug.Log($"[DayNightCycle] FMOD parameter '{fmodParameterName}' set to {value} ({_state})");
     }
 
-    private void PlayFmodEvent(FMODUnity.EventReference eventRef)
+    private void TriggerMusicEvent()
     {
-        if (eventRef.IsNull) return;
-        FMODUnity.RuntimeManager.PlayOneShot(eventRef);
+        if (fmodDayNightMusic.IsNull)
+        {
+            Debug.LogWarning("[DayNightCycle] fmodDayNightMusic is not assigned.");
+            return;
+        }
+
+        if (_musicInstance.isValid())
+        {
+            _musicInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            _musicInstance.release();
+            Debug.Log("[DayNightCycle] Stopped previous music instance.");
+        }
+
+        _musicInstance = FMODUnity.RuntimeManager.CreateInstance(fmodDayNightMusic);
+        _musicInstance.start();
+        Debug.Log("[DayNightCycle] Music event triggered (new day).");
+    }
+
+    public void SetDebugText(string message)
+    {
+        if (debugText == null) return;
+        debugText.text = message;
     }
 
     // ─── Helpers ──────────────────────────────────────────────────────────────
