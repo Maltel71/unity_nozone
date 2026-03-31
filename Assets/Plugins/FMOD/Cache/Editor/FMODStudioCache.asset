@@ -164,7 +164,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Bank/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639097021417004765
+  lastModified: 639104589715553304
   FileSizes: []
   Exists: 1
 --- !u!114 &-1820759746792499346
@@ -182,10 +182,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Bank/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639097021416668970
+  lastModified: 639104589715193619
   FileSizes:
   - Name: 
-    Value: 1462
+    Value: 1500
   Exists: 1
 --- !u!114 &-1131575456918874038
 MonoBehaviour:
@@ -215,6 +215,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 248000
+--- !u!114 &-649348920949803724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/Victory
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Music/Victory
+  Guid:
+    Data1: -2112019644
+    Data2: 1251946811
+    Data3: 1596178350
+    Data4: 214087645
+  Banks:
+  - {fileID: -2617396198274405508}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,13 +270,14 @@ MonoBehaviour:
   - {fileID: 5986356613164962149}
   - {fileID: 7643159507899488719}
   - {fileID: -1131575456918874038}
+  - {fileID: -649348920949803724}
   EditorParameters: []
   MasterBanks:
   - {fileID: -6453885985488046609}
   StringsBanks:
   - {fileID: -1820759746792499346}
   cacheVersion: 131858
-  cacheTime: 639097021417004765
+  cacheTime: 639104589715553304
   SerializableEventsDict:
   - key: event:/SFX/Player/Backpack
     index: 0
@@ -271,6 +299,8 @@ MonoBehaviour:
     index: 8
   - key: event:/Music/DayNightMusic
     index: 9
+  - key: event:/Music/Victory
+    index: 10
 --- !u!114 &40561846970073798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,8 +347,8 @@ MonoBehaviour:
     Data3: 393748653
     Data4: 946551460
   Banks:
-  - {fileID: -2617396198274405508}
   - {fileID: 1472308110426539833}
+  - {fileID: -2617396198274405508}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
